@@ -1,5 +1,5 @@
 div {
-  border: 1px solid black;
+  /*border: 1px solid black;*/
 }
 
 .container {
@@ -7,10 +7,55 @@ div {
 }
 
 .item {
-  flex-grow: 1;
+  /*flex-grow: 1;*/
+}
+
+#homeHeader{
+  width: 100%;
+  text-align: center;
+}
+
+#homeHeader{
+  height: 400;
 }
 
 #homeContainer{
   flex: 1;
   flex-direction: row;
+}
+
+#rootDiv{
+  background-color: grey;
+  height:100%;
+}
+
+#boardContainer{
+  flex-direction: column;
+  margin-right: 15px;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 55%;
+}
+
+#newsContainer{
+  flex-direction: column;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 45%;
+}
+
+#board{
+  margin-bottom: 10px;
+}
+
+#boardTitle{
+  margin-bottom: 3px;
+}
+
+#homeAppBar{
+  margin-bottom: 3px;
+}
+
+#newsTitle{
+  margin-bottom: 3px;
 }
