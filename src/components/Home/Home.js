@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import '../../index.css';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import AppBar from 'material-ui/AppBar';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import './Home.css';
 import HomeCard from '../HomeCard/HomeCard.js';
 import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
@@ -20,8 +17,7 @@ class Home extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-
+      <div>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="App-title">Welcome to Gamma Channel!</h1>
@@ -57,7 +53,7 @@ class Home extends Component {
           </div>
         </div>
       </div>
-      </MuiThemeProvider>
+      </div>
     );
   }
 }

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
 import AppBar from 'material-ui/AppBar';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import './HomeAppBar.css';
 
 class HomeAppBar extends Component {
@@ -13,7 +10,6 @@ class HomeAppBar extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <div id="homeAppBar" className="item">
           <AppBar
             id="boardTitle"
@@ -23,7 +19,6 @@ class HomeAppBar extends Component {
             showMenuIconButton={false}
            />
         </div>
-      </MuiThemeProvider>
     );
   }
 }
