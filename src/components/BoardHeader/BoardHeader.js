@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../../index.css';
 import Paper from 'material-ui/Paper';
 import './BoardHeader.css';
+import HeaderLinks from './HeaderLinks';
 import logo from '../../images/logo.png';
 
 
@@ -12,9 +13,12 @@ class BoardHeader extends Component {
   }
   render() {
     return (
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App-title">/{this.props.abbreviation}/ - {this.props.name}</h1>
+      <header>
+        <HeaderLinks/>
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">/{this.props.abbreviation}/ - {this.props.name}</h1>
+        </div>
       </header>
     );
   }

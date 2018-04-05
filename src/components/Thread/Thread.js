@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import Paper from 'material-ui/Paper';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import BoardHeader from '../BoardHeader/BoardHeader'
 import './Thread.css';
 
@@ -19,7 +19,7 @@ onMouseOut = () => this.setState({ shadow: 1 });
         <div>
           <BoardHeader abbreviation="test" name="test2"/>
           <div id="thread" className="">
-            <Paper />
+            <Card> <CardText> Lorem ipsum dolar cite amen no </CardText> </Card>
           </div>
         </div>
     );
