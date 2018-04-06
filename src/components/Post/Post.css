@@ -1,9 +1,13 @@
-.postImg{
-  width: 100px;
+#postImg{
+  max-width: 200px;
+  max-height: 200px;
+  height: auto;
+  display: block;
+   float: left;
 }
 
-.post{
-  margin-left: 15px;
-  margin-right: 15px;
-  height: 10px;
+#post{
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
 }

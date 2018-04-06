@@ -39,19 +39,22 @@ true //<-- what is this
             subtitle="Username, Options, Timestamp"
           />
 
-          <CardMedia
-            actAsExpander={true}
+          <CardMedia actAsExpander={true}
+
             // overlay={<CardTitle subtitle="Overlay subtitle" />}
             >
-            <div id ="postImg">
-              <img width="100px" height="100px" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+            <div className="container">
+              <img align="left" id="postImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+              <CardText>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+
+              </CardText>
             </div>
-            <CardText>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-            Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-            Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-            </CardText>
           </CardMedia>
           <CardMedia
             expandable={true}
