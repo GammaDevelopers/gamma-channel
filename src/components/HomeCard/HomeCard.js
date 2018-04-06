@@ -2,11 +2,22 @@ import React, { Component } from 'react';
 import '../../index.css';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import './HomeCard.css';
+import { Link } from 'react-router-dom';
+
 
 class HomeCard extends Component {
   constructor(props) {
   super(props);
-  this.state = { shadow: 1 }
+  this.state = { shadow: 1,
+    boardRoute: ""
+  }
+
+  if(this.props.boardRoute != null){
+    this.state= {
+      boardRoute: this.props.boardRoute
+    };
+    console.log(this.state.boardRoute);
+  }
   }
 
   onMouseOver = () => this.setState({ shadow: 4 });
@@ -14,6 +25,7 @@ class HomeCard extends Component {
 
   render() {
     return (
+      <Link to={this.state.boardRoute}>
         <div id="board" className="item">
           <Card onMouseOver={this.onMouseOver}
            onMouseOut={this.onMouseOut}
@@ -22,6 +34,7 @@ class HomeCard extends Component {
             <CardText align="left">{this.props.cardText}</CardText>
           </Card>
         </div>
+      </Link>
     );
   }
 }

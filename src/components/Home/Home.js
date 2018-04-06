@@ -27,7 +27,7 @@ class Home extends Component {
         <div id="homeContainer" className="container">
           <div id="boardContainer" className="container">
             <HomeAppBar title="Boards"/>
-            <HomeCard title="Ruined General" subtitle="shitPOST" cardText=
+            <HomeCard boardRoute="/thread" title="Ruined General" subtitle="shitPOST" cardText=
             "This is where all the shit happens"/>
 
             <HomeCard title="Anime/Manga" subtitle="Weebshit and other disgusting stuff"
