@@ -31,7 +31,10 @@ class HomeCard extends Component {
            onMouseOut={this.onMouseOut}
            zDepth={this.state.shadow}>
             <CardTitle align="left" title={this.props.title} subtitle={this.props.subtitle} />
-            <CardText align="left">{this.props.cardText}</CardText>
+            <div className="container">
+              <img align="left" id="boardImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+              <CardText align="left">{this.props.cardText}</CardText>
+            </div>
           </Card>
         </div>
       </Link>
