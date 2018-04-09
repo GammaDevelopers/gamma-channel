@@ -39,33 +39,21 @@ true //<-- what is this
             subtitle={`${this.props.userName}, ${this.props.timeStamp}`}
           />
 
-          <CardMedia actAsExpander={true}
-
-            // overlay={<CardTitle subtitle="Overlay subtitle" />}
-            >
+          <CardMedia>
             <div className="container">
               <img align="left" id="postImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
               <CardText>{this.props.text}</CardText>
             </div>
           </CardMedia>
-          <CardMedia
-            expandable={true}
-            // overlay={<CardTitle subtitle="Overlay subtitle" />}
-          >
 
-            <img src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
-          </CardMedia>
-          <CardTitle title="Card title" subtitle="Card subtitle" expandable={true} />
-          <CardText expandable={true}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-            Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-            Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-          </CardText>
           <CardActions>
             <FlatButton label="Expand" onClick={this.handleExpand} />
             <FlatButton label="Reduce" onClick={this.handleReduce} />
           </CardActions>
+
+          <CardMedia expandable={true}>
+            <img src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+          </CardMedia>
         </Card>
       </div>
     );
