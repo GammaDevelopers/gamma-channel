@@ -10,7 +10,7 @@ export default class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false,
+      expanded: false
     };
   }
 
@@ -35,8 +35,8 @@ true //<-- what is this
       <div id="post">
         <Card align="left" expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
           <CardHeader
-            title="Post Title"
-            subtitle="Username, Options, Timestamp"
+            title={this.props.postTitle}
+            subtitle={`${this.props.userName}, ${this.props.timeStamp}`}
           />
 
           <CardMedia actAsExpander={true}
@@ -45,15 +45,7 @@ true //<-- what is this
             >
             <div className="container">
               <img align="left" id="postImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
-              <CardText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-
-              </CardText>
+              <CardText>{this.props.text}</CardText>
             </div>
           </CardMedia>
           <CardMedia
