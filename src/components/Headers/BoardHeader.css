@@ -4,9 +4,14 @@
 }
 
 #headerContainer{
+  /*
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  */
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  justify-items: center;
 }
 
 #homeButton{
@@ -14,5 +19,10 @@
 }
 
 #headerLogo{
+  align-self: center;
+}
+
+#bannerDiv{
+  display: flex;
   align-self: center;
 }
