@@ -219,7 +219,6 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 	row := db.QueryRow(`SELECT id, title, name, options, mediaURL, content
                         firstPostID, created
                         FROM POSTS WHERE id=$1`, postID)
-	okHeader(w)
 	var post Post
 	err := row.Scan(&post.ID, &post.Title, &post.Name, &post.Options,
 		&post.MediaURL, &post.FirstPostID, &post.Created)
