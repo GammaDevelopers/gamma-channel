@@ -12,7 +12,6 @@ import AppHeader from '../Headers/AppHeader';
 class Home extends Component {
   constructor(props) {
   super(props);
-  // this.state = { shadow: 1 }
 }
 
   render() {
@@ -24,7 +23,7 @@ class Home extends Component {
         <div id="homeContainer" className="container">
           <div id="boardContainer" className="container">
             <HomeAppBar title="Boards"/>
-            <HomeCard boardRoute="/thread" title="Ruined General" subtitle="shitPOST" cardText=
+            <HomeCard boardRoute="/board" title="Ruined General" subtitle="shitPOST" cardText=
             "This is where all the shit happens"/>
 
             <HomeCard title="Anime/Manga" subtitle="Weebshit and other disgusting stuff"

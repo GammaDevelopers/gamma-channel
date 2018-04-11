@@ -1,0 +1,18 @@
+#homeIcon{
+  margin-right: 24;
+  font-size: 50px;
+}
+
+#headerContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#homeButton{
+  text-align: center;
+}
+
+#headerLogo{
+  align-self: center;
+}

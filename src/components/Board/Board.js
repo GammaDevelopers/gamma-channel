@@ -17,7 +17,7 @@ class Board extends Component {
     return (
       <div>
         <BoardHeader abbreviation="rg" name="Ruined General"/>
-        <div id="ThreadContainer" className="container">
+        <div id="threadContainer" className="container">
           <Post userName="Simon" postTitle="Title of Simon's post" timeStamp="Simon's timestamp" text="Lorem ipsum etc 1"/>
           <Post userName="Alexander" postTitle="Title of Alexander's post" timeStamp="Alexander's timestamp" text="Lorem ipsum etc 2"/>
           <Post userName="Victoria" postTitle="Title of Victoria's post" timeStamp="Victoria's timestamp" text="Lorem ipsum etc 3"/>
