@@ -3,10 +3,17 @@ import '../../index.css';
 import Paper from 'material-ui/Paper';
 import './BoardHeader.css';
 import HeaderLinks from './HeaderLinks';
+import HomeButton from '../Buttons/HomeButton';
 import logo from '../../images/logo.png';
+import IconButton from 'material-ui/IconButton';
+import homeIcon from '../../images/homeIcon.png';
+import FontIcon from 'material-ui/FontIcon';
+import { Link } from 'react-router-dom';
 
 
 class BoardHeader extends Component {
+
+
   constructor(props) {
     super(props);
     this.state = { }
@@ -15,9 +22,18 @@ class BoardHeader extends Component {
     return (
       <header>
         <HeaderLinks/>
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">/{this.props.abbreviation}/ - {this.props.name}</h1>
+        <div className="appHeader">
+          <div id="headerContainer" className="container">
+            <div className="item">
+              <HomeButton />
+            </div>
+            <div className="item">
+              <img src={logo} id="headerLogo" className="appLogo" alt="logo"/>
+            </div>
+          </div>
+          <div>
+            <h1 className="appTitle">/{this.props.abbreviation}/ - {this.props.name}</h1>
+          </div>
         </div>
       </header>
     );
