@@ -12,10 +12,10 @@ class HomeButton extends Component {
   }
   render() {
     return (
-      <div>
+      <div id="buttonDiv">
         <Link to="/">
           <IconButton id="homeButton" tooltip="Home">
-            <i className="material-icons">home</i>
+            <i className="material-icons md-36">home</i>
           </IconButton>
         </Link>
       </div>

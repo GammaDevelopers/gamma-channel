@@ -8,6 +8,7 @@ import logo from '../../images/logo.png';
 import IconButton from 'material-ui/IconButton';
 import homeIcon from '../../images/homeIcon.png';
 import FontIcon from 'material-ui/FontIcon';
+import Banner from '../Banners/Banner.js'
 import { Link } from 'react-router-dom';
 
 
@@ -28,7 +29,7 @@ class BoardHeader extends Component {
               <HomeButton />
             </div>
             <div className="item">
-              <img src={logo} id="headerLogo" className="appLogo" alt="logo"/>
+              <Banner />
             </div>
           </div>
           <div>
