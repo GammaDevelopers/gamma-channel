@@ -3,13 +3,13 @@ package main
 import (
 	"database/sql"
 	"encoding/json"
-	//	"fmt"
+	"fmt"
+	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
+	"io"
+	"io/ioutil"
 	"log"
-    "io"
-    "io/ioutil"
 	"net/http"
-    "github.com/gorilla/mux"
 )
 
 type Board struct {
@@ -19,15 +19,15 @@ type Board struct {
 }
 
 type Thread struct {
-	FirstPost   int    `json:"firstPost"`
-	Board       string `json:"board"`
-	Created     string `json:"created"`
-    Updated     string `json:"updated"`
+	FirstPost int    `json:"firstPost"`
+	Board     string `json:"board"`
+	Created   string `json:"created"`
+	Updated   string `json:"updated"`
 }
 
 type Post struct {
-    ID          int    `json:"id",omitempty`
-    Title       string `json:"title"`
+	ID          int    `json:"id",omitempty`
+	Title       string `json:"title"`
 	Name        string `json:"name"`
 	Options     string `json:"options",omitempty`
 	MediaURL    string `json:"mediaURL",omitempty`
@@ -48,20 +48,24 @@ func getDB() *sql.DB {
 	return db
 }
 
-func setHeader(w http.ResponseWriter){
-    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+func okHeader(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }
 
-func errorResponse(w http.ResponseWriter){
-    w.WriteHeader(http.StatusOK)
+func errorResponse(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusInternalServerError)
 }
 
 func boards(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
 	rows, err := db.Query(`SELECT name, abbreviation FROM BOARDS`)
 	if err != nil {
-        errorResponse(w); return
+		errorResponse(w)
+		return
 	}
+	okHeader(w)
 
 	defer rows.Close()
 	var boards []Board
@@ -83,75 +87,81 @@ func boards(w http.ResponseWriter, r *http.Request) {
 }
 
 func createThread(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    boardName := vars["board"]
+	vars := mux.Vars(r)
+	boardName := vars["board"]
 
-    body, err := ioutil.ReadAll(io.LimitReader(r.Body, 10485))
-    if err != nil {
-        panic(err)
-    }
-    if err := r.Body.Close(); err != nil {
-        panic(err)
-    }
-    var post Post
-    if err := json.Unmarshal(body, &post); err != nil {
-        w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-        w.WriteHeader(422) // unprocessable entity
-        if err := json.NewEncoder(w).Encode(err); err != nil {
-            print("Reading data")
-        }
-    }else{
-	    db := getDB()
-	    _, err := db.Query(` WITH post_insert as (
+	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 10485))
+	if err != nil {
+		errorResponse(w)
+		return
+	}
+	if err := r.Body.Close(); err != nil {
+		errorResponse(w)
+		return
+	}
+
+	var post Post
+	if err := json.Unmarshal(body, &post); err != nil {
+		errorResponse(w)
+		if err := json.NewEncoder(w).Encode(err); err != nil {
+			print("Reading data")
+		}
+	} else {
+		db := getDB()
+		_, err := db.Query(` WITH post_insert as (
                                     INSERT INTO posts (title, name, options,  mediaurl, content)
                                     VALUES($1, $2, $3, $4, $5, $6)
                                     RETURNING id;
                                 )
                                 INSERT INTO threads (firstPost, board)
                                 VALUES( (SELECT id from post_insert ), $7)
-                              ` , post.Title, post.Name, post.Options, post.MediaURL, post.Content, boardName);
-        if err != nil {
-            w.WriteHeader(200) // unprocessable entity
-        }
-
-    }
+                              `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, boardName)
+		if err != nil {
+			w.WriteHeader(200) // unprocessable entity
+		} else {
+			okHeader(w)
+		}
+	}
 
 }
 
 func newReply(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    threadID := vars["id"]
+	vars := mux.Vars(r)
+	threadID := vars["id"]
 
-    body, err := ioutil.ReadAll(io.LimitReader(r.Body, 10485))
-    if err != nil {
-        panic(err)
-    }
-    if err := r.Body.Close(); err != nil {
-        panic(err)
-    }
-    var post Post
-    if err := json.Unmarshal(body, &post); err != nil {
-        w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-        w.WriteHeader(422) // unprocessable entity
-        if err := json.NewEncoder(w).Encode(err); err != nil {
-            print("Reading data")
-        }
-    }else{
-	    db := getDB()
-	    _, err := db.Query(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
+	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 10485))
+	if err != nil {
+		errorResponse(w)
+		return
+	}
+	if err := r.Body.Close(); err != nil {
+		errorResponse(w)
+		return
+	}
+	var post Post
+	if err := json.Unmarshal(body, &post); err != nil {
+		if err := json.NewEncoder(w).Encode(err); err != nil {
+			print("Reading data")
+		}
+		errorResponse(w)
+	} else {
+		db := getDB()
+		_, err := db.Query(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
                                VALUES($1, $2, $3, $4, $5, $6, $7)
                                RETURNING id;
-                              `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, threadID);
-        if err != nil {
-            w.WriteHeader(200) // unprocessable entity
-        }
+                              `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, threadID)
+		if err != nil {
+			errorResponse(w)
+		} else {
+			okHeader(w)
+		}
 
-    }
+	}
 
 }
 func threads(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    boardName := vars["board"]
+	vars := mux.Vars(r)
+	boardName := vars["board"]
 
 	db := getDB()
 	rows, err := db.Query(`SELECT firstPost, board, created, updated 
@@ -174,46 +184,57 @@ func threads(w http.ResponseWriter, r *http.Request) {
 	err = rows.Err()
 	if err != nil {
 		log.Println(err)
+		errorResponse(w)
+		return
 	}
+	okHeader(w)
 
 	json.NewEncoder(w).Encode(threads)
 }
 
 func getThread(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    threadID := vars["id"]
+	vars := mux.Vars(r)
+	threadID := vars["id"]
 	db := getDB()
 	row := db.QueryRow(`SELECT firstPost, board, created, updated 
                                   FROM THREADS WHERE firstPost=$1`, threadID)
-    var thread Thread
-    err := row.Scan(&thread.FirstPost, &thread.Board, &thread.Created, &thread.Updated)
+	okHeader(w)
+	var thread Thread
+	err := row.Scan(&thread.FirstPost, &thread.Board, &thread.Created, &thread.Updated)
 	if err != nil {
 		log.Println(err)
+		errorResponse(w)
+		return
 	}
+	okHeader(w)
 
 	json.NewEncoder(w).Encode(thread)
 }
 
 func getPost(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    postID := vars["id"]
+	vars := mux.Vars(r)
+	postID := vars["id"]
 	db := getDB()
 	row := db.QueryRow(`SELECT id, title, name, options, mediaURL, content
                         firstPostID, created
                         FROM POSTS WHERE id=$1`, postID)
-    var post Post
-    err := row.Scan(&post.ID, &post.Title, &post.Name, &post.Options,
-                    &post.MediaURL, &post.FirstPostID, &post.Created);
+	okHeader(w)
+	var post Post
+	err := row.Scan(&post.ID, &post.Title, &post.Name, &post.Options,
+		&post.MediaURL, &post.FirstPostID, &post.Created)
 	if err != nil {
 		log.Println(err)
+		errorResponse(w)
+		return
 	}
+	okHeader(w)
 
 	json.NewEncoder(w).Encode(post)
 }
 
 func replies(w http.ResponseWriter, r *http.Request) {
-    vars := mux.Vars(r)
-    threadID := vars["id"]
+	vars := mux.Vars(r)
+	threadID := vars["id"]
 
 	db := getDB()
 	rows, err := db.Query(`SELECT id FROM POSTS WHERE firstPostID=$1`, threadID)
@@ -222,10 +243,10 @@ func replies(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer rows.Close()
-    replies := make([]int64, 0)
+	replies := make([]int64, 0)
 	for rows.Next() {
-        var postID int64
-        err := rows.Scan(&postID);
+		var postID int64
+		err := rows.Scan(&postID)
 		if err != nil {
 			log.Println(err)
 		} else {
@@ -235,17 +256,22 @@ func replies(w http.ResponseWriter, r *http.Request) {
 	err = rows.Err()
 	if err != nil {
 		log.Println(err)
+		errorResponse(w)
+		return
 	}
+	okHeader(w)
 
 	json.NewEncoder(w).Encode(replies)
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Welcome to gamma API")
 }
 
 func main() {
-    router := mux.NewRouter()
+	router := mux.NewRouter()
 	router.HandleFunc("/", handler)
+	router.HandleFunc("/api", handler)
 	router.HandleFunc("/api/boards", boards)
 	router.HandleFunc("/api/threads/{board}", threads)
 	router.HandleFunc("/api/threads/{board}/new", createThread)
@@ -253,5 +279,5 @@ func main() {
 	router.HandleFunc("/api/thread/{id}/replies", replies)
 	router.HandleFunc("/api/post/{id}", getPost)
 	router.HandleFunc("/api/post/{id}/reply", newReply)
-    log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
