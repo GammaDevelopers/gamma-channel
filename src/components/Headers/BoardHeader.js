@@ -28,7 +28,7 @@ class BoardHeader extends Component {
             <div className="item">
               <HomeButton />
             </div>
-            <div className="item">
+            <div className="item" id="bannerDiv">
               <Banner />
             </div>
           </div>
