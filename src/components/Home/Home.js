@@ -7,12 +7,37 @@ import HomeCard from '../HomeCard/HomeCard.js';
 import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
 import logo from '../../images/logo.png';
 import AppHeader from '../Headers/AppHeader';
+import {modelInstance} from '../../data/Model';
+
 
 
 class Home extends Component {
   constructor(props) {
-  super(props);
-}
+    super(props);
+    this.state = {
+    status: 'INITIAL',
+    boards: []
+    }
+  }
+
+  loadBoards() {
+      modelInstance.getAllBoards().then(res => {
+        this.setState({
+          status: 'LOADED',
+          boards: res
+        })
+      }).catch(() => {
+        this.setState({
+        status: 'ERROR',
+        boards: []
+      })
+    });
+  }
+
+  componentDidMount = () => {
+    this.loadBoards();
+    console.log(this.state);
+  }
 
   render() {
     return (
