@@ -110,14 +110,15 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 		db := getDB()
 		_, err := db.Query(` WITH post_insert as (
                                     INSERT INTO posts (title, name, options,  mediaurl, content)
-                                    VALUES($1, $2, $3, $4, $5, $6)
-                                    RETURNING id;
+                                    VALUES($1, $2, $3, $4, $5)
+                                    RETURNING id
                                 )
                                 INSERT INTO threads (firstPost, board)
-                                VALUES( (SELECT id from post_insert ), $7)
+                                VALUES( (SELECT id from post_insert ), $6)
                               `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, boardName)
 		if err != nil {
-			w.WriteHeader(200) // unprocessable entity
+			errorResponse(w)
+			log.Println(err)
 		} else {
 			okHeader(w)
 		}
@@ -147,7 +148,7 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 	} else {
 		db := getDB()
 		_, err := db.Query(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
-                               VALUES($1, $2, $3, $4, $5, $6, $7)
+                               VALUES($1, $2, $3, $4, $5, $6)
                                RETURNING id;
                               `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, threadID)
 		if err != nil {
