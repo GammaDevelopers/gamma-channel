@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 
 const Model = function (){
 
-  const URL = "localhost:3000"
+  const URL = ""
 
   this.getAllBoards = function (){
     var endPoint = `${URL}/api/boards`;
     return fetch(endPoint)
-      .then(processResponse => processResponse.json())
+      .then(processResponse =>{
+          return processResponse.json()})
       .then((json) => {
-          return json.results;
+          console.log(json)
+          return json;
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
   }
