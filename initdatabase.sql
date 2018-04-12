@@ -7,7 +7,6 @@ CREATE DATABASE gamma;
 */
 create user testuser;
 alter user testuser with encrypted password 'qwerty';
-grant all privileges on gamma to testuser;
 
 
 CREATE TABLE posts (
@@ -33,9 +32,11 @@ CREATE TABLE threads (
 CREATE TABLE boards (
     name        varchar(20) PRIMARY KEY,
     abbreviation varchar(10) NOT NULL,
+    description     varchar(1024) NOT NULL,
     rules         varchar(10000) NOT NULL 
 );
 
+grant all privileges on gamma to testuser;
 alter table threads add foreign key (firstPost) REFERENCES posts(id);
 alter table threads add foreign key (board) REFERENCES boards(name);
 
