@@ -4,12 +4,13 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
-	_ "github.com/lib/pq"
 	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 )
 
 type Board struct {
@@ -27,14 +28,14 @@ type Thread struct {
 }
 
 type Post struct {
-	ID          int    `json:"id",omitempty`
+	ID          int    `json:"id", omitempty`
 	Title       string `json:"title"`
 	Name        string `json:"name"`
-	Options     string `json:"options",omitempty`
-	MediaURL    string `json:"mediaURL",omitempty`
+	Options     string `json:"options", omitempty`
+	MediaURL    string `json:"mediaURL", omitempty`
 	Content     string `json:"content"`
-	FirstPostID string `json:"firstPostID",omitempty`
-	Created     string `json:"created",omitempty`
+	FirstPostID string `json:"firstPostID", omitempty`
+	Created     string `json:"created", omitempty`
 }
 
 func getDB() *sql.DB {
@@ -61,6 +62,7 @@ func errorResponse(w http.ResponseWriter) {
 
 func boards(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
+	defer db.Close()
 	rows, err := db.Query(`SELECT name, abbreviation, description FROM BOARDS`)
 	if err != nil {
 		errorResponse(w)
@@ -109,16 +111,18 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		db := getDB()
+		defer db.Close()
 		_, err := db.Query(` WITH post_insert as (
                                     INSERT INTO posts (title, name, options,  mediaurl, content)
-                                    VALUES($1, $2, $3, $4, $5, $6)
-                                    RETURNING id;
+                                    VALUES($1, $2, $3, $4, $5)
+                                    RETURNING id
                                 )
                                 INSERT INTO threads (firstPost, board)
-                                VALUES( (SELECT id from post_insert ), $7)
+                                VALUES( (SELECT id from post_insert ), $6)
                               `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, boardName)
 		if err != nil {
-			w.WriteHeader(200) // unprocessable entity
+			errorResponse(w)
+			log.Println(err)
 		} else {
 			okHeader(w)
 		}
@@ -147,8 +151,9 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 		errorResponse(w)
 	} else {
 		db := getDB()
+		defer db.Close()
 		_, err := db.Query(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
-                               VALUES($1, $2, $3, $4, $5, $6, $7)
+                               VALUES($1, $2, $3, $4, $5, $6)
                                RETURNING id;
                               `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, threadID)
 		if err != nil {
@@ -165,6 +170,7 @@ func threads(w http.ResponseWriter, r *http.Request) {
 	boardName := vars["board"]
 
 	db := getDB()
+	defer db.Close()
 	rows, err := db.Query(`SELECT firstPost, board, created, updated 
                                   FROM THREADS WHERE board=$1`, boardName)
 	if err != nil {
@@ -197,6 +203,7 @@ func getThread(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	threadID := vars["id"]
 	db := getDB()
+	defer db.Close()
 	row := db.QueryRow(`SELECT firstPost, board, created, updated 
                                   FROM THREADS WHERE firstPost=$1`, threadID)
 	okHeader(w)
@@ -216,10 +223,10 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	postID := vars["id"]
 	db := getDB()
+	defer db.Close()
 	row := db.QueryRow(`SELECT id, title, name, options, mediaURL, content
                         firstPostID, created
                         FROM POSTS WHERE id=$1`, postID)
-	okHeader(w)
 	var post Post
 	err := row.Scan(&post.ID, &post.Title, &post.Name, &post.Options,
 		&post.MediaURL, &post.FirstPostID, &post.Created)
@@ -238,6 +245,7 @@ func replies(w http.ResponseWriter, r *http.Request) {
 	threadID := vars["id"]
 
 	db := getDB()
+	defer db.Close()
 	rows, err := db.Query(`SELECT id FROM POSTS WHERE firstPostID=$1`, threadID)
 	if err != nil {
 		log.Println(err)
