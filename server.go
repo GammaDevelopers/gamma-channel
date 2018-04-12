@@ -15,6 +15,7 @@ import (
 type Board struct {
 	Name         string `json:"name"`
 	Abbreviation string `json:"abbreviation"`
+	Description string `json:"description"`
 	Rules        string `json:"rules"`
 }
 
@@ -60,7 +61,7 @@ func errorResponse(w http.ResponseWriter) {
 
 func boards(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
-	rows, err := db.Query(`SELECT name, abbreviation FROM BOARDS`)
+	rows, err := db.Query(`SELECT name, abbreviation, description FROM BOARDS`)
 	if err != nil {
 		errorResponse(w)
 		return
@@ -71,7 +72,7 @@ func boards(w http.ResponseWriter, r *http.Request) {
 	var boards []Board
 	for rows.Next() {
 		var board Board
-		err := rows.Scan(&board.Name, &board.Abbreviation)
+		err := rows.Scan(&board.Name, &board.Abbreviation, &board.Description)
 		if err != nil {
 			log.Println(err)
 		} else {
