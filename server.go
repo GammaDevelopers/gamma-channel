@@ -221,7 +221,6 @@ func getThread(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 	row := db.QueryRow(`SELECT firstPost, board, created, updated 
                                   FROM THREADS WHERE firstPost=$1`, threadID)
-	okHeader(w)
 	var thread Thread
 	err := row.Scan(&thread.FirstPost, &thread.Board, &thread.Created, &thread.Updated)
 	if err != nil {
