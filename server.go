@@ -61,6 +61,12 @@ func errorResponse(w http.ResponseWriter) {
 	w.WriteHeader(http.StatusInternalServerError)
 }
 
+func errorResponseMessage(w http.ResponseWriter, message string) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusInternalServerError)
+	fmt.Fprintf(w, `{ "error": %s }`, message)
+}
+
 func boards(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
 	defer db.Close()
@@ -168,7 +174,7 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 			errorResponse(w)
 		} else {
 			w.WriteHeader(http.StatusCreated)
-			fmt.Fprintf(w, `{ "postID": %d}`, postid)
+			fmt.Fprintf(w, `{ "postID": %d }`, postid)
 		}
 
 	}
