@@ -124,7 +124,7 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 			errorResponse(w)
 			log.Println(err)
 		} else {
-			okHeader(w)
+	        w.WriteHeader(http.StatusCreated)
 		}
 	}
 
@@ -159,7 +159,7 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			errorResponse(w)
 		} else {
-			okHeader(w)
+	        w.WriteHeader(http.StatusCreated)
 		}
 
 	}
