@@ -16,7 +16,7 @@ import (
 type Board struct {
 	Name         string `json:"name"`
 	Abbreviation string `json:"abbreviation"`
-	Description string `json:"description"`
+	Description  string `json:"description"`
 	Rules        string `json:"rules"`
 }
 
@@ -48,6 +48,7 @@ func getDB() *sql.DB {
 	}
 
 	return db
+
 }
 
 func okHeader(w http.ResponseWriter) {
@@ -103,6 +104,10 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	type Response struct {
+		ThreadID int `json:"threadID"`
+	}
+
 	var post Post
 	if err := json.Unmarshal(body, &post); err != nil {
 		errorResponse(w)
@@ -112,19 +117,21 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 	} else {
 		db := getDB()
 		defer db.Close()
-		_, err := db.Query(` WITH post_insert as (
+		var response Response
+		err := db.QueryRow(` WITH post_insert as (
                                     INSERT INTO posts (title, name, options,  mediaurl, content)
                                     VALUES($1, $2, $3, $4, $5)
                                     RETURNING id
                                 )
                                 INSERT INTO threads (firstPost, board)
-                                VALUES( (SELECT id from post_insert ), $6)
-                              `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, boardName)
+								VALUES( (SELECT id from post_insert ), $6) RETURNING firstPost;
+                            `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, boardName).Scan(&response.ThreadID)
 		if err != nil {
 			errorResponse(w)
 			log.Println(err)
 		} else {
-	        w.WriteHeader(http.StatusCreated)
+			w.WriteHeader(http.StatusCreated)
+			json.NewEncoder(w).Encode(response)
 		}
 	}
 
@@ -152,14 +159,16 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 	} else {
 		db := getDB()
 		defer db.Close()
-		_, err := db.Query(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
+		var postid int
+		err := db.QueryRow(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
                                VALUES($1, $2, $3, $4, $5, $6)
                                RETURNING id;
-                              `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, threadID)
+                              `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, threadID).Scan(&postid)
 		if err != nil {
 			errorResponse(w)
 		} else {
-	        w.WriteHeader(http.StatusCreated)
+			w.WriteHeader(http.StatusCreated)
+			fmt.Fprintf(w, `{ "postID": %d}`, postid)
 		}
 
 	}
