@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
-import homeIcon from '../../images/homeIcon.png';
 import FontIcon from 'material-ui/FontIcon';
 import { Link } from 'react-router-dom';
+import HomeIcon from 'material-ui/svg-icons/action/home';
 import './HomeButton.css';
 
 class HomeButton extends Component {
@@ -10,12 +10,19 @@ class HomeButton extends Component {
     super(props);
     this.state = { }
   }
+
+
+
   render() {
     return (
-      <div id="buttonDiv">
+      <div id="homeButtonDiv">
         <Link to="/">
-          <IconButton id="homeButton" tooltip="Home">
-            <i className="material-icons md-36">home</i>
+          <IconButton id="homeButton"
+          tooltip="Home"
+          iconStyle={{width: 80,height:80}}
+          tooltipStyles={{left:18,top:60}}
+          style={{width: 80,height:80,padding:0}}>
+            <HomeIcon/>
           </IconButton>
         </Link>
       </div>

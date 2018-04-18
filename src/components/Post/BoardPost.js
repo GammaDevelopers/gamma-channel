@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import OpenThreadBtn from '../Buttons/OpenThreadBtn'
 import Toggle from 'material-ui/Toggle';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -59,7 +60,7 @@ export default class BoardPost extends React.Component {
           <div id="postHead" className="container">
             <div id="openButton" className="item">
               <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
-                <RaisedButton label="Open thread" disabledBackgroundColor='#404040' />
+                <OpenThreadBtn/>
               </Link>
             </div>
             <div className="item">

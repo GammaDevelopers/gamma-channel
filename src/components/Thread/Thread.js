@@ -54,6 +54,7 @@ render() {
       userName={this.state.firstPost.name}
       timeStamp={this.state.firstPost.created}
       mediaURL={this.state.firstPost.mediaURL}
+      text={this.state.firstPost.content}
       />
       break;
   }

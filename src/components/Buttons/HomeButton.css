@@ -1,10 +1,4 @@
-#homeButton{
-}
 
-#buttonDiv{
-  margin-top: 30px;
+#homeButton > div{
+  left: 18px;
 }
-
-/*.material-icons.md-36 {
-  font-size: 36px;
-}*/

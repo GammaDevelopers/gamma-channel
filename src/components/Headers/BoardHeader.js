@@ -6,7 +6,6 @@ import HeaderLinks from './HeaderLinks';
 import HomeButton from '../Buttons/HomeButton';
 import logo from '../../images/logo.png';
 import IconButton from 'material-ui/IconButton';
-import homeIcon from '../../images/homeIcon.png';
 import FontIcon from 'material-ui/FontIcon';
 import Banner from '../Banners/Banner.js'
 import { Link } from 'react-router-dom';
