@@ -16,7 +16,7 @@ const Model = function (){
   this.postReply = function(threadID, postData){
     var endPoint = `${URL}/api/post/${threadID}/reply`;
     return fetch(endPoint, {
-      body: JSON.stringify(postData), 
+      body: JSON.stringify(postData),
       headers: {
         'content-type': 'application/json'
       },
