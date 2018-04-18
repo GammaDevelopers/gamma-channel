@@ -41,13 +41,13 @@ export default class Post extends React.Component {
       case false:
         postImage =
           <div id="imgDiv" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
           </div>
         break;
       case true:
         postImage =
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+            <img align="left" id="boardPostImg" src={this.props.mediaURL}  alt="" />
           </div>
       break;
     }
@@ -57,7 +57,7 @@ export default class Post extends React.Component {
       backgroundColor: '#404040'}}>
           <CardHeader
             title={this.props.postTitle}
-            subtitle={`${this.props.userName}, ${this.props.timeStamp}`}
+            subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${this.props.timeStamp}`}
           />
 
           <CardMedia>
@@ -67,10 +67,6 @@ export default class Post extends React.Component {
             </div>
           </CardMedia>
 
-          <CardActions>
-            <FlatButton label="Expand" onClick={this.handleExpand} />
-            <FlatButton label="Reduce" onClick={this.handleReduce} />
-          </CardActions>
 
           <CardMedia expandable={true}>
             <img src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />

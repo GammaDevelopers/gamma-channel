@@ -20,7 +20,6 @@ class Home extends Component {
 
   loadBoards() {
     modelInstance.getAllBoards().then(res => {
-      console.log(res)
       this.setState({
         status: 'LOADED',
         boards: res
@@ -35,7 +34,6 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.loadBoards();
-    console.log(this.state);
   }
 
   render() {
@@ -46,9 +44,10 @@ class Home extends Component {
         boardList = this.state.boards.map((board) =>
           <HomeCard
           title={board.name}
-          boardRoute="/board" //TODO
+          boardAbbr={board.abbreviation}
           subtitle="SUBTITLE PLACEHOLDER"
           cardText="DESCRIPTION PLACEHOLDER"
+          on
           />
         )
         break;

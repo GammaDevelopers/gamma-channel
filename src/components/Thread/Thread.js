@@ -4,6 +4,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import BoardHeader from '../Headers/BoardHeader'
 import Post from '../Post/Post';
 import FirstPost from '../Post/FirstPost';
+import {modelInstance} from '../../data/Model';
 
 import './Thread.css';
 
@@ -11,18 +12,56 @@ import './Thread.css';
 class Thread extends Component {
   constructor(props) {
   super(props);
-  this.state = { shadow: 1 }
+  this.state = {
+    shadow: 1,
+    status: 'INITIAL',
+    firstPost: []
+  }
+}
+
+loadThreadPosts(){
+  modelInstance.getPost(this.props.match.params.threadID).then(res => {
+    this.setState({
+      status: 'LOADED',
+      firstPost: res
+    })
+    }).catch(() => {
+    this.setState({
+      status: 'ERROR',
+      firstPost: []
+    })
+  });
+}
+
+componentDidMount() {
+  this.loadThreadPosts();
+  console.log(this.props.match.params);
+  console.log(this.state);
+
 }
 
 onMouseOver = () => this.setState({ shadow: 4 });
 onMouseOut = () => this.setState({ shadow: 1 });
 
 render() {
+  let theFirstPost = null;
+  switch(this.state.status){
+    case 'LOADED':
+      theFirstPost =
+      <FirstPost
+      postTitle={this.state.firstPost.title}
+      postNumber={this.state.firstPost.id}
+      userName={this.state.firstPost.name}
+      timeStamp={this.state.firstPost.created}
+      mediaURL={this.state.firstPost.mediaURL}
+      />
+      break;
+  }
   return (
     <div>
       <BoardHeader abbreviation="test" name="test2"/>
         <div id="thread" className="">
-          <FirstPost postTitle="POST TITLE PLACEHOLDER"/>
+          {theFirstPost}
         </div>
       </div>
     );

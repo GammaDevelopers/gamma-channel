@@ -49,6 +49,8 @@ const Model = function (){
     .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
+  //TODO getBoard(), get a single board
+
   this.getThreads = function (board){
     var endPoint = `${URL}/api/threads/${board}`;
     return fetch(endPoint)

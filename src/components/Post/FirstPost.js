@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import Post from './Post'
 import './FirstPost.css';
+import {modelInstance} from '../../data/Model';
 
 
 export default class FirstPost extends React.Component {
@@ -11,8 +12,30 @@ export default class FirstPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false
+      status: 'INITIAL',
+      replyIDs: [],
+      replies: []
     };
+  }
+
+  //TODO load thread first post and replies
+  loadReplies(){
+    modelInstance.getReplyIds(this.props.postNumber).then(res => {
+      Promise.all(res.map((postID) => modelInstance.getPost(postID)))
+        .then(replies =>{
+          this.setState({
+            status: 'LOADED',
+            replyIDs: res,
+            replies,
+        });
+      });
+    }).catch(() => {
+    this.setState({
+      status: 'ERROR',
+      replyIDs: [],
+      replies: []
+    })
+    });
   }
 
   handleExpandChange = (expanded) => {
@@ -20,7 +43,6 @@ export default class FirstPost extends React.Component {
   };
 
   handleToggle = () => {
-    console.log(this.state.expanded);
     if(this.state.expanded == false){
       this.handleExpand();
     }else{
@@ -36,22 +58,55 @@ export default class FirstPost extends React.Component {
     this.setState({expanded: false});
   };
 
+  componentDidMount() {
+    this.loadReplies();
+  }
+
+
   render() {
     let postImage = null;
+    let replyPosts = null;
+
     switch(this.state.expanded){
       case false:
         postImage =
           <div id="imgDiv" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
           </div>
         break;
       case true:
         postImage =
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
           </div>
       break;
     }
+    console.log(this.state);
+
+    switch(this.state.status){
+      case "LOADED":
+
+        replyPosts = this.state.replies.map((reply) =>
+          <Post
+          key={reply.id}
+          postID = {reply.id}
+          postTitle={reply.title}
+          boardAbbr={reply.abbreviation}
+          userName={reply.name}
+          timeStamp={reply.created}
+          text={reply.content}
+          mediaURL={reply.mediaURL} 
+          />
+        )
+        break;
+      case "ERROR":
+        postImage =
+          <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
+            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
+          </div>
+      break;
+    }
+
   return (
     <div id="post">
       <Card align="left">
@@ -71,9 +126,7 @@ export default class FirstPost extends React.Component {
           <img src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
         </CardMedia>
         <div id="replies">
-          <Post tex/>
-          <Post/>
-          <Post/>
+          {replyPosts}
           <Post/>
         </div>
       </Card>

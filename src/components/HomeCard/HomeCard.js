@@ -7,17 +7,17 @@ import { Link } from 'react-router-dom';
 
 class HomeCard extends Component {
   constructor(props) {
-  super(props);
-  this.state = { shadow: 1,
-    boardRoute: ""
-  }
+    super(props);
+    this.state = { shadow: 1,
+      boardRoute: ""
+    }
 
-  if(this.props.boardRoute != null){
-    this.state= {
-      boardRoute: this.props.boardRoute
-    };
-    console.log(this.state.boardRoute);
-  }
+    if(this.props.boardAbbr != null){
+      this.state= {
+        boardRoute: `/${this.props.boardAbbr}`
+      };
+      console.log(this.state.boardRoute);
+    }
   }
 
   onMouseOver = () => this.setState({ shadow: 4 });

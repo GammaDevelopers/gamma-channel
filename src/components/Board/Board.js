@@ -6,24 +6,68 @@ import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
 import logo from '../../images/logo.png';
 import BoardHeader from '../Headers/BoardHeader';
 import BoardPost from '../Post/BoardPost';
+import {modelInstance} from '../../data/Model';
+
 
 class Board extends Component {
   constructor(props) {
-  super(props);
+    super(props);
+    this.state = {
+      status: 'INITIAL',
+      threads: [],
+      firstPosts: []
+    }
   }
 
+  loadThreads() {
+    modelInstance.getThreads(this.props.boardName).then(res => {
+      Promise.all(res.map((thread) => modelInstance.getPost(thread.firstPost)))
+        .then(firstPosts => {
+          this.setState({
+            status: 'LOADED',
+            threads: res,
+            firstPosts,
+          });
+        });
+
+      }).catch(() => {
+      this.setState({
+        status: 'ERROR',
+        threads: [],
+        firstPosts: []
+      })
+    });
+  }
+
+  componentDidMount = () => {
+    this.loadThreads();
+  }
 
   render() {
+    let threadList = null;
+
+    switch(this.state.status){
+      case 'LOADED':
+        threadList = this.state.firstPosts.map((post) =>
+          <BoardPost
+           key={post.id}
+           userName={post.name}
+           postNumber={post.id}
+           timeStamp={post.created}
+           postTitle={post.title}
+           text={post.content}
+           mediaURL={post.mediaURL}
+           boardAbbr={this.props.boardAbbr}
+           boardName={this.props.boardName}
+          />
+        )
+        break;
+    }
     return (
       <div>
-        <BoardHeader abbreviation="rg" name="Ruined General"/>
+        <BoardHeader abbreviation={this.props.boardAbbr} name={this.props.boardName}/>
         <div id="threadContainer" className="container">
-          <BoardPost userName="Simon" postNumber="No.123123213"
-           postTitle="Title of Simon's post" timeStamp="Simon's timestamp" text="Lorem ipsum etc 1"/>
-          <BoardPost userName="Alexander"
-           postTitle="Title of Alexander's post" timeStamp="Alexander's timestamp" text="Lorem ipsum etc 2"/>
-          <BoardPost userName="Victoria"
-          postTitle="Title of Victoria's post" timeStamp="Victoria's timestamp" text="Lorem ipsum etc 3"/>
+          {threadList}
         </div>
       </div>
     );

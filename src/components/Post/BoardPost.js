@@ -43,13 +43,13 @@ export default class BoardPost extends React.Component {
       case false:
         postImage =
           <div id="imgDiv" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
           </div>
         break;
       case true:
         postImage =
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+            <img align="left" id="boardPostImg"src={this.props.mediaURL} alt="" />
           </div>
       break;
     }
@@ -58,14 +58,14 @@ export default class BoardPost extends React.Component {
         <Card id="boardCard" align="left">
           <div id="postHead" className="container">
             <div id="openButton" className="item">
-              <Link to="/thread">
+              <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
                 <RaisedButton label="Open thread" disabledBackgroundColor='#404040' />
               </Link>
             </div>
             <div className="item">
               <CardHeader
                 title={this.props.postTitle}
-                subtitle={`${this.props.postNumber}, ${this.props.userName} - ${this.props.timeStamp}`}
+                subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp}`}
               />
             </div>
 
