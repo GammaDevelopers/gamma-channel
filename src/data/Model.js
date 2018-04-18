@@ -15,7 +15,6 @@ const Model = function (){
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
   }
-
 }
 
 export const modelInstance = new Model();

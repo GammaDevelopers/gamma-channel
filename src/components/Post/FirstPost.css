@@ -1,0 +1,17 @@
+#postImg{
+  max-width: 200px;
+  max-height: 200px;
+  height: auto;
+  display: block;
+   float: left;
+}
+
+#post{
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+#replies > div{
+  margin-left: 20px;
+}

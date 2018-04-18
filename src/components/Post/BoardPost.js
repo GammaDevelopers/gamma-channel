@@ -2,10 +2,12 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
-import './Post.css';
+import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
+import './BoardPost.css';
 
 
-export default class Post extends React.Component {
+export default class BoardPost extends React.Component {
 
   constructor(props) {
     super(props);
@@ -52,25 +54,30 @@ export default class Post extends React.Component {
       break;
     }
     return (
-      <div id="post">
-        <Card align="left" expanded={this.state.expanded} onExpandChange={this.handleExpandChange} style={{
-      backgroundColor: '#404040'}}>
-          <CardHeader
-            title={this.props.postTitle}
-            subtitle={`${this.props.userName}, ${this.props.timeStamp}`}
-          />
+      <div id="boardPost">
+        <Card id="boardCard" align="left">
+          <div id="postHead" className="container">
+            <div id="openButton" className="item">
+              <Link to="/thread">
+                <RaisedButton label="Open thread" disabledBackgroundColor='#404040' />
+              </Link>
+            </div>
+            <div className="item">
+              <CardHeader
+                title={this.props.postTitle}
+                subtitle={`${this.props.postNumber}, ${this.props.userName} - ${this.props.timeStamp}`}
+              />
+            </div>
 
+          </div>
           <CardMedia>
             <div className="container">
-              {postImage}
+              <div onClick={() => this.handleToggle()}>
+                {postImage}
+              </div>
               <CardText>{this.props.text}</CardText>
             </div>
           </CardMedia>
-
-          <CardActions>
-            <FlatButton label="Expand" onClick={this.handleExpand} />
-            <FlatButton label="Reduce" onClick={this.handleReduce} />
-          </CardActions>
 
           <CardMedia expandable={true}>
             <img src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />

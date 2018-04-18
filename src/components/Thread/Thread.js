@@ -3,6 +3,8 @@ import '../../index.css';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import BoardHeader from '../Headers/BoardHeader'
 import Post from '../Post/Post';
+import FirstPost from '../Post/FirstPost';
+
 import './Thread.css';
 
 
@@ -15,14 +17,14 @@ class Thread extends Component {
 onMouseOver = () => this.setState({ shadow: 4 });
 onMouseOut = () => this.setState({ shadow: 1 });
 
-  render() {
-    return (
-        <div>
-          <BoardHeader abbreviation="test" name="test2"/>
-          <div id="thread" className="">
-            <Post/>
-          </div>
+render() {
+  return (
+    <div>
+      <BoardHeader abbreviation="test" name="test2"/>
+        <div id="thread" className="">
+          <FirstPost postTitle="POST TITLE PLACEHOLDER"/>
         </div>
+      </div>
     );
   }
 }

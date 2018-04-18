@@ -9,8 +9,6 @@ import logo from '../../images/logo.png';
 import AppHeader from '../Headers/AppHeader';
 import {modelInstance} from '../../data/Model';
 
-
-
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -21,14 +19,14 @@ class Home extends Component {
   }
 
   loadBoards() {
-      modelInstance.getAllBoards().then(res => {
-        console.log(res)
-        this.setState({
-          status: 'LOADED',
-          boards: res
-        })
+    modelInstance.getAllBoards().then(res => {
+      console.log(res)
+      this.setState({
+        status: 'LOADED',
+        boards: res
+      })
       }).catch(() => {
-        this.setState({
+      this.setState({
         status: 'ERROR',
         boards: []
       })
@@ -37,9 +35,24 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.loadBoards();
+    console.log(this.state);
   }
 
   render() {
+    let boardList = null;
+
+    switch(this.state.status){
+      case 'LOADED':
+        boardList = this.state.boards.map((board) =>
+          <HomeCard
+          title={board.name}
+          boardRoute="/board" //TODO
+          subtitle="SUBTITLE PLACEHOLDER"
+          cardText="DESCRIPTION PLACEHOLDER"
+          />
+        )
+        break;
+    }
     return (
       <div>
       <AppHeader/>
@@ -48,24 +61,7 @@ class Home extends Component {
         <div id="homeContainer" className="container">
           <div id="boardContainer" className="container">
             <HomeAppBar title="Boards"/>
-            <HomeCard boardRoute="/board" title="Ruined General" subtitle="shitPOST" cardText=
-            "This is where all the shit happens"/>
-
-            <HomeCard title="Anime/Manga" subtitle="Weebshit and other disgusting stuff"
-            cardText= "Discuss anime and manga with your favorite degenerates"/>
-
-            <HomeCard title="Programming" subtitle="Dev hours" cardText=
-            "Get productive and make game"/>
-
-            <HomeCard title="Placeholder" subtitle="Placeholder" cardText=
-            "Placeholder Placeholder Placeholder Placeholder Placeholder"/>
-
-            <HomeCard title="Placeholder" subtitle="Placeholder" cardText=
-            "Placeholder Placeholder Placeholder Placeholder Placeholder"/>
-
-            <HomeCard title="Placeholder" subtitle="Placeholder" cardText=
-            "Placeholder Placeholder Placeholder Placeholder Placeholder"/>
-
+            {boardList}
           </div>
           <div id="newsContainer" className="container">
             <HomeAppBar title="News"/>
