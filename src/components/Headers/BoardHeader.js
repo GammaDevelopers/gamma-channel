@@ -5,11 +5,13 @@ import './BoardHeader.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../Buttons/HomeButton';
 import logo from '../../images/logo.png';
+import NewThreadModal from './../Dialogs/NewThreadModal'
 import IconButton from 'material-ui/IconButton';
 import homeIcon from '../../images/homeIcon.png';
 import FontIcon from 'material-ui/FontIcon';
 import Banner from '../Banners/Banner.js'
 import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class BoardHeader extends Component {
@@ -30,6 +32,9 @@ class BoardHeader extends Component {
             </div>
             <div className="item" id="bannerDiv">
               <Banner />
+            </div>
+            <div className="item" id="newPostBtn">
+              <NewThreadModal />
             </div>
           </div>
           <div>

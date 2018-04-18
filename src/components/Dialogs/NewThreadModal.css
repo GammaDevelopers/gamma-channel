@@ -1,0 +1,10 @@
+#uploadImg {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+#reCaptchaPlaceholder {
+  width: auto;
+  height: auto;
+  background-color: purple;
+}
