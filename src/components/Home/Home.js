@@ -5,6 +5,7 @@ import HomeCard from '../HomeCard/HomeCard.js';
 import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
 import AppHeader from '../Headers/AppHeader';
 import {modelInstance} from '../../data/Model';
+import ContentLoader from "react-content-loader"
 
 class Home extends Component {
   constructor(props) {
@@ -14,6 +15,8 @@ class Home extends Component {
     boards: []
     }
   }
+
+
 
   loadBoards() {
     modelInstance.getAllBoards().then(res => {
@@ -35,6 +38,18 @@ class Home extends Component {
 
   render() {
     let boardList = null;
+    const MyLoader = () => (
+      <div id="homeLoader">
+      	<ContentLoader
+      		height={400}
+      		width={1920}
+      		speed={2}
+          primaryColor="#a4a4a4"
+  		    secondaryColor="#ecebeb">
+      		<rect x="0" y="0" rx="0" ry="0" width="1920" height="400" />
+      	</ContentLoader>
+      </div>
+    )
 
     switch(this.state.status){
       case 'LOADED':
@@ -49,11 +64,13 @@ class Home extends Component {
           />
         )
         break;
+      case 'INITIAL':
+        boardList = [MyLoader(),MyLoader(),MyLoader(),MyLoader()]
+        break;
     }
     return (
       <div>
       <AppHeader/>
-
       <div id="rootDiv">
         <div id="homeContainer" className="container">
           <div id="boardContainer" className="container">

@@ -13,13 +13,13 @@ const mediaUpploadModel = function (){
         xhr.addEventListener("progress", progress);
         xhr.addEventListener("load", (e) => {
             if(xhr.status == 200){
-                if(response.success){
-                    complete(response.data.link)
+                if(xhr.response.success){
+                    complete(xhr.response.data.link)
                 }else{
-                    fail()
+                    fail(xhr.response)
                 }
             }else {
-                fail()
+                fail(xhr.response)
             }
         });
         xhr.addEventListener("error", fail);

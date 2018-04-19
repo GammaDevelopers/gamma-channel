@@ -1,10 +1,24 @@
 #uploadImg {
+  display: block;
   max-width: 150px;
   max-height: 150px;
 }
 
+#addImageBtn {
+  align-self: center;
+}
+
+#textBox {
+  padding-top: 2em;
+}
+
+#imageContainer {
+  display: grid;
+  padding-right: 3em;
+}
+
 #reCaptchaPlaceholder {
-  width: auto;
-  height: auto;
-  background-color: purple;
+  width: 300px;
+  height: 100px;
+  background-color: rgb(140, 92, 228);
 }

@@ -7,7 +7,7 @@ import logo from '../../images/logo.png';
 import BoardHeader from '../Headers/BoardHeader';
 import BoardPost from '../Post/BoardPost';
 import {modelInstance} from '../../data/Model';
-
+import ContentLoader from "react-content-loader"
 
 class Board extends Component {
   constructor(props) {
@@ -45,6 +45,18 @@ class Board extends Component {
 
   render() {
     let threadList = null;
+    const MyLoader = () => (
+      <div id="threadLoader">
+      	<ContentLoader
+      		height={400}
+      		width={1920}
+      		speed={2}
+          primaryColor="#a4a4a4"
+  		    secondaryColor="#ecebeb">
+      		<rect x="0" y="0" rx="0" ry="0" width="1920" height="400" />
+      	</ContentLoader>
+      </div>
+    )
 
     switch(this.state.status){
       case 'LOADED':
@@ -61,6 +73,9 @@ class Board extends Component {
            boardName={this.props.boardName}
           />
         )
+        break;
+      default:
+      threadList = [MyLoader(),MyLoader(),MyLoader(),MyLoader()]
         break;
     }
     return (

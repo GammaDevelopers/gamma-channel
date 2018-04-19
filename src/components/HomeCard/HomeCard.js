@@ -8,7 +8,7 @@ class HomeCard extends Component {
   constructor(props) {
     super(props);
     this.state = { shadow: 1,
-      boardRoute: ""
+    boardRoute: ""
     }
 
     if(this.props.boardAbbr != null){
