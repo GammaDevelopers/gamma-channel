@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Route, Router} from 'react-router-dom';
-import logo from './images/logo.png';
+import {Route} from 'react-router-dom';
 import './App.css';
 import Home from './components/Home/Home';
 import Thread from './components/Thread/Thread';
@@ -42,8 +41,8 @@ class App extends Component {
       case 'LOADED':
         routeList = this.state.boards.map((boards) =>
           <Route
-            exact
-            path={`/${boards.abbreviation}`}
+            exact path={`/${boards.abbreviation}`}
+            key={boards.abbreviation}
             render={()=> <Board boardName={boards.name} boardAbbr={boards.abbreviation}/>}
           />
         )

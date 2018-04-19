@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardTitle, CardText} from 'material-ui/Card';
 import './HomeCard.css';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +15,6 @@ class HomeCard extends Component {
       this.state= {
         boardRoute: `/${this.props.boardAbbr}`
       };
-      console.log(this.state.boardRoute);
     }
   }
 

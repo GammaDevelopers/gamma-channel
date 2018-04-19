@@ -1,10 +1,7 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import OpenThreadBtn from '../Buttons/OpenThreadBtn'
-import Toggle from 'material-ui/Toggle';
 import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import './BoardPost.css';
 
 
@@ -23,7 +20,7 @@ export default class BoardPost extends React.Component {
 
   handleToggle = () => {
     console.log(this.state.expanded);
-    if(this.state.expanded == false){
+    if(this.state.expanded === false){
       this.handleExpand();
     }else{
       this.handleReduce();

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import { Link } from 'react-router-dom';
 import FullscreenIcon from 'material-ui/svg-icons/navigation/fullscreen';
 import './OpenThreadBtn.css';
 

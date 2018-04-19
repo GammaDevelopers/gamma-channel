@@ -1,7 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
+import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import Post from './Post'
 import './FirstPost.css';
 import {modelInstance} from '../../data/Model';
@@ -43,7 +41,7 @@ export default class FirstPost extends React.Component {
   };
 
   handleToggle = () => {
-    if(this.state.expanded == false){
+    if(this.state.expanded === false){
       this.handleExpand();
     }else{
       this.handleReduce();

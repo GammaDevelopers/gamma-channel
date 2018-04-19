@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import BoardHeader from '../Headers/BoardHeader'
 import Post from '../Post/Post';
 import FirstPost from '../Post/FirstPost';
