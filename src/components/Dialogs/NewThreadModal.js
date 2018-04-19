@@ -14,6 +14,7 @@ import Dropzone from '../Buttons/dropzone'
 export default class DialogExampleModal extends React.Component {
   state = {
     open: false,
+    image: "",
   };
 
   handleOpen = () => {
@@ -49,7 +50,7 @@ export default class DialogExampleModal extends React.Component {
           open={this.state.open}
         >
           <div className="container">
-            <Dropzone/>
+            <Dropzone onImageChange={(img)=>this.setState({image:img})}/>
             <div>
               <TextField
                 hintText="My name (optional)"
