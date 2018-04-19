@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
+import LinearProgress from 'material-ui/LinearProgress';
 import logo from '../../images/logo.png'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -29,6 +30,7 @@ export default class DialogExampleModal extends React.Component {
       boards: [],
       image: "",
       threadID: 0,
+      progress: -2,
       status: 'INITIAL'
     }
   }
@@ -76,6 +78,17 @@ export default class DialogExampleModal extends React.Component {
     this.setState({text: event.target.value})
   };
 
+  createTread = (postData) => {
+    modelInstance.createThread(this.state.board,postData)
+    .then( (threadID) => {
+      console.log("Created thread with id: " + threadID)
+      this.setState({threadID: threadID})
+    }).catch( (err) => {
+      //Todo: Handle post error
+      alert("Failed to create thread" + err)
+    })
+  }
+
   handleSubmit = () =>{
     var titleSucc = false, textSucc = false;
     if(this.state.title != ""){
@@ -86,17 +99,20 @@ export default class DialogExampleModal extends React.Component {
     }
     if(textSucc && titleSucc){
       if(this.state.image != ""){
+        mediaInstance.imgurUpload(this.state.image, (frac) => {
+          this.setState({progress: 100*frac})
+        }, (response) => {
+          //Todo handle fail
+          alert(response)
+        }, (mediaURL) => {
+          console.log(mediaURL)
+          var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
+          this.createTread(postData)
+        })
 
       }else{
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        modelInstance.createThread(this.state.board,postData)
-        .then( (threadID) => {
-          console.log("Created thread with id: " + threadID)
-          this.setState({threadID: threadID})
-        }).catch( (err) => {
-          //Todo: Handle post error
-          alert("Failed to create thread" + err)
-        })
+        this.createTread(postData)
       }
     }
   }
@@ -178,6 +194,10 @@ export default class DialogExampleModal extends React.Component {
             />
           </div>
           <p> * Required </p>
+          {this.state.progress != -2 &&
+            <LinearProgress mode={this.state.progress == -1 ? "indeterminate" : "determinate" } 
+            value={this.state.completed} />
+          }
           {this.state.threadID != 0 &&
             <div>
               <span> Thread Created sucessfully </span>

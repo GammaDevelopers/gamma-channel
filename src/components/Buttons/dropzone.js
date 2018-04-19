@@ -22,11 +22,11 @@ export default class Dropzone extends React.Component {
       if (!file.type.startsWith('image/')){ continue }
       
       var reader = new FileReader();
-      reader.onload = (function(parent) { return function(e) { 
+      reader.onload = (function(parent, file) { return function(e) { 
           parent.setState({image:e.target.result}) 
-          parent.props.onImageChange(e.target.result)
+          parent.props.onImageChange(file)
         }; 
-       })(this);
+       })(this, file);
         reader.readAsDataURL(file);
     }
   }

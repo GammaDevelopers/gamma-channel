@@ -10,14 +10,16 @@ const mediaUpploadModel = function (){
         form.append("image", imageData);
         var xhr = new XMLHttpRequest();
         xhr.open("POST", uploadURL);
+        xhr.responseType = 'json';
         xhr.addEventListener("progress", (e) => {
             if (e.lengthComputable) {
                 progress(e.loaded/e.total)
             }else {progress(-1)}
         });
         xhr.addEventListener("load", (e) => {
-            if(xhr.status == 200){
+            if(xhr.status === 200){
                 if(xhr.response.success){
+                    console.log(xhr.response)
                     complete(xhr.response.data.link)
                 }else{
                     fail(xhr.response)
