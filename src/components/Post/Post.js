@@ -1,7 +1,5 @@
 import React from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
+import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import './Post.css';
 
 
@@ -20,7 +18,7 @@ export default class Post extends React.Component {
 
   handleToggle = () => {
     console.log(this.state.expanded);
-    if(this.state.expanded == false){
+    if(this.state.expanded === false){
       this.handleExpand();
     }else{
       this.handleReduce();
@@ -49,13 +47,14 @@ export default class Post extends React.Component {
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
             <img align="left" id="boardPostImg" src={this.props.mediaURL}  alt="" />
           </div>
-      break;
+          break;
     }
     return (
       <div id="post">
         <Card align="left" expanded={this.state.expanded} onExpandChange={this.handleExpandChange} style={{
       backgroundColor: '#404040'}}>
           <CardHeader
+          style={{top:-10,left:-5}}
             title={this.props.postTitle}
             subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${this.props.timeStamp}`}
           />

@@ -13,6 +13,11 @@ const Model = function (){
       "content":"body of post"
     }
   */
+  this.generatePostData = function(title,name,content,options = "",mediaURL = ""){
+    var postData = {"title":title,"mediaURL":mediaURL,"name":name,"content":content,"options":options};
+    return postData;
+  }
+
   this.postReply = function(threadID, postData){
     var endPoint = `${URL}/api/post/${threadID}/reply`;
     return fetch(endPoint, {

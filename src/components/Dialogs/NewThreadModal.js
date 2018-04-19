@@ -5,10 +5,11 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo.png'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {modelInstance} from '../../data/Model';
+import Dropzone from '../Buttons/dropzone'
 
 
 /**
@@ -131,10 +132,7 @@ export default class DialogExampleModal extends React.Component {
           open={this.state.open}
         >
           <div className="container">
-            <div id="imageContainer">
-              <img src={logo} className="item" id="uploadImg"></img>
-              <RaisedButton id="addImageBtn" label="Image"/>
-            </div>
+            <Dropzone/>
             <div>
               <TextField onChange={this.handleUserNameChange}
                 hintText="Username (optional)"

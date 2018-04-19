@@ -15,3 +15,7 @@
 #replies > div{
   margin-left: 20px;
 }
+
+#postHead > CardHeader{
+  margin-top: -10px;
+}
