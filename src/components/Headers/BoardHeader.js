@@ -33,7 +33,7 @@ class BoardHeader extends Component {
               <Banner />
             </div>
             <div className="item" id="newPostBtn">
-              <NewThreadModal />
+              <NewThreadModal chosenBoard={this.props.name}/>
             </div>
           </div>
           <div>
