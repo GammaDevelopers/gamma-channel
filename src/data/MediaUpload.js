@@ -5,23 +5,35 @@ const mediaUpploadModel = function (){
 
     //imageData must be:
     //A binary file or Base64 encoded image
-    this.imgurUpload = function(imageData){
+    this.imgurUpload = function(imageData, progress, fail, complete){
         var form = new FormData();
         form.append("image", imageData);
-        return fetch(uploadURL, {
-            method: "POST",
-            headers: {
-                "Authorization": `Client-ID ${imgurClientID}`
-            },
-            body: form
-        }).then(processResponse =>{
-            return processResponse.json()
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", uploadURL);
+        xhr.addEventListener("progress", progress);
+        xhr.addEventListener("load", (e) => {
+            if(xhr.status == 200){
+                if(response.success){
+                    complete(response.data.link)
+                }else{
+                    fail()
+                }
+            }else {
+                fail()
+            }
         });
+        xhr.addEventListener("error", fail);
+        xhr.addEventListener("abort", fail);
+        xhr.setRequestHeader('Authorization', `Client-ID ${imgurClientID}`);
+
+        xhr.send(form);
+
+        return xhr
     }
 
-    this.uploadMedia = function(data){
+    this.uploadMedia = function(data, progress, fail, complete){
         //Todo: kollla filtyp välj platform
-        return this.imgurUpload(data)
+        return this.imgurUpload(data, progress, fail, complete)
     }
 }
 
