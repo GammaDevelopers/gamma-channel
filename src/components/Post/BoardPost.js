@@ -77,9 +77,6 @@ export default class BoardPost extends React.Component {
             </div>
           </CardMedia>
 
-          <CardMedia expandable={true}>
-            <img src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
-          </CardMedia>
         </Card>
       </div>
     );

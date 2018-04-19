@@ -2,6 +2,11 @@ div {
   /*border: 1px solid black;*/
 }
 
+#homeLoader{
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
 .container {
   display: flex; /* or inline-flex */
 }
@@ -30,21 +35,21 @@ div {
 
 #boardContainer{
   flex-direction: column;
-  margin-right: 15px;
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-left: 5px;
   width: 55%;
 }
 
 #newsContainer{
   flex-direction: column;
-  margin-right: 10px;
-  margin-top: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
   width: 45%;
 }
 
 #board{
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 #boardTitle{
