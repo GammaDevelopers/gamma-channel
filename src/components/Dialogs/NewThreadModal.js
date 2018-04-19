@@ -83,6 +83,8 @@ export default class DialogExampleModal extends React.Component {
       textSucc = true;
     }
     if(textSucc && titleSucc){
+      var postData = modelInstance.generatePostData(this.state.title,"",this.state.name,this.state.cotent,"");
+      modelInstance.createThread(this.state.board,postData);
       this.handleClose();
     }
   }
