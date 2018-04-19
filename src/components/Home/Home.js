@@ -45,7 +45,7 @@ class Home extends Component {
           <HomeCard
           title={board.name}
           boardAbbr={board.abbreviation}
-          subtitle="SUBTITLE PLACEHOLDER"
+          subtitle={board.description}
           cardText="DESCRIPTION PLACEHOLDER"
           on
           />

@@ -85,7 +85,6 @@ export default class FirstPost extends React.Component {
 
     switch(this.state.status){
       case "LOADED":
-
         replyPosts = this.state.replies.map((reply) =>
           <Post
           key={reply.id}
@@ -95,7 +94,7 @@ export default class FirstPost extends React.Component {
           userName={reply.name}
           timeStamp={reply.created}
           text={reply.content}
-          mediaURL={reply.mediaURL} 
+          mediaURL={reply.mediaURL}
           />
         )
         break;
@@ -121,13 +120,8 @@ export default class FirstPost extends React.Component {
             <CardText>{this.props.text}</CardText>
           </div>
         </CardMedia>
-
-        <CardMedia expandable={true}>
-          <img src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
-        </CardMedia>
         <div id="replies">
           {replyPosts}
-          <Post/>
         </div>
       </Card>
     </div>
