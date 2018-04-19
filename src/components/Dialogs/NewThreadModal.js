@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import logo from '../../images/logo.png';
-
+import Dropzone from '../Buttons/dropzone'
 
 /**
  * A modal dialog can only be closed by selecting one of the actions.
@@ -49,10 +49,7 @@ export default class DialogExampleModal extends React.Component {
           open={this.state.open}
         >
           <div className="container">
-            <div>
-              <img src={logo} className="item" id="uploadImg"></img>
-              <RaisedButton label="Image"/>
-            </div>
+            <Dropzone/>
             <div>
               <TextField
                 hintText="My name (optional)"
