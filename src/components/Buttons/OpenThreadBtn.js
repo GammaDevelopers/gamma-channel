@@ -14,6 +14,8 @@ class OpenThreadBtn extends Component {
     return (
       <div id="buttonDiv">
         <IconButton id="OpenThreadBtn"
+        style={{left:-10,top:-10}}
+        iconStyle={{width: 30,height:30}}
         tooltip="Open Thread"
         tooltipStyles={{top:5}}
         tooltipPosition="top-right"

@@ -108,12 +108,15 @@ export default class FirstPost extends React.Component {
 
   return (
     <div id="post">
-      <Card align="left">
-        <CardHeader
-          title={this.props.postTitle}
-          subtitle={`${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
-        />
 
+        <Card align="left">
+        <div id="postHead">
+          <CardHeader
+          style={{top:-10,left:-5}}
+            title={this.props.postTitle}
+            subtitle={`${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
+          />
+        </div>
         <CardMedia>
           <div className="container">
             {postImage}

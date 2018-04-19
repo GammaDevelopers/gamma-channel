@@ -4,7 +4,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import './HomeCard.css';
 import { Link } from 'react-router-dom';
 
-
 class HomeCard extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +29,11 @@ class HomeCard extends Component {
           <Card onMouseOver={this.onMouseOver}
            onMouseOut={this.onMouseOut}
            zDepth={this.state.shadow}>
-            <CardTitle align="left" title={this.props.title} subtitle={this.props.subtitle} />
+            <CardTitle align="left"
+              title={this.props.title}
+              subtitle={this.props.subtitle}
+              style={{top:-10}}
+             />
             <div className="container">
               <img align="left" id="boardImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
               <CardText align="left">{this.props.cardText}</CardText>

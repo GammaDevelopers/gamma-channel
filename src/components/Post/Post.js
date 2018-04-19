@@ -56,6 +56,7 @@ export default class Post extends React.Component {
         <Card align="left" expanded={this.state.expanded} onExpandChange={this.handleExpandChange} style={{
       backgroundColor: '#404040'}}>
           <CardHeader
+          style={{top:-10,left:-5}}
             title={this.props.postTitle}
             subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${this.props.timeStamp}`}
           />

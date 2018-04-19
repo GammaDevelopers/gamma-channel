@@ -63,7 +63,7 @@ export default class BoardPost extends React.Component {
                 <OpenThreadBtn/>
               </Link>
             </div>
-            <div className="item">
+            <div id="headField" className="item">
               <CardHeader
                 title={this.props.postTitle}
                 subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp}`}
