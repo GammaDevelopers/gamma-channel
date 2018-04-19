@@ -8,7 +8,9 @@ import SelectField from 'material-ui/SelectField';
 import logo from '../../images/logo.png'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { Link } from 'react-router-dom';
 import {modelInstance} from '../../data/Model';
+import {mediaInstance} from '../../data/MediaUpload'
 import Dropzone from '../Buttons/dropzone'
 
 
@@ -26,6 +28,7 @@ export default class DialogExampleModal extends React.Component {
       board: props.chosenBoard,
       boards: [],
       image: "",
+      threadID: 0,
       status: 'INITIAL'
     }
   }
@@ -78,14 +81,23 @@ export default class DialogExampleModal extends React.Component {
     if(this.state.title != ""){
       titleSucc = true;
     }
-
     if(this.state.text != ""){
       textSucc = true;
     }
     if(textSucc && titleSucc){
-      var postData = modelInstance.generatePostData(this.state.title,"",this.state.name,this.state.cotent,"");
-      modelInstance.createThread(this.state.board,postData);
-      this.handleClose();
+      if(this.state.image != ""){
+
+      }else{
+        var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
+        modelInstance.createThread(this.state.board,postData)
+        .then( (threadID) => {
+          console.log("Created thread with id: " + threadID)
+          this.setState({threadID: threadID})
+        }).catch( (err) => {
+          //Todo: Handle post error
+          alert("Failed to create thread" + err)
+        })
+      }
     }
   }
 
@@ -166,6 +178,15 @@ export default class DialogExampleModal extends React.Component {
             />
           </div>
           <p> * Required </p>
+          {this.state.threadID != 0 &&
+            <div>
+              <span> Thread Created sucessfully </span>
+              {/*Todo: fix for other boards to */}
+              <Link to={`/comf/${this.state.threadID}`}>
+                <RaisedButton label="Go to thread" primary={true} />
+              </Link>
+            </div>
+          }
         </Dialog>
       </div>
     );
