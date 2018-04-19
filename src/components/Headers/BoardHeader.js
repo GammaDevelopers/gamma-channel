@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import Paper from 'material-ui/Paper';
 import './BoardHeader.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../Buttons/HomeButton';
-import logo from '../../images/logo.png';
 import NewThreadModal from './../Dialogs/NewThreadModal'
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
 import Banner from '../Banners/Banner.js'
-import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 
 
 class BoardHeader extends Component {

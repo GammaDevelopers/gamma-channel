@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import AppBar from 'material-ui/AppBar';
 import './Home.css';
 import HomeCard from '../HomeCard/HomeCard.js';
 import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
-import logo from '../../images/logo.png';
 import AppHeader from '../Headers/AppHeader';
 import {modelInstance} from '../../data/Model';
 
@@ -43,6 +40,7 @@ class Home extends Component {
       case 'LOADED':
         boardList = this.state.boards.map((board) =>
           <HomeCard
+          key={board.abbreviation}
           title={board.name}
           boardAbbr={board.abbreviation}
           subtitle={board.description}
