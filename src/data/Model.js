@@ -14,6 +14,9 @@ const Model = function (){
     }
   */
   this.generatePostData = function(title,name,content,options = "",mediaURL = ""){
+    if(name === ""){
+      name="Anonymous";
+    }
     var postData = {"title":title,"mediaURL":mediaURL,"name":name,"content":content,"options":options};
     return postData;
   }
