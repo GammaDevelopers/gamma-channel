@@ -99,8 +99,10 @@ export default class DialogExampleModal extends React.Component {
     }
     if(textSucc && titleSucc){
       if(this.state.image != ""){
+        this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
           this.setState({progress: 100*frac})
+          console.log(this.state.progress)
         }, (response) => {
           //Todo handle fail
           alert(response)
@@ -194,9 +196,9 @@ export default class DialogExampleModal extends React.Component {
             />
           </div>
           <p> * Required </p>
-          {this.state.progress != -2 &&
-            <LinearProgress mode={this.state.progress == -1 ? "indeterminate" : "determinate" } 
-            value={this.state.completed} />
+          {this.state.progress > -2 &&
+            <LinearProgress mode={this.state.progress <= 0 ? "indeterminate" : "determinate" } 
+            value={this.state.progress} />
           }
           {this.state.threadID != 0 &&
             <div>
