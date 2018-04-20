@@ -3,7 +3,7 @@
   max-height: 200px;
   height: auto;
   display: block;
-   float: left;
+  float: left;
 }
 
 #post{
@@ -18,4 +18,14 @@
 
 #postHead > CardHeader{
   margin-top: -10px;
+}
+
+#postHead{
+  justify-content: space-between;
+}
+
+#replyBtn{
+  float: right;
+  display: block;
+
 }

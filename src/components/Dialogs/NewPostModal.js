@@ -30,8 +30,10 @@ export default class DialogExampleModal extends React.Component {
       boards: [],
       image: "",
       threadID: 0,
+      postID: 0,
       progress: -2,
-      status: 'INITIAL'
+      status: 'INITIAL',
+      postSucc: false
     }
   }
 
@@ -47,6 +49,10 @@ export default class DialogExampleModal extends React.Component {
         boards: []
       })
     });
+  }
+
+  myCallback(){
+    this.props.callBackFunc()
   }
 
   componentDidMount = () => {
@@ -77,15 +83,15 @@ export default class DialogExampleModal extends React.Component {
     this.setState({text: event.target.value})
   };
 
-  createTread = (postData) => {
-    modelInstance.createThread(this.state.board,postData)
-    .then( (threadID) => {
-      console.log("Created thread with id: " + threadID)
-      this.setState({threadID: threadID})
+  createPostReply = (postData) => {
+    return (modelInstance.postReply(this.props.postNumber,postData)
+    .then( (postID) => {
+      this.setState({postID: postID})
+      return(postID)
     }).catch( (err) => {
       //Todo: Handle post error
-      alert("Failed to create thread" + err)
-    })
+      alert("Failed to create post" + err)
+    }))
   }
 
   handleSubmit = () =>{
@@ -108,12 +114,28 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          this.createTread(postData)
-        })
+          this.createPostReply(postData).then(() => {
+            this.setState({
+              postSucc: true
+            })
+            this.props.callBackFunc()
+            this.handleClose()
+          }
+        )
 
+
+        })
       }else{
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        this.createTread(postData)
+        this.createPostReply(postData).then((res) =>
+        console.log(res),
+        this.setState({
+          postSucc: true
+        }),
+        this.props.callBackFunc(),
+        this.handleClose()
+
+      )
       }
     }
   }
@@ -121,8 +143,8 @@ export default class DialogExampleModal extends React.Component {
   render() {
     let boardList = null;
     let submitBool = true;
+    var myPostID = this.state.postID;
 
-    console.log(this.state);
 
     if(this.state.text.length != 0 ){
       if(this.state.title.length != 0){
@@ -132,14 +154,6 @@ export default class DialogExampleModal extends React.Component {
       }
     }else{
       submitBool = true;
-    }
-
-    switch(this.state.status){
-      case 'LOADED':
-        boardList = this.state.boards.map((board) =>
-          <MenuItem value={board.name} primaryText={board.name}/>
-        )
-        break;
     }
 
     const actions = [
@@ -156,11 +170,12 @@ export default class DialogExampleModal extends React.Component {
       />,
     ];
 
+
     return (
       <div>
-        <RaisedButton label="+ Thread" onClick={this.handleOpen} />
+        <RaisedButton label="Reply" onClick={this.handleOpen} />
         <Dialog
-          title="New Thread"
+          title="Reply to post"
           actions={actions}
           modal={true}
           open={this.state.open}
@@ -174,16 +189,13 @@ export default class DialogExampleModal extends React.Component {
                 maxLength="25"
               />
               <TextField onChange={this.handleTitleChange}
-                hintText="Thread title here..."
-                floatingLabelText="Thread title *"
+                hintText="Post title here..."
+                floatingLabelText="Post title *"
                 maxLength="50"
               />
               <div id="reCaptchaPlaceholder"></div>
             </div>
             <div>
-              <DropDownMenu value={this.state.board} onChange={this.handleBoardChange}>
-                {boardList}
-              </DropDownMenu><br />
             </div>
           </div>
           <div id="textBox">
@@ -201,15 +213,7 @@ export default class DialogExampleModal extends React.Component {
             <LinearProgress mode={this.state.progress <= 0 ? "indeterminate" : "determinate" }
             value={this.state.progress} />
           }
-          {this.state.threadID != 0 &&
-            <div>
-              <span> Thread Created sucessfully </span>
-              {/*Todo: fix for other boards to */}
-              <Link to={`/comf/${this.state.threadID}`}>
-                <RaisedButton label="Go to thread" primary={true} />
-              </Link>
-            </div>
-          }
+
         </Dialog>
       </div>
     );

@@ -3,6 +3,7 @@ import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import Post from './Post'
 import './FirstPost.css';
 import {modelInstance} from '../../data/Model';
+import NewPostModal from '../Dialogs/NewPostModal';
 
 
 export default class FirstPost extends React.Component {
@@ -15,10 +16,20 @@ export default class FirstPost extends React.Component {
       replies: [],
       expanded: false
     };
+    this.addPostCallback = this.addPostCallback.bind(this);
+    this.loadReplies = this.loadReplies.bind(this);
+  }
+
+  addPostCallback(postID){
+    // this.state.replies.push(modelInstance.getPost(postID));
+    this.setState({
+      replies: this.state.replies.push(modelInstance.getPost(postID))
+    });
   }
 
   //TODO load thread first post and replies
   loadReplies(){
+    console.log("CALLED " );
     modelInstance.getReplyIds(this.props.postNumber).then(res => {
       Promise.all(res.map((postID) => modelInstance.getPost(postID)))
         .then(replies =>{
@@ -26,8 +37,11 @@ export default class FirstPost extends React.Component {
             status: 'LOADED',
             replyIDs: res,
             replies,
-        });
+        })
+        return replies;
+
       });
+        return res;
     }).catch(() => {
     this.setState({
       status: 'ERROR',
@@ -105,12 +119,15 @@ export default class FirstPost extends React.Component {
     <div id="post">
 
         <Card align="left">
-        <div id="postHead">
-          <CardHeader
+        <div id="postHead" className="container">
+          <CardHeader className="item"
           style={{top:-10,left:-5}}
             title={this.props.postTitle}
             subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
           />
+          <div className="item" id="replyBtn">
+            <NewPostModal chosenBoard={this.props.name} postNumber={this.props.postNumber} callBackFunc={this.loadReplies}/>
+          </div>
         </div>
         <CardMedia>
           <div className="container">
