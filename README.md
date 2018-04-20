@@ -8,21 +8,21 @@ Gamma chan is a image board written with a front-end written in React and a back
 
 ```
 Project Root/
-├── initdatabase.sql
-├── package.json
+├── initdatabase.sql (SQL structures for database)
+├── package.json (Requirements for js frontend)
 ├── package-lock.json
-├── public
+├── public (Static content)
 │   ├── favicon.ico
 │   ├── index.html
 │   └── manifest.json
-├── README.md
-├── server.go
+├── README.md 
+├── server.go (Backend server)
 └── src
     ├── components (react components)
     ├── data (models)
-    ├── images
-    ├── App.css
-    ├── App.js
+    ├── images 
+    ├── App.css 
+    ├── App.js (React entrypoint)
     ├── App.test.js
     ├── index.css
     ├── index.js
