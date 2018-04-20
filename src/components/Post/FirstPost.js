@@ -109,7 +109,7 @@ export default class FirstPost extends React.Component {
           <CardHeader
           style={{top:-10,left:-5}}
             title={this.props.postTitle}
-            subtitle={`${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
+            subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
           />
         </div>
         <CardMedia>

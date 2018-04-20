@@ -14,17 +14,20 @@ class AppHeader extends Component {
   }
   render() {
     return (
-      <header className="appHeader">
-        <img src={logo} className="appLogo" alt="logo" />
-        <div className="container" id="appContainer">
-          <div className="appTitle item">
-            <h1>Welcome to Gamma Channel!</h1>
+      <div>
+      <HeaderLinks/>
+        <header className="appHeader">
+          <img src={logo} className="appLogo" alt="logo" />
+          <div className="container" id="appContainer">
+            <div className="appTitle item">
+              <h1>Welcome to Gamma Channel!</h1>
+            </div>
+            <div className="appNotifications item">
+              <BadgeNotification/>
+            </div>
           </div>
-          <div className="appNotifications item">
-            <BadgeNotification/>
-          </div>
-        </div>
-      </header>
+        </header>
+      </div>
     );
   }
 }

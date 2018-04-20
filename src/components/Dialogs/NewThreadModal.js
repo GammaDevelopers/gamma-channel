@@ -66,7 +66,6 @@ export default class DialogExampleModal extends React.Component {
   };
 
   handleUserNameChange = (event) => {
-    console.log(this.state);
     this.setState({userName: event.target.value})
   };
 
@@ -122,6 +121,8 @@ export default class DialogExampleModal extends React.Component {
   render() {
     let boardList = null;
     let submitBool = true;
+
+    console.log(this.state);
 
     if(this.state.text.length != 0 ){
       if(this.state.title.length != 0){
@@ -197,7 +198,7 @@ export default class DialogExampleModal extends React.Component {
           </div>
           <p> * Required </p>
           {this.state.progress > -2 &&
-            <LinearProgress mode={this.state.progress <= 0 ? "indeterminate" : "determinate" } 
+            <LinearProgress mode={this.state.progress <= 0 ? "indeterminate" : "determinate" }
             value={this.state.progress} />
           }
           {this.state.threadID != 0 &&

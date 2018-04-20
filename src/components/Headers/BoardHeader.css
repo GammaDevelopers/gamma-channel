@@ -14,8 +14,14 @@
   justify-items: center;
 }
 
-#homeButton{
+
+#homeButtonLarge{
   text-align: center;
+  display: flex;
+}
+
+#newPostBtnLarge{
+  display: flex;
 }
 
 #headerLogo{
@@ -25,4 +31,44 @@
 #bannerDiv{
   display: flex;
   align-self: center;
+  width: 100%;
+
+}
+
+#smallDiv{
+  align-self: center;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+#homeButtonSmall{
+  text-align: center;
+}
+
+#newPostBtnSmall{
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  #smallDiv{
+    align-self: center;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  #homeButtonLarge{
+    display: none;
+  }
+
+  #newPostBtnLarge{
+    display: none;
+  }
 }

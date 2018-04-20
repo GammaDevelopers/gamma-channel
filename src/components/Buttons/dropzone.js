@@ -3,6 +3,8 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import logo from '../../images/logo.png';
 import './dropzone.css';
+import UploadImage from '../../images/uploadImage.png'
+
 
 
 /**
@@ -11,7 +13,7 @@ import './dropzone.css';
 export default class Dropzone extends React.Component {
   state = {
       hasFile: false,
-      image: "Uppload image",
+      image: UploadImage,
   };
 
   handleFiles (files) {
@@ -20,12 +22,12 @@ export default class Dropzone extends React.Component {
       var file = files[i];
         console.log(file.type)
       if (!file.type.startsWith('image/')){ continue }
-      
+
       var reader = new FileReader();
-      reader.onload = (function(parent, file) { return function(e) { 
-          parent.setState({image:e.target.result}) 
+      reader.onload = (function(parent, file) { return function(e) {
+          parent.setState({image:e.target.result})
           parent.props.onImageChange(file)
-        }; 
+        };
        })(this, file);
         reader.readAsDataURL(file);
     }
@@ -34,25 +36,25 @@ export default class Dropzone extends React.Component {
   handleClick(){
     document.getElementById("fileElem").click()
   }
-  
+
   dragenter(e) {
     e.stopPropagation();
     e.preventDefault();
   }
-  
+
   dragover(e) {
     e.stopPropagation();
     e.preventDefault();
   }
-  
+
   drop(e) {
     console.log("droped!!")
     e.stopPropagation();
     e.preventDefault();
-  
+
     var dt = e.dataTransfer;
     var files = dt.files;
-  
+
     this.handleFiles(files);
   }
 
@@ -60,9 +62,9 @@ export default class Dropzone extends React.Component {
     return (
         <div>
             <input type="file" id="fileElem" accept="image/*" onChange={(e) => this.handleFiles(e.target.files)}/>
-            <div onDragOver={(e) => this.dragover(e)} onDragEnter={(e) => this.dragenter(e)} 
-                 onDrop={(e) => this.drop(e)} onClick={this.handleClick} id="fileSelect">Select image :)
-                    <img className="obj" src={this.state.image}/>
+            <div onDragOver={(e) => this.dragover(e)} onDragEnter={(e) => this.dragenter(e)}
+                 onDrop={(e) => this.drop(e)} onClick={this.handleClick} id="fileSelect">
+                    <img id="uploadImage" className="obj" src={this.state.image}/>
                  </div>
         </div>
     );
