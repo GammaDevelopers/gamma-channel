@@ -31,8 +31,6 @@
 #bannerDiv{
   display: flex;
   align-self: center;
-  width: 100%;
-
 }
 
 #smallDiv{
@@ -63,6 +61,13 @@
     justify-content: center;
     display: flex;
   }
+
+  #bannerDiv{
+    display: flex;
+    align-self: center;
+    width: 100%;
+  }
+
 
   #homeButtonLarge{
     display: none;
