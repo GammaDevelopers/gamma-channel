@@ -12,7 +12,8 @@ export default class FirstPost extends React.Component {
     this.state = {
       status: 'INITIAL',
       replyIDs: [],
-      replies: []
+      replies: [],
+      expanded: false
     };
   }
 
@@ -36,11 +37,8 @@ export default class FirstPost extends React.Component {
     });
   }
 
-  handleExpandChange = (expanded) => {
-    this.setState({expanded: expanded});
-  };
-
   handleToggle = () => {
+    console.log(this.state.expanded);
     if(this.state.expanded === false){
       this.handleExpand();
     }else{
@@ -64,7 +62,6 @@ export default class FirstPost extends React.Component {
   render() {
     let postImage = null;
     let replyPosts = null;
-
     switch(this.state.expanded){
       case false:
         postImage =
@@ -79,7 +76,7 @@ export default class FirstPost extends React.Component {
           </div>
       break;
     }
-    console.log(this.state);
+    console.log(postImage);
 
     switch(this.state.status){
       case "LOADED":
