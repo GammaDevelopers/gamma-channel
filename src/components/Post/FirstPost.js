@@ -119,7 +119,7 @@ export default class FirstPost extends React.Component {
     <div id="post">
 
         <Card align="left">
-        <div id="postHead" className="container">
+        <div id="firstPostHead" className="container">
           <CardHeader className="item"
           style={{top:-10,left:-5}}
             title={this.props.postTitle}
