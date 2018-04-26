@@ -3,6 +3,7 @@ import '../../index.css';
 import {Card, CardTitle, CardText} from 'material-ui/Card';
 import './HomeCard.css';
 import { Link } from 'react-router-dom';
+import theImage from '../../images/logo.png';
 
 class HomeCard extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class HomeCard extends Component {
               style={{top:-10}}
              />
             <div className="container">
-              <img align="left" id="boardImg" src="http://localhost:3000/static/media/logo.f808e9eb.png" alt="" />
+              <img align="left" id="boardImg" src={theImage} alt="" />
             </div>
           </Card>
         </div>
