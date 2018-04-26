@@ -1,15 +1,11 @@
-#postImg{
-  max-width: 200px;
-  max-height: 200px;
-  height: auto;
-  display: block;
-  float: left;
-}
-
 #post{
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 5px;
+}
+
+#post > div > div{
+  padding-bottom: 10px;
 }
 
 #replies > div{
@@ -22,10 +18,23 @@
 
 #firstPostHead{
   justify-content: space-between;
+  flex: 1;
 }
-
 #replyBtn{
   float: right;
   display: block;
+}
 
+#imgDiv{
+  max-width: 200px;
+  max-height: 200px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+#imgDivExpanded{
+  width: auto;
+  height: auto;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }

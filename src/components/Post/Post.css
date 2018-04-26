@@ -1,9 +1,5 @@
 #postImg{
-  max-width: 200px;
-  max-height: 200px;
-  height: auto;
-  display: block;
-   float: left;
+  max-width: 100%;
 }
 
 #post{

@@ -158,7 +158,7 @@ export default class DialogExampleModal extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="+ Thread" onClick={this.handleOpen} />
+        <RaisedButton label="+Thread" onClick={this.handleOpen} />
         <Dialog
           title="New Thread"
           actions={actions}

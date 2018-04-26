@@ -80,13 +80,13 @@ export default class FirstPost extends React.Component {
       case false:
         postImage =
           <div id="imgDiv" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
+            <img align="left" id="postImg" src={this.props.mediaURL} alt="" />
           </div>
         break;
       case true:
         postImage =
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
+            <img align="left" id="postImg" src={this.props.mediaURL} alt="" />
           </div>
       break;
     }
@@ -108,17 +108,12 @@ export default class FirstPost extends React.Component {
         )
         break;
       case "ERROR":
-        postImage =
-          <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" id="boardPostImg" src={this.props.mediaURL} alt="" />
-          </div>
-      break;
+        break;
     }
 
   return (
     <div id="post">
-
-        <Card align="left">
+        <Card id="firstPostCard" align="left" style={{paddingBottom:10}}>
         <div id="firstPostHead" className="container">
           <CardHeader className="item"
           style={{top:-10,left:-5}}
