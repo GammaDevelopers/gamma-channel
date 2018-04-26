@@ -95,10 +95,8 @@ export default class DialogExampleModal extends React.Component {
   }
 
   handleSubmit = () =>{
-    var titleSucc = false, textSucc = false;
-    if(this.state.title != ""){
-      titleSucc = true;
-    }
+    var textSucc = false;
+    var titleSucc = true;
     if(this.state.text != ""){
       textSucc = true;
     }
@@ -147,11 +145,7 @@ export default class DialogExampleModal extends React.Component {
 
 
     if(this.state.text.length != 0 ){
-      if(this.state.title.length != 0){
-        submitBool = false;
-      }else{
-        submitBool = true;
-      }
+      submitBool = false;
     }else{
       submitBool = true;
     }
@@ -190,7 +184,7 @@ export default class DialogExampleModal extends React.Component {
               />
               <TextField onChange={this.handleTitleChange}
                 hintText="Post title here..."
-                floatingLabelText="Post title *"
+                floatingLabelText="Post title"
                 maxLength="50"
               />
               <div id="reCaptchaPlaceholder"></div>
