@@ -98,6 +98,25 @@ func boards(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(boards)
 }
 
+func getBoard(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	abrev := vars["abrev"]
+
+	db := getDB()
+	defer db.Close()
+
+	var board Board
+	err := db.QueryRow(`SELECT name, abbreviation, description FROM BOARDS
+						   WHERE abbreviation=$1`, abrev).Scan(&board.Name, &board.Abbreviation, &board.Description)
+
+	if err != nil {
+		errorResponse(w)
+		return
+	}
+	okHeader(w)
+	json.NewEncoder(w).Encode(board)
+}
+
 func createThread(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	boardName := vars["board"]
@@ -299,6 +318,7 @@ func main() {
 	router.HandleFunc("/", handler)
 	router.HandleFunc("/api", handler)
 	router.HandleFunc("/api/boards", boards)
+	router.HandleFunc("/api/boards/{abrev}", getBoard)
 	router.HandleFunc("/api/threads/{board}", threads)
 	router.HandleFunc("/api/threads/{board}/new", createThread)
 	router.HandleFunc("/api/thread/{id}", getThread)
