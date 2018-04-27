@@ -188,7 +188,8 @@ func threads(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
 	defer db.Close()
 	rows, err := db.Query(`SELECT firstPost, board, replycount, created, updated 
-                                  FROM THREADS WHERE board=$1`, boardName)
+								  FROM THREADS WHERE board=$1
+								  ORDER BY updated`, boardName)
 	if err != nil {
 		log.Println(err)
 	}
