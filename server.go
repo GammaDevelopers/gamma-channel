@@ -31,14 +31,14 @@ type Thread struct {
 }
 
 type Post struct {
-	ID          int    `json:"id", omitempty`
-	Title       string `json:"title"`
-	Name        string `json:"name"`
-	Options     string `json:"options", omitempty`
-	MediaURL    string `json:"mediaURL", omitempty`
-	Content     string `json:"content"`
-	FirstPostID string `json:"firstPostID", omitempty`
-	Created     string `json:"created", omitempty`
+	ID          int           `json:"id", omitempty`
+	Title       string        `json:"title"`
+	Name        string        `json:"name"`
+	Options     string        `json:"options", omitempty`
+	MediaURL    string        `json:"mediaURL", omitempty`
+	Content     string        `json:"content"`
+	FirstPostID sql.NullInt64 `json:"firstPostID", omitempty`
+	Created     string        `json:"created", omitempty`
 }
 
 func getDB() *sql.DB {
@@ -263,12 +263,12 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 	postID := vars["id"]
 	db := getDB()
 	defer db.Close()
-	row := db.QueryRow(`SELECT id, title, name, options, mediaURL, content
+	row := db.QueryRow(`SELECT id, title, name, options, mediaURL, content,
                         firstPostID, created
                         FROM POSTS WHERE id=$1`, postID)
 	var post Post
 	err := row.Scan(&post.ID, &post.Title, &post.Name, &post.Options,
-		&post.MediaURL, &post.FirstPostID, &post.Created)
+		&post.MediaURL, &post.Content, &post.FirstPostID, &post.Created)
 	if err != nil {
 		log.Println(err)
 		errorResponse(w)
