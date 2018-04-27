@@ -21,7 +21,11 @@ class Board extends Component {
 
   loadThreads() {
     modelInstance.getThreads(this.props.boardName).then(res => {
-      Promise.all(res.map((thread) => modelInstance.getPost(thread.firstPost)))
+      Promise.all(res.map((thread) =>{  
+                              var post = modelInstance.getPost(thread.firstPost);
+                              post.replyCount = thread.replyCount;
+                              return post;
+                        }))
         .then(firstPosts => {
           this.setState({
             replyCount: res.replyCount,
@@ -70,6 +74,7 @@ class Board extends Component {
            postTitle={post.title}
            text={post.content}
            mediaURL={post.mediaURL}
+           replyCount={post.replyCount}
            boardAbbr={this.props.boardAbbr}
            boardName={this.props.boardName}
            replyCount={post.replyCount}
