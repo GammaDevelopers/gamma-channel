@@ -1,5 +1,10 @@
 #postImg{
   max-width: 100%;
+  max-height: 200px;
+}
+
+#postImgExpanded{
+  max-width: 100%;
 }
 
 #post{
