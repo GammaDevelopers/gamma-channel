@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"html"
 	"io"
 	"io/ioutil"
 	"log"
@@ -152,7 +153,8 @@ func createThread(w http.ResponseWriter, r *http.Request) {
                                 )
                                 INSERT INTO threads (firstPost, board)
 								VALUES( (SELECT id from post_insert ), $6) RETURNING firstPost;
-                            `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, boardName).Scan(&response.ThreadID)
+							`, html.EscapeString(post.Title), html.EscapeString(post.Name), html.EscapeString(post.Options),
+			html.EscapeString(post.MediaURL), html.EscapeString(post.Content), boardName).Scan(&response.ThreadID)
 		if err != nil {
 			errorResponse(w)
 			log.Println(err)
@@ -190,7 +192,8 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 		err := db.QueryRow(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
                                VALUES($1, $2, $3, $4, $5, $6)
                                RETURNING id;
-                              `, post.Title, post.Name, post.Options, post.MediaURL, post.Content, threadID).Scan(&postid)
+                              `, html.EscapeString(post.Title), html.EscapeString(post.Name), html.EscapeString(post.Options),
+			html.EscapeString(post.MediaURL), html.EscapeString(post.Content), threadID).Scan(postid)
 		if err != nil {
 			errorResponse(w)
 		} else {
