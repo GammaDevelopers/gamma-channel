@@ -45,7 +45,7 @@ export default class Post extends React.Component {
       case true:
         postImage =
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" id="postImg" src={this.props.mediaURL}  alt="" />
+            <img align="left" id="postImgExpanded" src={this.props.mediaURL}  alt="" />
           </div>
           break;
     }
