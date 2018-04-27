@@ -24,8 +24,9 @@ CREATE TABLE posts (
 CREATE TABLE threads (
     firstPost   integer,
     board       varchar(20), 
-    created     timestamp DEFAULT current_timestamp,
-    updated     timestamp DEFAULT current_timestamp
+    replycount     integer NOT NULL DEFAULT 0,
+    created     timestamp NOT NULL DEFAULT current_timestamp,
+    updated     timestamp NOT NULL DEFAULT current_timestamp
 );
 
 
@@ -40,4 +41,32 @@ grant all privileges on gamma to testuser;
 alter table threads add foreign key (firstPost) REFERENCES posts(id);
 alter table threads add foreign key (board) REFERENCES boards(name);
 
+
+
+CREATE OR REPLACE FUNCTION update_thread_data() RETURNS TRIGGER AS $body$
+    BEGIN
+        IF (NEW.firstPostID IS NOT NULL) THEN
+            UPDATE threads 
+            SET replycount = replycount + 1
+            WHERE firstPost = NEW.firstPostID;
+        END IF;
+        RETURN NEW;
+    END;
+$body$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_reply_count  
+BEFORE INSERT ON posts  
+FOR EACH ROW EXECUTE PROCEDURE update_thread_data();
+
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO testuser;
+
+CREATE FUNCTION recalculate_replies() RETURNS void AS '
+    UPDATE threads as old
+        set replycount = new.count
+    FROM
+        (select firstPostID, count(firstPostID) from posts group by firstPostID) as new
+    where old.firstPost = new.firstPostID' LANGUAGE SQL;
+
+INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
+                               VALUES("hmm", "", $3, "", "hmm", 73)
+                               RETURNING id;
