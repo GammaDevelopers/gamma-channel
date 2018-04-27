@@ -285,7 +285,7 @@ func replies(w http.ResponseWriter, r *http.Request) {
 
 	db := getDB()
 	defer db.Close()
-	rows, err := db.Query(`SELECT id FROM POSTS WHERE firstPostID=$1`, threadID)
+	rows, err := db.Query(`SELECT id FROM POSTS WHERE firstPostID=$1 ORDER BY created`, threadID)
 	if err != nil {
 		log.Println(err)
 	}
