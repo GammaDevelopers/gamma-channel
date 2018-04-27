@@ -47,7 +47,8 @@ CREATE OR REPLACE FUNCTION update_thread_data() RETURNS TRIGGER AS $body$
     BEGIN
         IF (NEW.firstPostID IS NOT NULL) THEN
             UPDATE threads 
-            SET replycount = replycount + 1
+            SET replycount = replycount + 1,
+                updated = current_timestamp
             WHERE firstPost = NEW.firstPostID;
         END IF;
         RETURN NEW;
@@ -66,7 +67,3 @@ CREATE FUNCTION recalculate_replies() RETURNS void AS '
     FROM
         (select firstPostID, count(firstPostID) from posts group by firstPostID) as new
     where old.firstPost = new.firstPostID' LANGUAGE SQL;
-
-INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
-                               VALUES("hmm", "", $3, "", "hmm", 73)
-                               RETURNING id;

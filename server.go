@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -146,7 +147,7 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 
 func newReply(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	threadID := vars["id"]
+	threadID, err := strconv.Atoi(vars["id"])
 
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 10485))
 	if err != nil {
@@ -189,7 +190,7 @@ func threads(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 	rows, err := db.Query(`SELECT firstPost, board, replycount, created, updated 
 								  FROM THREADS WHERE board=$1
-								  ORDER BY updated`, boardName)
+								  ORDER BY updated DESC`, boardName)
 	if err != nil {
 		log.Println(err)
 	}
