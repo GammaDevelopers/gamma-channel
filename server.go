@@ -21,10 +21,11 @@ type Board struct {
 }
 
 type Thread struct {
-	FirstPost int    `json:"firstPost"`
-	Board     string `json:"board"`
-	Created   string `json:"created"`
-	Updated   string `json:"updated"`
+	FirstPost  int    `json:"firstPost"`
+	Board      string `json:"board"`
+	Replycount int    `json:"replyCount"`
+	Created    string `json:"created"`
+	Updated    string `json:"updated"`
 }
 
 type Post struct {
@@ -186,7 +187,7 @@ func threads(w http.ResponseWriter, r *http.Request) {
 
 	db := getDB()
 	defer db.Close()
-	rows, err := db.Query(`SELECT firstPost, board, created, updated 
+	rows, err := db.Query(`SELECT firstPost, board, replycount, created, updated 
                                   FROM THREADS WHERE board=$1`, boardName)
 	if err != nil {
 		log.Println(err)
@@ -196,7 +197,7 @@ func threads(w http.ResponseWriter, r *http.Request) {
 	var threads []Thread
 	for rows.Next() {
 		var thread Thread
-		err := rows.Scan(&thread.FirstPost, &thread.Board, &thread.Created, &thread.Updated)
+		err := rows.Scan(&thread.FirstPost, &thread.Board, &thread.Replycount, &thread.Created, &thread.Updated)
 		if err != nil {
 			log.Println(err)
 		} else {
