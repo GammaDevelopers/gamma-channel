@@ -24,6 +24,7 @@ class Board extends Component {
       Promise.all(res.map((thread) => modelInstance.getPost(thread.firstPost)))
         .then(firstPosts => {
           this.setState({
+            replyCount: res.replyCount,
             status: 'LOADED',
             threads: res,
             firstPosts,
@@ -71,6 +72,7 @@ class Board extends Component {
            mediaURL={post.mediaURL}
            boardAbbr={this.props.boardAbbr}
            boardName={this.props.boardName}
+           replyCount={post.replyCount}
           />
         )
         break;

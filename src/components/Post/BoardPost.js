@@ -10,7 +10,7 @@ export default class BoardPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false
+      expanded: false,
     };
   }
 
@@ -63,7 +63,7 @@ export default class BoardPost extends React.Component {
             <div id="headField" className="item">
               <CardHeader
                 title={this.props.postTitle}
-                subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp}`}
+                subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp} -  Replies: ${this.props.replyCount}`}
               />
             </div>
 
