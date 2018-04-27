@@ -244,10 +244,10 @@ func getThread(w http.ResponseWriter, r *http.Request) {
 	threadID := vars["id"]
 	db := getDB()
 	defer db.Close()
-	row := db.QueryRow(`SELECT firstPost, board, created, updated 
+	row := db.QueryRow(`SELECT firstPost, board, created, updated, replycount
                                   FROM THREADS WHERE firstPost=$1`, threadID)
 	var thread Thread
-	err := row.Scan(&thread.FirstPost, &thread.Board, &thread.Created, &thread.Updated)
+	err := row.Scan(&thread.FirstPost, &thread.Board, &thread.Created, &thread.Updated, &thread.Replycount)
 	if err != nil {
 		log.Println(err)
 		errorResponse(w)
