@@ -52,7 +52,7 @@ Project Root/
 
 ## Used APIs
 * [Imgur api](https://apidocs.imgur.com/)
-* Gamma API (Back-end API calls)
+* [Gamma API (Back-end API calls)](https://documenter.getpostman.com/view/3987217/gamma/RW1UP3eg)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
