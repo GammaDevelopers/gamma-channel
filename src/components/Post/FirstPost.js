@@ -5,6 +5,7 @@ import './FirstPost.css';
 import {modelInstance} from '../../data/Model';
 import NewPostModal from '../Dialogs/NewPostModal';
 
+var readableTime = require('readable-timestamp');
 
 export default class FirstPost extends React.Component {
 
@@ -118,7 +119,7 @@ export default class FirstPost extends React.Component {
           <CardHeader className="item"
           style={{top:-10,left:-5}}
             title={this.props.postTitle}
-            subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
+            subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
           />
           <div className="item" id="replyBtn">
             <NewPostModal chosenBoard={this.props.name} postNumber={this.props.postNumber} callBackFunc={this.loadReplies}/>

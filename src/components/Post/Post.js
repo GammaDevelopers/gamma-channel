@@ -2,6 +2,7 @@ import React from 'react';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import './Post.css';
 
+var readableTime = require('readable-timestamp');
 
 export default class Post extends React.Component {
 
@@ -56,7 +57,7 @@ export default class Post extends React.Component {
           <CardHeader
           style={{top:-10,left:-5}}
             title={this.props.postTitle}
-            subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${this.props.timeStamp}`}
+            subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
           />
 
           <CardMedia>

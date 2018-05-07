@@ -4,6 +4,8 @@ import OpenThreadBtn from '../Buttons/OpenThreadBtn'
 import { Link } from 'react-router-dom';
 import './BoardPost.css';
 
+var readableTime = require('readable-timestamp');
+
 
 export default class BoardPost extends React.Component {
 
@@ -63,7 +65,7 @@ export default class BoardPost extends React.Component {
             <div id="headField" className="item">
               <CardHeader
                 title={this.props.postTitle}
-                subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp} -  Replies: ${this.props.replyCount}`}
+                subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${readableTime(this.props.timeStamp)} -  Replies: ${this.props.replyCount}`}
               />
             </div>
 
