@@ -36,7 +36,6 @@ class App extends Component {
 
   render() {
     let routeList = [];
-    console.log(this.state);
     switch(this.state.status){
       case 'LOADED':
         routeList = this.state.boards.map((boards) =>
@@ -47,8 +46,9 @@ class App extends Component {
           />
         )
         break;
+      default:
+        break;
     }
-    console.log(this.state.boards);
 
     return (
       <div className="app">

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
 import BoardHeader from '../Headers/BoardHeader'
-import Post from '../Post/Post';
 import FirstPost from '../Post/FirstPost';
 import {modelInstance} from '../../data/Model';
 
@@ -55,6 +54,8 @@ render() {
       mediaURL={this.state.firstPost.mediaURL}
       text={this.state.firstPost.content}
       />
+      break;
+    default:
       break;
   }
   return (

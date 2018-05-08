@@ -42,7 +42,7 @@ class HeaderLinks extends Component {
           </Link>
         )
         break;
-      case 'INITIAL':
+      default:
         boardLinkList = []
         break;
     }

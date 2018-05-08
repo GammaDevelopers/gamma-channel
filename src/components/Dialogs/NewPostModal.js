@@ -4,12 +4,7 @@ import './Modals.css'
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import SelectField from 'material-ui/SelectField';
 import LinearProgress from 'material-ui/LinearProgress';
-import logo from '../../images/logo.png'
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import { Link } from 'react-router-dom';
 import {modelInstance} from '../../data/Model';
 import {mediaInstance} from '../../data/MediaUpload'
 import Dropzone from '../Buttons/dropzone'
@@ -100,11 +95,11 @@ export default class DialogExampleModal extends React.Component {
   handleSubmit = () =>{
     var textSucc = false;
     var titleSucc = true;
-    if(this.state.text != ""){
+    if(this.state.text !== ""){
       textSucc = true;
     }
     if(textSucc && titleSucc){
-      if(this.state.image != ""){
+      if(this.state.image !== ""){
         this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
           this.setState({progress: 100*frac})
@@ -142,12 +137,10 @@ export default class DialogExampleModal extends React.Component {
   }
 
   render() {
-    let boardList = null;
     let submitBool = true;
     var mythreadID = this.state.threadID;
 
-
-    if(this.state.text.length != 0 ){
+    if(this.state.text.length !== 0 ){
       submitBool = false;
     }else{
       submitBool = true;
