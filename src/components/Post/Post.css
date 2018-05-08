@@ -12,3 +12,18 @@
   margin-right: 5px;
   margin-top: 5px;
 }
+
+#replyBtn{
+  float: right;
+  display: block;
+}
+
+
+#postHead > CardHeader{
+  margin-top: -10px;
+}
+
+#postHead{
+  justify-content: space-between;
+  flex: 1;
+}

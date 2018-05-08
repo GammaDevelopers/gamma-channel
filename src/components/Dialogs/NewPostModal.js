@@ -29,8 +29,8 @@ export default class DialogExampleModal extends React.Component {
       board: props.chosenBoard,
       boards: [],
       image: "",
-      threadID: 0,
       postID: 0,
+      threadID: 0,
       progress: -2,
       status: 'INITIAL',
       postSucc: false
@@ -57,6 +57,9 @@ export default class DialogExampleModal extends React.Component {
 
   componentDidMount = () => {
     this.loadBoards();
+    if(this.props.postNumber != null){
+      this.setState({text:'#'+this.props.postNumber+" "});
+    }
   }
 
   handleOpen = () => {
@@ -84,10 +87,10 @@ export default class DialogExampleModal extends React.Component {
   };
 
   createPostReply = (postData) => {
-    return (modelInstance.postReply(this.props.postNumber,postData)
-    .then( (postID) => {
-      this.setState({postID: postID})
-      return(postID)
+    return (modelInstance.postReply(this.props.threadNumber,postData)
+    .then( (threadID) => {
+      this.setState({threadID: threadID})
+      return(threadID)
     }).catch( (err) => {
       //Todo: Handle post error
       alert("Failed to create post" + err)
@@ -141,7 +144,7 @@ export default class DialogExampleModal extends React.Component {
   render() {
     let boardList = null;
     let submitBool = true;
-    var myPostID = this.state.postID;
+    var mythreadID = this.state.threadID;
 
 
     if(this.state.text.length != 0 ){
@@ -194,7 +197,8 @@ export default class DialogExampleModal extends React.Component {
           </div>
           <div id="textBox">
             <TextField onChange={this.handleTextChange}
-              hintText="Thread starter here..."
+              hintText="Reply text here..."
+              defaultValue={this.state.text}
               floatingLabelText="Your post *"
               multiLine={true}
               fullWidth={true}

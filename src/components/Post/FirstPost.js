@@ -99,12 +99,14 @@ export default class FirstPost extends React.Component {
           <Post
           key={reply.id}
           postID = {reply.id}
+          threadID = {this.props.postNumber}
           postTitle={reply.title}
           boardAbbr={reply.abbreviation}
           userName={reply.name}
           timeStamp={reply.created}
           text={reply.content}
           mediaURL={reply.mediaURL}
+          callBackFunc={this.loadReplies}
           />
         )
         break;
@@ -122,13 +124,13 @@ export default class FirstPost extends React.Component {
             subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
           />
           <div className="item" id="replyBtn">
-            <NewPostModal chosenBoard={this.props.name} postNumber={this.props.postNumber} callBackFunc={this.loadReplies}/>
+            <NewPostModal chosenBoard={this.props.name} threadNumber={this.props.postNumber} callBackFunc={this.loadReplies}/>
           </div>
         </div>
         <CardMedia>
           <div className="container">
             {postImage}
-            <CardText>{this.props.text}</CardText>
+            <CardText style={{paddingTop:0}}>{this.props.text}</CardText>
           </div>
         </CardMedia>
         <div id="replies">

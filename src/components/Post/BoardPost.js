@@ -75,7 +75,7 @@ export default class BoardPost extends React.Component {
               <div onClick={() => this.handleToggle()}>
                 {postImage}
               </div>
-              <CardText>{this.props.text}</CardText>
+              <CardText style={{paddingTop:0}}>{this.props.text}</CardText>
             </div>
           </CardMedia>
 

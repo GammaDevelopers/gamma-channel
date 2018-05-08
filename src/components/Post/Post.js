@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import './Post.css';
+import NewPostModal from '../Dialogs/NewPostModal';
 
 var readableTime = require('readable-timestamp');
 
@@ -11,6 +12,10 @@ export default class Post extends React.Component {
     this.state = {
       expanded: false
     };
+  }
+
+  loadReplies(){
+    console.log("CALLED " );
   }
 
   handleExpandChange = (expanded) => {
@@ -54,16 +59,21 @@ export default class Post extends React.Component {
       <div id="post">
         <Card align="left" expanded={this.state.expanded} onExpandChange={this.handleExpandChange} style={{
       backgroundColor: '#404040'}}>
-          <CardHeader
-          style={{top:-10,left:-5}}
-            title={this.props.postTitle}
-            subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
-          />
+          <div id="postHead" className="container">
+            <CardHeader
+            style={{top:-10,left:-5}}
+              title={this.props.postTitle}
+              subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
+            />
+            <div className="item" id="replyBtn">
+              <NewPostModal chosenBoard={this.props.userName} postNumber={this.props.postID} threadNumber={this.props.threadID} callBackFunc={this.props.callBackFunc}/>
+            </div>
+          </div>
 
           <CardMedia>
             <div className="container">
               {postImage}
-              <CardText>{this.props.text}</CardText>
+              <CardText style={{paddingTop:0}}>{this.props.text}</CardText>
             </div>
           </CardMedia>
         </Card>
