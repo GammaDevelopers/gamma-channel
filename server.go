@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"html"
 	"io"
+	"os"
+	"path/filepath"
 	"io/ioutil"
 	"log"
+	"github.com/dpapathanasiou/go-recaptcha"
 	"net/http"
 	"strconv"
 
@@ -52,6 +55,19 @@ func getDB() *sql.DB {
 
 	return db
 
+}
+
+
+// processRequest accepts the http.Request object, finds the reCaptcha form variables which
+// were input and sent by HTTP POST to the server, then calls the recaptcha package's Confirm()
+// method, which returns a boolean indicating whether or not the client answered the form correctly.
+func verifyCaptcha(request *http.Request) (result bool) {
+	response := request.Header.Get("captcha")
+	result, err := recaptcha.Confirm("127.0.0.1", response)
+	if err != nil {
+		log.Println("recaptcha server error", err)
+	}
+	return result
 }
 
 func okHeader(w http.ResponseWriter) {
@@ -119,6 +135,11 @@ func getBoard(w http.ResponseWriter, r *http.Request) {
 }
 
 func createThread(w http.ResponseWriter, r *http.Request) {
+	if(!verifyCaptcha(r)){
+		errorResponse(w)
+		return
+	}
+
 	vars := mux.Vars(r)
 	boardName := vars["board"]
 
@@ -167,6 +188,12 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 }
 
 func newReply(w http.ResponseWriter, r *http.Request) {
+
+	if(!verifyCaptcha(r)){
+		errorResponse(w)
+		return
+	}
+
 	vars := mux.Vars(r)
 	threadID, err := strconv.Atoi(vars["id"])
 
@@ -317,6 +344,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	if len(os.Args) != 2 {
+		fmt.Printf("usage: %s <reCaptcha private key>\n", filepath.Base(os.Args[0]))
+		os.Exit(1)
+	} else {
+		recaptcha.Init(os.Args[1])
+	}
+
 	router := mux.NewRouter()
 	router.HandleFunc("/", handler)
 	router.HandleFunc("/api", handler)

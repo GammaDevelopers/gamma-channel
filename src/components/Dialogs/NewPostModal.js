@@ -21,6 +21,8 @@ export default class DialogExampleModal extends React.Component {
       title: '',
       userName: '',
       text: '',
+      captcha: false,
+      captchaResponse: '',
       board: props.chosenBoard,
       boards: [],
       image: "",
@@ -110,7 +112,7 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          this.createPostReply(postData).then(() => {
+          this.createPostReply(postData, this.state.captchaResponse).then(() => {
             this.setState({
               postSucc: true
             })
@@ -123,7 +125,7 @@ export default class DialogExampleModal extends React.Component {
         })
       }else{
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        this.createPostReply(postData).then((res) =>
+        this.createPostReply(postData, this.state.captchaResponse).then((res) =>
         console.log(res),
         this.setState({
           postSucc: true
@@ -135,6 +137,12 @@ export default class DialogExampleModal extends React.Component {
       }
     }
   }
+
+  // specifying captcha verify callback function
+  verifyCallback = (response) => {
+    this.setState({captcha: true})
+    this.setState({captchaResponse: response})
+  };
 
   render() {
     let submitBool = true;
@@ -183,7 +191,12 @@ export default class DialogExampleModal extends React.Component {
                 floatingLabelText="Post title"
                 maxLength="50"
               />
-              <div id="reCaptchaPlaceholder"></div>
+              <Recaptcha
+                sitekey="6LfwDFgUAAAAABjU3x0Mj4GBo-QIGpHN0E1VJf9D"
+                render="explicit"
+                verifyCallback={this.verifyCallback}
+                theme="dark"
+                />
             </div>
             <div>
             </div>

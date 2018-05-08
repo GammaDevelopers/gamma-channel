@@ -21,24 +21,26 @@ const Model = function (){
     return postData;
   }
 
-  this.postReply = function(threadID, postData){
+  this.postReply = function(threadID, postData, captchaResponse){
     var endPoint = `${URL}/api/post/${threadID}/reply`;
     return fetch(endPoint, {
       body: JSON.stringify(postData),
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'captcha':captchaResponse
       },
       method: 'POST'
     })
 
   }
 
-  this.createThread = function(board, postData){
+  this.createThread = function(board, postData, captchaResponse){
     var endPoint = `${URL}/api/threads/${board}/new`;
     return fetch(endPoint, {
       body: JSON.stringify(postData),
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'captcha':captchaResponse
       },
       method: 'POST',
     }).then(processResponse =>{
