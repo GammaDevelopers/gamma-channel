@@ -12,6 +12,7 @@ import (
 	"log"
 	"github.com/dpapathanasiou/go-recaptcha"
 	"net/http"
+	"net"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -62,8 +63,9 @@ func getDB() *sql.DB {
 // were input and sent by HTTP POST to the server, then calls the recaptcha package's Confirm()
 // method, which returns a boolean indicating whether or not the client answered the form correctly.
 func verifyCaptcha(request *http.Request) (result bool) {
+	userIP := net.ParseIP(request.Header.Get("X-FORWARDED-FOR"))
 	response := request.Header.Get("captcha")
-	result, err := recaptcha.Confirm("127.0.0.1", response)
+	result, err := recaptcha.Confirm(userIP.String(), response)
 	if err != nil {
 		log.Println("recaptcha server error", err)
 	}

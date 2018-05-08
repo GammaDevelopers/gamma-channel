@@ -8,6 +8,7 @@ import LinearProgress from 'material-ui/LinearProgress';
 import {modelInstance} from '../../data/Model';
 import {mediaInstance} from '../../data/MediaUpload'
 import Dropzone from '../Buttons/dropzone'
+var Recaptcha = require('react-recaptcha');
 
 
 /**
@@ -84,7 +85,7 @@ export default class DialogExampleModal extends React.Component {
   };
 
   createPostReply = (postData) => {
-    return (modelInstance.postReply(this.props.threadNumber,postData)
+    return (modelInstance.postReply(this.props.threadNumber,postData, this.state.captchaResponse)
     .then( (threadID) => {
       this.setState({threadID: threadID})
       return(threadID)
@@ -140,8 +141,8 @@ export default class DialogExampleModal extends React.Component {
 
   // specifying captcha verify callback function
   verifyCallback = (response) => {
-    this.setState({captcha: true})
-    this.setState({captchaResponse: response})
+    this.setState({captcha: true,
+        captchaResponse: response})
   };
 
   render() {

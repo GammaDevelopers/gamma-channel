@@ -19,11 +19,11 @@
 }
 
 
-#postHead > CardHeader{
+#replyPostHead > CardHeader{
   margin-top: -10px;
 }
 
-#postHead{
+#replyPostHead{
   justify-content: space-between;
   flex: 1;
 }

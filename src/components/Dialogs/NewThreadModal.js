@@ -79,7 +79,7 @@ export default class DialogExampleModal extends React.Component {
   };
 
   createThread = (postData) => {
-    modelInstance.createThread(this.state.board,postData)
+    modelInstance.createThread(this.state.board,postData,this.state.captchaResponse)
     .then( (threadID) => {
       console.log("Created thread with id: " + threadID)
       this.setState({threadID: threadID})
@@ -91,8 +91,8 @@ export default class DialogExampleModal extends React.Component {
 
   // specifying captcha verify callback function
   verifyCallback = (response) => {
-    this.setState({captcha: true})
-    this.setState({captchaResponse: response})
+    this.setState({captcha: true,
+      captchaResponse: response})
   };
 
   handleSubmit = () => {
@@ -115,12 +115,12 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          this.createThread(postData, this.state.captchaResponse)
+          this.createThread(postData)
         })
 
       } else {
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        this.createThread(postData, this.state.captchaResponse)
+        this.createThread(postData)
       }
     }
   }
