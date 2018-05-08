@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import {Card, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardTitle} from 'material-ui/Card';
 import './HomeCard.css';
 import { Link } from 'react-router-dom';
 import theImage from '../../images/logo.png';

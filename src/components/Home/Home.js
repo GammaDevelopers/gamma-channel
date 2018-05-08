@@ -64,7 +64,7 @@ class Home extends Component {
           />
         )
         break;
-      case 'INITIAL':
+      default:
         boardList = [MyLoader(),MyLoader(),MyLoader(),MyLoader()]
         break;
     }

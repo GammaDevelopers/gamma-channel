@@ -40,18 +40,19 @@ export default class BoardPost extends React.Component {
   render() {
     let postImage = null;
     switch(this.state.expanded){
-      case false:
-        postImage =
-          <div id="imgDiv" onClick={() => this.handleToggle()}>
-            <img align="left" id="postImg" src={this.props.mediaURL} alt="" />
-          </div>
-        break;
       case true:
         postImage =
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
             <img align="left" id="postImgExpanded"src={this.props.mediaURL} alt="" />
           </div>
       break;
+      default:
+        postImage =
+          <div id="imgDiv" onClick={() => this.handleToggle()}>
+            <img align="left" id="postImg" src={this.props.mediaURL} alt="" />
+          </div>
+        break;
+
     }
     return (
       <div id="boardPost">

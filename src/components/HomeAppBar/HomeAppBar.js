@@ -4,10 +4,6 @@ import AppBar from 'material-ui/AppBar';
 import './HomeAppBar.css';
 
 class HomeAppBar extends Component {
-  constructor(props) {
-  super(props);
-}
-
   render() {
     return (
         <div id="homeAppBar" className="item">

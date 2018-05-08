@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
 import './Board.css';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
-import logo from '../../images/logo.png';
 import BoardHeader from '../Headers/BoardHeader';
 import BoardPost from '../Post/BoardPost';
 import {modelInstance} from '../../data/Model';
@@ -78,7 +75,6 @@ class Board extends Component {
            replyCount={post.replyCount}
            boardAbbr={this.props.boardAbbr}
            boardName={this.props.boardName}
-           replyCount={post.replyCount}
           />
         )
         break;

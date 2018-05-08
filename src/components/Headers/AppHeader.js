@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
 import './AppHeader.css'
-import Paper from 'material-ui/Paper';
 import './BoardHeader.css';
 import HeaderLinks from './HeaderLinks';
 import logo from '../../images/logo.png';

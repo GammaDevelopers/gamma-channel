@@ -1,10 +1,7 @@
 
 import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import logo from '../../images/logo.png';
 import './dropzone.css';
 import UploadImage from '../../images/uploadImage.png'
-
 
 
 /**
@@ -64,7 +61,7 @@ export default class Dropzone extends React.Component {
             <input type="file" id="fileElem" accept="image/*" onChange={(e) => this.handleFiles(e.target.files)}/>
             <div onDragOver={(e) => this.dragover(e)} onDragEnter={(e) => this.dragenter(e)}
                  onDrop={(e) => this.drop(e)} onClick={this.handleClick} id="fileSelect">
-                    <img id="uploadImage" className="obj" src={this.state.image}/>
+                    <img id="uploadImage" className="obj" alt="Upload here" src={this.state.image}/>
                  </div>
         </div>
     );

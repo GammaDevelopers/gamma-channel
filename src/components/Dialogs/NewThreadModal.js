@@ -4,9 +4,7 @@ import './Modals.css'
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import SelectField from 'material-ui/SelectField';
 import LinearProgress from 'material-ui/LinearProgress';
-import logo from '../../images/logo.png'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router-dom';
@@ -90,14 +88,14 @@ export default class DialogExampleModal extends React.Component {
 
   handleSubmit = () =>{
     var titleSucc = false, textSucc = false;
-    if(this.state.title != ""){
+    if(this.state.title !== ""){
       titleSucc = true;
     }
-    if(this.state.text != ""){
+    if(this.state.text !== ""){
       textSucc = true;
     }
     if(textSucc && titleSucc){
-      if(this.state.image != ""){
+      if(this.state.image !== ""){
         this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
           this.setState({progress: 100*frac})
@@ -124,8 +122,8 @@ export default class DialogExampleModal extends React.Component {
 
     console.log(this.state);
 
-    if(this.state.text.length != 0 ){
-      if(this.state.title.length != 0){
+    if(this.state.text.length !== 0 ){
+      if(this.state.title.length !== 0){
         submitBool = false;
       }else{
         submitBool = true;
@@ -139,6 +137,8 @@ export default class DialogExampleModal extends React.Component {
         boardList = this.state.boards.map((board) =>
           <MenuItem value={board.name} primaryText={board.name}/>
         )
+        break;
+      default:
         break;
     }
 
@@ -201,7 +201,7 @@ export default class DialogExampleModal extends React.Component {
             <LinearProgress mode={this.state.progress <= 0 ? "indeterminate" : "determinate" }
             value={this.state.progress} />
           }
-          {this.state.threadID != 0 &&
+          {this.state.threadID !== 0 &&
             <div>
               <span> Thread Created sucessfully </span>
               {/*Todo: fix for other boards to */}
