@@ -5,14 +5,14 @@
   "proxy": "http://m.bladh.nu:8080",
   "dependencies": {
     "material-ui": "^0.20.0",
-    "readable-timestamp": "^0.2.0",
     "react": "^16.3.2",
     "react-content-loader": "^3.1.1",
     "react-dom": "^16.3.2",
+    "react-recaptcha": "^2.3.8",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
-    "react-recaptcha": "^2.3.8"
+    "readable-timestamp": "^0.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

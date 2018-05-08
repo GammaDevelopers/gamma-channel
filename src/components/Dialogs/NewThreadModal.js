@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import {modelInstance} from '../../data/Model';
 import {mediaInstance} from '../../data/MediaUpload'
 import Dropzone from '../Buttons/dropzone'
+var Recaptcha = require('react-recaptcha');
 
 
 /**
@@ -24,6 +25,8 @@ export default class DialogExampleModal extends React.Component {
       title: '',
       userName: '',
       text: '',
+      captcha: false,
+      captchaResponse: '',
       board: props.chosenBoard,
       boards: [],
       image: "",
@@ -75,7 +78,7 @@ export default class DialogExampleModal extends React.Component {
     this.setState({text: event.target.value})
   };
 
-  createTread = (postData) => {
+  createThread = (postData) => {
     modelInstance.createThread(this.state.board,postData)
     .then( (threadID) => {
       console.log("Created thread with id: " + threadID)
@@ -86,16 +89,22 @@ export default class DialogExampleModal extends React.Component {
     })
   }
 
-  handleSubmit = () =>{
+  // specifying captcha verify callback function
+  verifyCallback = (response) => {
+    this.setState({captcha: true})
+    this.setState({captchaResponse: response})
+  };
+
+  handleSubmit = () => {
     var titleSucc = false, textSucc = false;
-    if(this.state.title !== ""){
+    if(this.state.title !== "") {
       titleSucc = true;
     }
-    if(this.state.text !== ""){
+    if(this.state.text !== "") {
       textSucc = true;
     }
-    if(textSucc && titleSucc){
-      if(this.state.image !== ""){
+    if(textSucc && titleSucc && this.state.captcha){
+      if(this.state.image !== "") {
         this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
           this.setState({progress: 100*frac})
@@ -106,12 +115,12 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          this.createTread(postData)
+          this.createThread(postData)
         })
 
-      }else{
+      } else {
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        this.createTread(postData)
+        this.createThread(postData)
       }
     }
   }
@@ -122,13 +131,13 @@ export default class DialogExampleModal extends React.Component {
 
     console.log(this.state);
 
-    if(this.state.text.length !== 0 ){
-      if(this.state.title.length !== 0){
+    if(this.state.text.length !== 0) {
+      if(this.state.title.length !== 0) {
         submitBool = false;
-      }else{
+      } else {
         submitBool = true;
       }
-    }else{
+    } else {
       submitBool = true;
     }
 
@@ -141,7 +150,6 @@ export default class DialogExampleModal extends React.Component {
       default:
         break;
     }
-
     const actions = [
       <FlatButton
         label="Cancel"
@@ -178,7 +186,12 @@ export default class DialogExampleModal extends React.Component {
                 floatingLabelText="Thread title *"
                 maxLength="50"
               />
-              <div id="reCaptchaPlaceholder"></div>
+              <Recaptcha
+                sitekey="6LfwDFgUAAAAABjU3x0Mj4GBo-QIGpHN0E1VJf9D"
+                render="explicit"
+                verifyCallback={this.verifyCallback}
+                theme="dark"
+                />
             </div>
             <div>
               <DropDownMenu value={this.state.board} onChange={this.handleBoardChange}>
