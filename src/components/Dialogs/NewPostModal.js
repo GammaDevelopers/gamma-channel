@@ -86,9 +86,8 @@ export default class DialogExampleModal extends React.Component {
 
   createPostReply = (postData) => {
     return (modelInstance.postReply(this.props.threadNumber,postData, this.state.captchaResponse)
-    .then( (threadID) => {
-      this.setState({threadID: threadID})
-      return(threadID)
+    .then( (postID) => {
+      return(postID)
     }).catch( (err) => {
       //Todo: Handle post error
       alert("Failed to create post" + err)
@@ -113,11 +112,11 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          this.createPostReply(postData, this.state.captchaResponse).then(() => {
+          this.createPostReply(postData, this.state.captchaResponse).then((postID) => {
             this.setState({
               postSucc: true
             })
-            this.props.callBackFunc()
+            this.props.callBackFunc(postID)
             this.handleClose()
           }
         )
@@ -126,15 +125,14 @@ export default class DialogExampleModal extends React.Component {
         })
       }else{
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        this.createPostReply(postData, this.state.captchaResponse).then((res) =>
-        console.log(res),
+        this.createPostReply(postData, this.state.captchaResponse).then((res) => {
         this.setState({
           postSucc: true
         }),
-        this.props.callBackFunc(),
+        this.props.callBackFunc(res),
         this.handleClose()
 
-      )
+        })
       }
     }
   }
