@@ -45,12 +45,10 @@ alter table threads add foreign key (board) REFERENCES boards(name);
 
 CREATE OR REPLACE FUNCTION update_thread_data() RETURNS TRIGGER AS $body$
     BEGIN
-        IF (NEW.firstPostID IS NOT NULL) THEN
-            UPDATE threads 
-            SET replycount = replycount + 1,
-                updated = current_timestamp
-            WHERE firstPost = NEW.firstPostID;
-        END IF;
+        UPDATE threads 
+        SET replycount = replycount + 1,
+            updated = current_timestamp
+        WHERE firstPost = NEW.firstPostID;
         RETURN NEW;
     END;
 $body$ LANGUAGE plpgsql;
