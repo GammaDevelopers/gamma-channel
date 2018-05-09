@@ -128,8 +128,8 @@ export default class DialogExampleModal extends React.Component {
         this.createPostReply(postData, this.state.captchaResponse).then((res) => {
         this.setState({
           postSucc: true
-        }),
-        this.props.callBackFunc(res),
+        })
+        this.props.callBackFunc(res)
         this.handleClose()
 
         })
@@ -145,7 +145,6 @@ export default class DialogExampleModal extends React.Component {
 
   render() {
     let submitBool = true;
-    var mythreadID = this.state.threadID;
 
     if(this.state.text.length !== 0 ){
       submitBool = false;
