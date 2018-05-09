@@ -30,6 +30,10 @@ const Model = function (){
         'captcha':captchaResponse
       },
       method: 'POST'
+    }).then(processResponse =>{
+          return processResponse.json()})
+      .then((json) => {
+          return json.postID;
     })
 
   }

@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"log"
 	"github.com/dpapathanasiou/go-recaptcha"
+	"github.com/microcosm-cc/bluemonday"
 	"net/http"
 	"net"
 	"strconv"
@@ -222,8 +223,9 @@ func newReply(w http.ResponseWriter, r *http.Request) {
                                VALUES($1, $2, $3, $4, $5, $6)
                                RETURNING id;
                               `, html.EscapeString(post.Title), html.EscapeString(post.Name), html.EscapeString(post.Options),
-			html.EscapeString(post.MediaURL), html.EscapeString(post.Content), threadID).Scan(postid)
+			html.EscapeString(post.MediaURL), html.EscapeString(post.Content), threadID).Scan(&postid)
 		if err != nil {
+			log.Println(err)
 			errorResponse(w)
 		} else {
 			w.WriteHeader(http.StatusCreated)

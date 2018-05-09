@@ -35,8 +35,15 @@ export default class Dropzone extends React.Component {
   }
 
   dragenter(e) {
+    let drop = document.getElementById("fileSelect")
+    drop.style.backgroundColor = 'rgb(140, 92, 228)';
     e.stopPropagation();
     e.preventDefault();
+  }
+
+  dragexit(e){
+    let drop = document.getElementById("fileSelect")
+    drop.style.backgroundColor = 'inherit';
   }
 
   dragover(e) {
@@ -44,8 +51,8 @@ export default class Dropzone extends React.Component {
     e.preventDefault();
   }
 
+
   drop(e) {
-    console.log("droped!!")
     e.stopPropagation();
     e.preventDefault();
 
@@ -60,7 +67,8 @@ export default class Dropzone extends React.Component {
         <div>
             <input type="file" id="fileElem" accept="image/*" onChange={(e) => this.handleFiles(e.target.files)}/>
             <div onDragOver={(e) => this.dragover(e)} onDragEnter={(e) => this.dragenter(e)}
-                 onDrop={(e) => this.drop(e)} onClick={this.handleClick} id="fileSelect">
+                 onDrop={(e) => this.drop(e)} onClick={this.handleClick}
+                 onDragExit={(e) => this.dragexit(e)} id="fileSelect">
                     <img id="uploadImage" className="obj" alt="Upload here" src={this.state.image}/>
                  </div>
         </div>
