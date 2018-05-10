@@ -24,7 +24,7 @@ class Banner extends Component {
     if (this.state.image !== null ) {
       return (
         <div>
-          <img class="banner" src={this.state.image} 
+          <img className="banner" src={this.state.image} 
                               alt={this.state.description} title={this.state.description} />
             
         </div>
