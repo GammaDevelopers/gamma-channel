@@ -1,5 +1,9 @@
 
 const Model = function (){
+  /* 
+    Fetch data from gamma-channel api 
+    Each method atempts to convert result data to json
+  */
 
   const URL = ""
 
