@@ -84,7 +84,7 @@ class Board extends Component {
     }
     return (
       <div>
-        <BoardHeader abbreviation={this.props.boardAbbr} name={this.props.boardName}/>
+        <BoardHeader title={`/${this.props.boardAbbr}/ - ${this.props.boardName}`}/>
         <div id="threadContainer" className="container">
           {threadList}
         </div>

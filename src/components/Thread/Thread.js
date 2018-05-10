@@ -60,7 +60,7 @@ render() {
   }
   return (
     <div>
-      <BoardHeader abbreviation="test" name="test2"/>
+      <BoardHeader title={this.state.firstPost.title}/>
         <div id="thread" className="">
           {theFirstPost}
         </div>

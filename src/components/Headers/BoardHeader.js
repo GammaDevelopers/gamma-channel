@@ -31,7 +31,7 @@ class BoardHeader extends Component {
             </div>
           </div>
           <div>
-            <h1 className="appTitle">/{this.props.abbreviation}/ - {this.props.name}</h1>
+            <h1 className="appTitle">{this.props.title}</h1>
           </div>
           <div id="smallDiv" className="container">
             <div className="item" id="homeButtonSmall">
