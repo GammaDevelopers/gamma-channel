@@ -37,8 +37,8 @@ class HeaderLinks extends Component {
     switch(this.state.status){
       case 'LOADED':
         boardLinkList = this.state.boards.map((board) =>
-          <Link to={'/'+board.abbreviation} style={{ textDecoration: 'none' }}>
-            <a>/{board.abbreviation}/ </a>
+          <Link key={board.abbreviation} to={'/'+board.abbreviation} style={{ textDecoration: 'none' }}>
+            /{board.abbreviation}/
           </Link>
         )
         break;

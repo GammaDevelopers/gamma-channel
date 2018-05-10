@@ -38,8 +38,8 @@ class Home extends Component {
 
   render() {
     let boardList = null;
-    const MyLoader = () => (
-      <div id="homeLoader">
+    const MyLoader = (key) => (
+      <div key={key} id="homeLoader">
       	<ContentLoader
       		height={400}
       		width={1920}
@@ -65,7 +65,7 @@ class Home extends Component {
         )
         break;
       default:
-        boardList = [MyLoader(),MyLoader(),MyLoader(),MyLoader()]
+        boardList = [MyLoader(1),MyLoader(2),MyLoader(3),MyLoader(4)]
         break;
     }
     return (

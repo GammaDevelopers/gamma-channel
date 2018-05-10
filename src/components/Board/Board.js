@@ -48,8 +48,8 @@ class Board extends Component {
 
   render() {
     let threadList = null;
-    const MyLoader = () => (
-      <div id="threadLoader">
+    const MyLoader = (key) => (
+      <div key={key} id="threadLoader">
       	<ContentLoader
       		height={400}
       		width={1920}
@@ -79,7 +79,7 @@ class Board extends Component {
         )
         break;
       default:
-      threadList = [MyLoader(),MyLoader(),MyLoader(),MyLoader()]
+      threadList = [MyLoader(1),MyLoader(2),MyLoader(3),MyLoader(4)]
         break;
     }
     return (

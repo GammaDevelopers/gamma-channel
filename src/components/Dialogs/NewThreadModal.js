@@ -144,7 +144,7 @@ export default class DialogExampleModal extends React.Component {
     switch(this.state.status){
       case 'LOADED':
         boardList = this.state.boards.map((board) =>
-          <MenuItem value={board.name} primaryText={board.name}/>
+          <MenuItem key={board.name} value={board.name} primaryText={board.name}/>
         )
         break;
       default:
