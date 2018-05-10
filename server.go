@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"html"
 	"io"
 	"io/ioutil"
 	"log"
@@ -12,9 +11,12 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 
 	"github.com/dpapathanasiou/go-recaptcha"
+	"github.com/microcosm-cc/bluemonday"
+	"gopkg.in/russross/blackfriday.v2"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -57,6 +59,19 @@ func getDB() *sql.DB {
 
 	return db
 
+}
+
+func markDown(input string) string {
+	unsafe := blackfriday.Run([]byte(input))
+	p := bluemonday.UGCPolicy()
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^language-[a-zA-Z0-9]+$")).OnElements("code")
+	html := p.SanitizeBytes(unsafe)
+	return string(html)
+}
+
+func clean(unsafe string) string {
+	p := bluemonday.UGCPolicy()
+	return p.Sanitize(unsafe)
 }
 
 // processRequest accepts the http.Request object, finds the reCaptcha form variables which
@@ -176,8 +191,8 @@ func createThread(w http.ResponseWriter, r *http.Request) {
                                 )
                                 INSERT INTO threads (firstPost, board)
 								VALUES( (SELECT id from post_insert ), $6) RETURNING firstPost;
-							`, html.EscapeString(post.Title), html.EscapeString(post.Name), html.EscapeString(post.Options),
-			html.EscapeString(post.MediaURL), html.EscapeString(post.Content), boardName).Scan(&response.ThreadID)
+							`, post.Title, post.Name, post.Options,
+			post.MediaURL, post.Content, boardName).Scan(&response.ThreadID)
 		if err != nil {
 			errorResponse(w)
 			log.Println(err)
@@ -221,8 +236,8 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 		err := db.QueryRow(`INSERT INTO posts (title, name, options,  mediaurl, content, firstPostID)
                                VALUES($1, $2, $3, $4, $5, $6)
                                RETURNING id;
-                              `, html.EscapeString(post.Title), html.EscapeString(post.Name), html.EscapeString(post.Options),
-			html.EscapeString(post.MediaURL), html.EscapeString(post.Content), threadID).Scan(&postid)
+                              `, post.Title, post.Name, post.Options,
+			post.MediaURL, post.Content, threadID).Scan(&postid)
 		if err != nil {
 			log.Println(err)
 			errorResponse(w)
@@ -299,6 +314,14 @@ func getPost(w http.ResponseWriter, r *http.Request) {
 	var post Post
 	err := row.Scan(&post.ID, &post.Title, &post.Name, &post.Options,
 		&post.MediaURL, &post.Content, &post.FirstPostID, &post.Created)
+
+	post.Content = markDown(post.Content)
+	//Uncomment if used as html
+	//post.Title = clean(post.Title)
+	//post.Name = clean(post.Name)
+	//post.MediaURL = clean(post.MediaURL)
+	//post.Options = clean(post.Options)
+
 	if err != nil {
 		log.Println(err)
 		errorResponse(w)
