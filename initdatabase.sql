@@ -37,6 +37,23 @@ CREATE TABLE boards (
     rules         varchar(10000) NOT NULL 
 );
 
+
+
+CREATE TABLE banners (
+    id        SERIAL PRIMARY KEY,
+    image     varchar(128) NOT NULL,  
+    weight    integer,
+    submitter varchar(25)
+);
+
+CREATE TABLE news (
+    created   timestamp PRIMARY KEY DEFAULT current_timestamp,
+    title     varchar(50),
+    image     varchar(128),
+    content   varchar(10000),
+);
+
+
 grant all privileges on gamma to testuser;
 alter table threads add foreign key (firstPost) REFERENCES posts(id);
 alter table threads add foreign key (board) REFERENCES boards(name);
