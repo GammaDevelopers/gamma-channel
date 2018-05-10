@@ -132,7 +132,6 @@ const Model = function (){
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
-          json.created = new Date(json.created)
           return json;
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
