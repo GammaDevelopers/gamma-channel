@@ -122,6 +122,18 @@ const Model = function (){
     .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
+  this.getHeaderImage = function(){
+    var endPoint = `${URL}/api/header/random_image`;
+    return fetch(endPoint)
+      .then(processResponse =>{
+          return processResponse.json()})
+      .then((json) => {
+          json.created = new Date(json.created)
+          return json;
+    })
+    .catch(handleError => console.log('There was an error: ' + handleError))
+  };
+
 }
 
 export const modelInstance = new Model();
