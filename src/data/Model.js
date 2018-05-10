@@ -61,13 +61,21 @@ const Model = function (){
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
-          console.log(json)
           return json;
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
-  //TODO getBoard(), get a single board
+  this.getBoard = function (board){
+    var endPoint = `${URL}/api/boards/${board}`;
+    return fetch(endPoint)
+      .then(processResponse =>{
+          return processResponse.json()})
+      .then((json) => {
+          return json;
+    })
+    .catch(handleError => console.log('There was an error: ' + handleError))
+  }
 
   this.getThreads = function (board){
     var endPoint = `${URL}/api/threads/${board}`;
@@ -75,7 +83,6 @@ const Model = function (){
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
-          console.log(json)
           return json;
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
@@ -87,7 +94,6 @@ const Model = function (){
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
-          console.log(json)
           return json;
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
@@ -99,7 +105,6 @@ const Model = function (){
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
-          console.log(json)
           return json;
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
@@ -111,7 +116,6 @@ const Model = function (){
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
-          console.log(json.created)
           json.created = new Date(json.created)
           return json;
     })
