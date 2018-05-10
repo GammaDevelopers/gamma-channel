@@ -146,7 +146,8 @@ export default class DialogExampleModal extends React.Component {
   render() {
     let submitBool = true;
 
-    if(this.state.text.length !== 0 ){
+    if(this.state.text.length !== 0
+    && this.state.captcha === true ){
       submitBool = false;
     }else{
       submitBool = true;

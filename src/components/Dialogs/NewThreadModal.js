@@ -131,12 +131,11 @@ export default class DialogExampleModal extends React.Component {
 
     console.log(this.state);
 
-    if(this.state.text.length !== 0) {
-      if(this.state.title.length !== 0) {
+    if(this.state.text.length !== 0 
+      && this.state.title.length !== 0
+      && this.state.captcha === true
+    ) {
         submitBool = false;
-      } else {
-        submitBool = true;
-      }
     } else {
       submitBool = true;
     }
