@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"html"
 	"io"
-	"os"
-	"path/filepath"
 	"io/ioutil"
 	"log"
-	"github.com/dpapathanasiou/go-recaptcha"
-	"github.com/microcosm-cc/bluemonday"
-	"net/http"
 	"net"
+	"net/http"
+	"os"
+	"path/filepath"
 	"strconv"
+
+	"github.com/dpapathanasiou/go-recaptcha"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -58,7 +58,6 @@ func getDB() *sql.DB {
 	return db
 
 }
-
 
 // processRequest accepts the http.Request object, finds the reCaptcha form variables which
 // were input and sent by HTTP POST to the server, then calls the recaptcha package's Confirm()
@@ -138,7 +137,7 @@ func getBoard(w http.ResponseWriter, r *http.Request) {
 }
 
 func createThread(w http.ResponseWriter, r *http.Request) {
-	if(!verifyCaptcha(r)){
+	if !verifyCaptcha(r) {
 		errorResponse(w)
 		return
 	}
@@ -192,7 +191,7 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 
 func newReply(w http.ResponseWriter, r *http.Request) {
 
-	if(!verifyCaptcha(r)){
+	if !verifyCaptcha(r) {
 		errorResponse(w)
 		return
 	}
@@ -343,6 +342,41 @@ func replies(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(replies)
 }
 
+func getHeader(w http.ResponseWriter, r *http.Request) {
+	db := getDB()
+	defer db.Close()
+	type Response struct {
+		ID        int    `json:"id"`
+		Image     string `json:"image"`
+		Weight    int    `json:"weight"`
+		Submitter string `json:"submitter"`
+	}
+
+	var response Response
+
+	err := db.QueryRow(`
+	WITH CTE AS (
+		SELECT random() * (SELECT SUM(weight) FROM banners) R
+	)
+	SELECT id, image, weight, submitter
+	FROM (
+		SELECT id, image, weight, submitter, SUM(weight) OVER (ORDER BY id) S, R
+		FROM banners CROSS JOIN CTE
+	) Q
+	WHERE S >= R
+	ORDER BY id
+	LIMIT 1;`).Scan(&response.ID, &response.Image, &response.Weight, &response.Submitter)
+
+	if err != nil {
+		log.Println(err)
+		errorResponse(w)
+		return
+	}
+	okHeader(w)
+
+	json.NewEncoder(w).Encode(response)
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome to gamma API")
 }
@@ -367,5 +401,6 @@ func main() {
 	router.HandleFunc("/api/thread/{id}/replies", replies)
 	router.HandleFunc("/api/post/{id}", getPost)
 	router.HandleFunc("/api/post/{id}/reply", newReply)
+	router.HandleFunc("/api/header/random_image", getHeader)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
