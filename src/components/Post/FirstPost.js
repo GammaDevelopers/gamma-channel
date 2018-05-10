@@ -130,7 +130,7 @@ export default class FirstPost extends React.Component {
         <CardMedia>
           <div className="container">
             {postImage}
-            <CardText style={{paddingTop:0}}>{this.props.text}</CardText>
+            <CardText style={{paddingTop:0}} dangerouslySetInnerHTML={this.props.text}></CardText>
           </div>
         </CardMedia>
         <div id="replies">

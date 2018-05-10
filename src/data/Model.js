@@ -121,6 +121,7 @@ const Model = function (){
           return processResponse.json()})
       .then((json) => {
           json.created = new Date(json.created)
+          json.content = {'__html':json.content}
           return json;
     })
     .catch(handleError => console.log('There was an error: ' + handleError))
