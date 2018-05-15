@@ -263,7 +263,7 @@ func threads(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer rows.Close()
-	var threads []Thread
+	threads := make([]Thread, 0)
 	for rows.Next() {
 		var thread Thread
 		err := rows.Scan(&thread.FirstPost, &thread.Board, &thread.Replycount, &thread.Created, &thread.Updated)
@@ -372,26 +372,25 @@ func search(w http.ResponseWriter, r *http.Request) {
 
 	db := getDB()
 	defer db.Close()
-	rows, err := db.Query(`SELECT id
+	rows, err := db.Query(`SELECT firstPost, board, replycount, threads.created, updated 
 			FROM posts INNER JOIN threads
 			ON posts.id = threads.firstPost
 			WHERE board=$1
 			AND (title ~* $2 OR content ~* $2)
-			ORDER BY threads.updated;
+			ORDER BY threads.updated DESC;
  			`, boardName, searchTerm)
 	if err != nil {
 		log.Println(err)
 	}
-
 	defer rows.Close()
-	threads := make([]int64, 0)
+	threads := make([]Thread, 0)
 	for rows.Next() {
-		var postID int64
-		err := rows.Scan(&postID)
+		var thread Thread
+		err := rows.Scan(&thread.FirstPost, &thread.Board, &thread.Replycount, &thread.Created, &thread.Updated)
 		if err != nil {
 			log.Println(err)
 		} else {
-			threads = append(threads, postID)
+			threads = append(threads, thread)
 		}
 	}
 	err = rows.Err()
