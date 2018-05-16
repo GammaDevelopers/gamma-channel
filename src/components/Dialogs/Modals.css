@@ -2,6 +2,11 @@
   display: block;
   max-width: 150px;
   max-height: 150px;
+  width: 20%;
+}
+
+#imageDropZone{
+  width: 30%;
 }
 
 #addImageBtn {
@@ -17,8 +22,27 @@
   padding-right: 3em;
 }
 
+#boardLabel{
+  margin-left: 20px;
+  margin-bottom: -30px;
+}
+
+#headTextContainer{
+  flex-direction: column;
+}
+
 #reCaptchaPlaceholder {
   width: 300px;
   height: 100px;
   background-color: rgb(140, 92, 228);
+}
+
+@media screen and (max-width: 1000px) {
+  #modalContainer{
+    flex-direction: column;
+  }
+
+  #headTextContainer{
+    flex-direction: column;
+  }
 }

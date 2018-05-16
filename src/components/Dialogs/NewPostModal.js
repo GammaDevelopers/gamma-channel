@@ -193,7 +193,10 @@ export default class DialogExampleModal extends React.Component {
     switch(this.state.status){
       case 'LOADED':
         boardList = this.state.boards.map((board) =>
-          <MenuItem key={board.name} value={board.name} primaryText={board.name}/>
+          <MenuItem
+          key={board.name}
+          value={board.name}
+          primaryText={board.name}/>
         )
         break;
       default:
@@ -221,7 +224,13 @@ export default class DialogExampleModal extends React.Component {
     }else{
       var dropDownMenu = (
         <div>
-          <DropDownMenu value={this.state.board} onChange={this.handleBoardChange}>
+          <div id="boardLabel">
+            <p> Select board </p>
+          </div>
+          <DropDownMenu
+          value={this.state.board}
+          onChange={this.handleBoardChange}
+          >
             {boardList}
           </DropDownMenu><br />
         </div>
@@ -232,14 +241,17 @@ export default class DialogExampleModal extends React.Component {
       <div>
         <RaisedButton label={this.props.buttonText} onClick={this.handleOpen} />
         <Dialog
+          autoScrollBodyContent={true}
           title={this.props.headText}
           actions={actions}
           modal={true}
           open={this.state.open}
         >
-          <div className="container">
-            <Dropzone onImageChange={(img)=>this.setState({image:img})}/>
-            <div>
+          <div className="container" id="modalContainer">
+            <div id="imageDropZone">
+              <Dropzone onImageChange={(img)=>this.setState({image:img})}/>
+            </div>
+            <div className="container" id="headTextContainer">
               <TextField onChange={this.handleUserNameChange}
                 hintText="Username (optional)"
                 floatingLabelText="Username"
