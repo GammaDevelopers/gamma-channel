@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Board.css';
 import Header from '../../components/Headers/Header';
-import BoardPost from '../../components/Post/BoardPost';
+import FirstPost from '../../components/Post/FirstPost';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
@@ -94,7 +94,9 @@ class Board extends Component {
     switch(this.state.status){
       case 'LOADED':
         threadList = this.state.firstPosts.map((post) =>
-          <BoardPost
+          <FirstPost
+           view="board"
+           replies={[]}
            key={post.id}
            userName={post.name}
            postNumber={post.id}

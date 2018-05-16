@@ -4,6 +4,8 @@ import Post from './Post'
 import './FirstPost.css';
 import {modelInstance} from '../../data/Model';
 import NewPostModal from '../Dialogs/NewPostModal';
+import OpenThreadBtn from '../Buttons/OpenThreadBtn'
+import { Link } from 'react-router-dom';
 
 var readableTime = require('readable-timestamp');
 
@@ -69,27 +71,49 @@ export default class FirstPost extends React.Component {
     />
   )
 
+  let header = (
+    <div id="firstPostHead" className="container">
+      <CardHeader className="item"
+      style={{top:-10,left:-5}}
+        title={this.props.postTitle}
+        subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
+      />
+      <div className="item" id="replyBtn">
+        <NewPostModal
+        buttonText="Reply"
+        headText="New Reply"
+        thread="false"
+        titleHintText="Reply title here..."
+        titleLabelText="Reply title"
+        threadNumber={this.props.postNumber}
+        //postNumber={this.props.postNumber}
+        callBackFunc={this.props.addPostCallback}/>
+      </div>
+    </div>
+    )
+  if(this.props.view === "board"){
+    header = (
+      <div id="postHead" className="container">
+        <div id="openButton" className="item">
+          <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
+            <OpenThreadBtn/>
+          </Link>
+        </div>
+        <div id="headField" className="item">
+          <CardHeader
+            title={this.props.postTitle}
+            subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${readableTime(this.props.timeStamp)} -  Replies: ${this.props.replyCount}`}
+          />
+        </div>
+
+      </div>
+    )
+  }
+
   return (
     <div id="post">
         <Card id="firstPostCard" align="left" style={{paddingBottom:10}}>
-        <div id="firstPostHead" className="container">
-          <CardHeader className="item"
-          style={{top:-10,left:-5}}
-            title={this.props.postTitle}
-            subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
-          />
-          <div className="item" id="replyBtn">
-            <NewPostModal
-            buttonText="Reply"
-            headText="New Reply"
-            thread="false"
-            titleHintText="Reply title here..."
-            titleLabelText="Reply title"
-            threadNumber={this.props.postNumber}
-            postNumber={this.props.postNumber}
-            callBackFunc={this.props.addPostCallback}/>
-          </div>
-        </div>
+        {header}
         <CardMedia>
           <div className="container">
             {postImage}
