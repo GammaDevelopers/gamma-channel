@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {modelInstance} from '../../data/Model';
 import { Link } from 'react-router-dom';
+import RaisedButton from 'material-ui/RaisedButton';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class HeaderLinks extends Component {
   constructor(props) {
@@ -30,16 +32,20 @@ class HeaderLinks extends Component {
   }
 
 
-
   render() {
     let boardLinkList = null;
 
     switch(this.state.status){
       case 'LOADED':
         boardLinkList = this.state.boards.map((board) =>
-          <Link key={board.abbreviation} to={'/'+board.abbreviation} style={{ textDecoration: 'none' }}>
-            /{board.abbreviation}/
-          </Link>
+          <Tooltip variant='fab' color='primary' title={board.name}>
+            <Link key={board.abbreviation} to={'/'+board.abbreviation}
+            style={{ textDecoration: 'none'}}>
+              <RaisedButton overlayStyle={{color: 'white'}} title={board.name}>
+                {board.abbreviation}
+              </RaisedButton>
+            </Link>
+          </Tooltip>
         )
         break;
       default:
@@ -50,7 +56,7 @@ class HeaderLinks extends Component {
     return (
     <div id="links">
       <span> Boards: </span>
-      [ {boardLinkList}]
+      {boardLinkList}
     </div>)
   }
 }
