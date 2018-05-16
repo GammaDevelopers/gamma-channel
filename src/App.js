@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
 import './App.css';
-import Home from './components/Home/Home';
-import Thread from './components/Thread/Thread';
-import Board from './components/Board/Board';
+import Home from './Views/Home/Home';
+import Thread from './Views/Thread/Thread';
+import Board from './Views/Board/Board';
 import {modelInstance} from './data/Model';
 
 

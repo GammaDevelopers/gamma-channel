@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import '../../index.css';
-import BoardHeader from '../Headers/BoardHeader'
-import FirstPost from '../Post/FirstPost';
+import BoardHeader from '../../components/Headers/BoardHeader'
+import FirstPost from '../../components/Post/FirstPost';
 import {modelInstance} from '../../data/Model';
 
 import './Thread.css';

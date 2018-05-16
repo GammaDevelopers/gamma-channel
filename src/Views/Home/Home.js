@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import '../../index.css';
 import './Home.css';
-import HomeCard from '../HomeCard/HomeCard.js';
-import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
-import AppHeader from '../Headers/AppHeader';
+import HomeCard from '../../components/HomeCard/HomeCard.js';
+import HomeAppBar from '../../components/HomeAppBar/HomeAppBar.js';
+import AppHeader from '../../components/Headers/AppHeader';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 

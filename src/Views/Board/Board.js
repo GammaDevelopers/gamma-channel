@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import './Board.css';
-import BoardHeader from '../Headers/BoardHeader';
-import BoardPost from '../Post/BoardPost';
+import BoardHeader from '../../components/Headers/BoardHeader';
+import BoardPost from '../../components/Post/BoardPost';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 
