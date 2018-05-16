@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import {Route, DefaultRoute} from 'react-router-dom';
 import './App.css';
 import Home from './Views/Home/Home';
 import Thread from './Views/Thread/Thread';
 import Board from './Views/Board/Board';
 import {modelInstance} from './data/Model';
+import NotFound from './Views/NotFound/NotFound';
 
 
 class App extends Component {
@@ -55,6 +56,7 @@ class App extends Component {
         <Route exact path='/' component={Home}/>
         <Route path='/:board/:threadID' component={Thread}/>
         <Route path='/board' component={Board}/>
+        <Route path='*' component={NotFound} />
         {routeList}
       </div>
     );
