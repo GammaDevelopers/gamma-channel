@@ -57,6 +57,7 @@ class App extends Component {
           <Route exact path='/' component={Home}/>
           <Route path='/:board/:threadID' component={Thread}/>
           <Route path='/board' component={Board}/>
+          {routeList}
           <Route path='*' component={NotFound} />
         </Switch>
       </div>
