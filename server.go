@@ -365,7 +365,44 @@ func replies(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(replies)
 }
 
-func search(w http.ResponseWriter, r *http.Request) {
+func searchReply(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	threadID := vars["threadID"]
+	searchTerm := vars["query"]
+
+	db := getDB()
+	defer db.Close()
+	rows, err := db.Query(`SELECT id 
+						FROM POSTS WHERE firstPostID=$1 
+						AND (title ~* $2 OR content ~* $2)
+						ORDER BY created`, threadID, searchTerm)
+	if err != nil {
+		log.Println(err)
+	}
+
+	defer rows.Close()
+	replies := make([]int64, 0)
+	for rows.Next() {
+		var postID int64
+		err := rows.Scan(&postID)
+		if err != nil {
+			log.Println(err)
+		} else {
+			replies = append(replies, postID)
+		}
+	}
+	err = rows.Err()
+	if err != nil {
+		log.Println(err)
+		errorResponse(w)
+		return
+	}
+	okHeader(w)
+
+	json.NewEncoder(w).Encode(replies)
+}
+
+func searchThread(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	boardName := vars["board"]
 	searchTerm := vars["query"]
@@ -457,7 +494,8 @@ func main() {
 	router.HandleFunc("/api", handler)
 	router.HandleFunc("/api/boards", boards)
 	router.HandleFunc("/api/boards/{abrev}", getBoard)
-	router.HandleFunc("/api/search/{board}/{query}", search)
+	router.HandleFunc("/api/search/{board}/{query}", searchThread)
+	router.HandleFunc("/api/searchPost/{threadID}/{query}", searchReply)
 	router.HandleFunc("/api/threads/{board}", threads)
 	router.HandleFunc("/api/threads/{board}/new", createThread)
 	router.HandleFunc("/api/thread/{id}", getThread)
