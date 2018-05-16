@@ -1,26 +1,27 @@
 import React from 'react';
 import './SearchBar.css';
+import {default as SearchBarUi} from 'material-ui-search-bar';
 
 export default class SearchBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
       }
-    
 
-    onSearchChange = () => {
-        this.props.callback(this.search.value)
+
+    onSearchChange = (value) => {
+        this.props.callback(value);
     }
-    
+
     render() {
         return(
-            <div>
-            <input
+          <div className="searchBar">
+            <SearchBarUi
             ref={input => this.search = input}
-            placeholder="Search thread..."
-            onChange={this.onSearchChange}
+            onChange={(value) => this.onSearchChange(value)}
+            hintText = "Seach thread contents..."
+            style={{margin: '5 auto'}}
             />
-        </div>
+          </div>
     );
     }
 }
