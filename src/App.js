@@ -46,6 +46,7 @@ class App extends Component {
             render={()=> <Board boardName={boards.name} boardAbbr={boards.abbreviation}/>}
           />
         )
+        routeList.push(<Route path='*' component={NotFound} />)
         break;
       default:
         break;
@@ -58,7 +59,6 @@ class App extends Component {
           <Route path='/:board/:threadID' component={Thread}/>
           <Route path='/board' component={Board}/>
           {routeList}
-          <Route path='*' component={NotFound} />
         </Switch>
       </div>
     );
