@@ -38,8 +38,8 @@ class HeaderLinks extends Component {
     switch(this.state.status){
       case 'LOADED':
         boardLinkList = this.state.boards.map((board) =>
-          <Tooltip variant='fab' color='primary' title={board.name}>
-            <Link key={board.abbreviation} to={'/'+board.abbreviation}
+          <Tooltip key={board.abbreviation} variant='fab' color='primary' title={board.name}>
+            <Link to={'/'+board.abbreviation}
             style={{ textDecoration: 'none'}}>
               <RaisedButton overlayStyle={{color: 'white'}} title={board.name}>
                 {board.abbreviation}

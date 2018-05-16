@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import Home from './Views/Home/Home';
 import Thread from './Views/Thread/Thread';
 import Board from './Views/Board/Board';
 import {modelInstance} from './data/Model';
+import NotFound from './Views/NotFound/NotFound';
 
 
 class App extends Component {
@@ -52,10 +53,13 @@ class App extends Component {
 
     return (
       <div className="app">
-        <Route exact path='/' component={Home}/>
-        <Route path='/:board/:threadID' component={Thread}/>
-        <Route path='/board' component={Board}/>
-        {routeList}
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route path='/:board/:threadID' component={Thread}/>
+          <Route path='/board' component={Board}/>
+          {routeList}
+          <Route path='*' component={NotFound} />
+        </Switch>
       </div>
     );
   }

@@ -11,9 +11,9 @@
   */
   display: grid;
   grid-template-columns: 100px 1fr 100px;
+  padding-top: 20px;
   justify-items: center;
 }
-
 
 #homeButtonLarge{
   text-align: center;
