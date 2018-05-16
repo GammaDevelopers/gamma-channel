@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './Board.css';
-import Header from '../Headers/Header';
-import BoardPost from '../Post/BoardPost';
-import SearchBar from '../SearchBar/SearchBar';
+import Header from '../../components/Headers/Header';
+import BoardPost from '../../components/Post/BoardPost';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 
