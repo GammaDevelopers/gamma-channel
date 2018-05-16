@@ -58,7 +58,7 @@ export default class DialogExampleModal extends React.Component {
 
   handleOpen = () => {
     this.setState({open: true});
-    if(this.props.postNumber != undefined){
+    if(this.props.postNumber !== undefined){
       this.setState({text:'#'+this.props.postNumber+" "});
       console.log(this.props.postNumber);
     }
@@ -110,6 +110,28 @@ export default class DialogExampleModal extends React.Component {
       alert("Failed to create post" + err)
     }))
   }
+  /* Returns a promise with properties:
+  *  Resolves to emtpy string if no image specified 
+  *  Resolves to url if image upploaded sucessfully
+  *  Rjected if image uppload failed
+  */
+  upploadImage = () =>{
+    return new Promise((resolve, reject) => {
+      if(this.state.image !== "") {
+        this.setState({progress: 0})
+        mediaInstance.imgurUpload(this.state.image, (frac) => {
+          this.setState({progress: 100*frac})
+          console.log(this.state.progress)
+        }, (response) => {
+          reject(response)
+        }, (mediaURL) => {
+            resolve(mediaURL)
+        })
+      }else {
+        resolve("")
+      }
+    });
+  }
 
   handleSubmit = () => {
     var titleSucc = false, textSucc = false, validPost = false;
@@ -120,44 +142,24 @@ export default class DialogExampleModal extends React.Component {
       textSucc = true;
     }
 
-    if(this.props.thread == "false" && textSucc){
+    if(this.props.thread === "false" && textSucc){
       validPost = true;
     }else if(titleSucc && textSucc){
       validPost = true;
     }
 
     if(validPost && this.state.captcha){
-      if(this.state.image !== "") {
-        this.setState({progress: 0})
-        mediaInstance.imgurUpload(this.state.image, (frac) => {
-          this.setState({progress: 100*frac})
-          console.log(this.state.progress)
-        }, (response) => {
-          //Todo handle fail
-          alert(response)
-        }, (mediaURL) => {
-          console.log(mediaURL)
-          var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          if(this.props.thread == "false"){
-            this.createPostReply(postData);
+      this.upploadImage().then( (mediaURL) => {
+        var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
+        if(this.props.thread === "false"){
+          return this.createPostReply(postData).then((postID) => {
+            this.props.callBackFunc(postID)
             this.handleClose();
-
-          }else{
-            this.createThreadOuter(postData);
-          }
-        })
-
-      } else {
-        var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        if(this.props.thread == "false"){
-          this.createPostReply(postData);
-          this.handleClose();
-
+          });
         }else{
-          this.createThreadOuter(postData);
-
+          return this.createThreadOuter(postData);
         }
-      }
+      }).catch((err) => alert(`Failed to create post: ${err}`))
     }
   }
 
@@ -165,7 +167,7 @@ export default class DialogExampleModal extends React.Component {
     let boardList = null;
     let disabledBool = true;
 
-    if(this.props.thread == "false"){
+    if(this.props.thread === "false"){
       if(this.state.text.length !== 0
         && this.state.captcha === true
       ) {
