@@ -66,7 +66,15 @@ export default class Post extends React.Component {
               subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
             />
             <div className="item" id="replyBtn">
-              <NewPostModal chosenBoard={this.props.userName} postNumber={this.props.postID} threadNumber={this.props.threadID} callBackFunc={this.props.callBackFunc}/>
+              <NewPostModal
+              titleHintText="Reply tite here..."
+              titleLabelText="Reply title"
+              buttonText="Reply"
+              headText="Reply"
+              thread="false"
+              postNumber={this.props.postID}
+              threadNumber={this.props.threadID}
+              callBackFunc={this.props.callBackFunc}/>
             </div>
           </div>
 

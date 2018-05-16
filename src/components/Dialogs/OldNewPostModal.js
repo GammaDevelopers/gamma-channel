@@ -5,9 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import { Link } from 'react-router-dom';
 import {modelInstance} from '../../data/Model';
 import {mediaInstance} from '../../data/MediaUpload'
 import Dropzone from '../Buttons/dropzone'
@@ -30,9 +27,11 @@ export default class DialogExampleModal extends React.Component {
       board: props.chosenBoard,
       boards: [],
       image: "",
+      postID: 0,
       threadID: 0,
       progress: -2,
-      status: 'INITIAL'
+      status: 'INITIAL',
+      postSucc: false
     }
   }
 
@@ -50,18 +49,19 @@ export default class DialogExampleModal extends React.Component {
     });
   }
 
-  componentDidMount = () => {
-    this.setState({board:this.props.chosenBoardName});
-    this.loadBoards();
+  myCallback(){
+    this.props.callBackFunc()
+  }
 
+  componentDidMount = () => {
+    this.loadBoards();
+    if(this.props.postNumber != null){
+      this.setState({text:'#'+this.props.postNumber+" "});
+    }
   }
 
   handleOpen = () => {
     this.setState({open: true});
-    if(this.props.postNumber != undefined){
-      this.setState({text:'#'+this.props.postNumber+" "});
-      console.log(this.props.postNumber);
-    }
   };
 
   handleClose = () => {
@@ -84,23 +84,6 @@ export default class DialogExampleModal extends React.Component {
     this.setState({text: event.target.value})
   };
 
-  createThreadOuter = (postData) => {
-    modelInstance.createThread(this.state.board,postData,this.state.captchaResponse)
-    .then( (threadID) => {
-      console.log("Created thread with id: " + threadID)
-      this.setState({threadID: threadID})
-    }).catch( (err) => {
-      //Todo: Handle post error
-      alert("Failed to create thread" + err)
-    })
-  }
-
-  // specifying captcha verify callback function
-  verifyCallback = (response) => {
-    this.setState({captcha: true,
-      captchaResponse: response})
-  };
-
   createPostReply = (postData) => {
     return (modelInstance.postReply(this.props.threadNumber,postData, this.state.captchaResponse)
     .then( (postID) => {
@@ -111,23 +94,14 @@ export default class DialogExampleModal extends React.Component {
     }))
   }
 
-  handleSubmit = () => {
-    var titleSucc = false, textSucc = false, validPost = false;
-    if(this.state.title !== "") {
-      titleSucc = true;
-    }
-    if(this.state.text !== "") {
+  handleSubmit = () =>{
+    var textSucc = false;
+    var titleSucc = true;
+    if(this.state.text !== ""){
       textSucc = true;
     }
-
-    if(this.props.thread == "false" && textSucc){
-      validPost = true;
-    }else if(titleSucc && textSucc){
-      validPost = true;
-    }
-
-    if(validPost && this.state.captcha){
-      if(this.state.image !== "") {
+    if(textSucc && titleSucc){
+      if(this.state.image !== ""){
         this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
           this.setState({progress: 100*frac})
@@ -138,67 +112,47 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          if(this.props.thread == "false"){
-            this.createPostReply(postData);
-            this.handleClose();
-
-          }else{
-            this.createThreadOuter(postData);
+          this.createPostReply(postData, this.state.captchaResponse).then((postID) => {
+            this.setState({
+              postSucc: true
+            })
+            this.props.callBackFunc(postID)
+            this.handleClose()
           }
+        )
+
+
         })
-
-      } else {
+      }else{
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        if(this.props.thread == "false"){
-          this.createPostReply(postData);
-          this.handleClose();
+        this.createPostReply(postData, this.state.captchaResponse).then((res) => {
+        this.setState({
+          postSucc: true
+        })
+        this.props.callBackFunc(res)
+        this.handleClose()
 
-        }else{
-          this.createThreadOuter(postData);
-
-        }
+        })
       }
     }
   }
 
+  // specifying captcha verify callback function
+  verifyCallback = (response) => {
+    this.setState({captcha: true,
+        captchaResponse: response})
+  };
+
   render() {
-    let boardList = null;
-    let disabledBool = true;
+    let submitBool = true;
 
-    if(this.props.thread == "false"){
-      if(this.state.text.length !== 0
-        && this.state.captcha === true
-      ) {
-          disabledBool = false;
-          console.log("okay post");
-
-      } else {
-        disabledBool = true;
-      }
+    if(this.state.text.length !== 0
+    && this.state.captcha === true ){
+      submitBool = false;
     }else{
-      if(this.state.text.length !== 0
-        && this.state.title.length !== 0
-        && this.state.captcha === true
-      ) {
-          disabledBool = false;
-          console.log("okay thread");
-
-      } else {
-        disabledBool = true;
-
-      }
+      submitBool = true;
     }
 
-
-    switch(this.state.status){
-      case 'LOADED':
-        boardList = this.state.boards.map((board) =>
-          <MenuItem key={board.name} value={board.name} primaryText={board.name}/>
-        )
-        break;
-      default:
-        break;
-    }
     const actions = [
       <FlatButton
         label="Cancel"
@@ -208,31 +162,17 @@ export default class DialogExampleModal extends React.Component {
       <FlatButton
         label="Submit"
         primary={true}
-        disabled={disabledBool}
+        disabled={submitBool}
         onClick={this.handleSubmit}
       />,
     ];
 
-    if(this.props.thread === "false"){
-      var dropDownMenu = (
-        <div>
-        </div>
-      )
-    }else{
-      var dropDownMenu = (
-        <div>
-          <DropDownMenu value={this.state.board} onChange={this.handleBoardChange}>
-            {boardList}
-          </DropDownMenu><br />
-        </div>
-      )
-    }
 
     return (
       <div>
-        <RaisedButton label={this.props.buttonText} onClick={this.handleOpen} />
+        <RaisedButton label="Reply" onClick={this.handleOpen} />
         <Dialog
-          title={this.props.headText}
+          title="Reply to post"
           actions={actions}
           modal={true}
           open={this.state.open}
@@ -246,8 +186,8 @@ export default class DialogExampleModal extends React.Component {
                 maxLength="25"
               />
               <TextField onChange={this.handleTitleChange}
-                hintText={this.props.titleHintText}
-                floatingLabelText={this.props.titleLabelText}
+                hintText="Post title here..."
+                floatingLabelText="Post title"
                 maxLength="50"
               />
               <Recaptcha
@@ -258,12 +198,11 @@ export default class DialogExampleModal extends React.Component {
                 />
             </div>
             <div>
-              {dropDownMenu}
             </div>
           </div>
           <div id="textBox">
             <TextField onChange={this.handleTextChange}
-              hintText="Thread starter here..."
+              hintText="Reply text here..."
               defaultValue={this.state.text}
               floatingLabelText="Your post *"
               multiLine={true}
@@ -277,15 +216,7 @@ export default class DialogExampleModal extends React.Component {
             <LinearProgress mode={this.state.progress <= 0 ? "indeterminate" : "determinate" }
             value={this.state.progress} />
           }
-          {this.state.threadID !== 0 &&
-            <div>
-              <span> Thread Created sucessfully </span>
-              {/*Todo: fix for other boards to */}
-              <Link to={`/${this.props.chosenBoardAbbr}/${this.state.threadID}`}>
-                <RaisedButton label="Go to thread" primary={true} />
-              </Link>
-            </div>
-          }
+
         </Dialog>
       </div>
     );

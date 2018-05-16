@@ -3,7 +3,7 @@ import '../../index.css';
 import './Header.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../Buttons/HomeButton';
-import NewThreadModal from './../Dialogs/NewThreadModal'
+import NewPostModal from './../Dialogs/NewPostModal'
 import Banner from '../Banners/Banner.js'
 import BadgeNotification from '../Badge/BadgeNotification';
 
@@ -25,6 +25,20 @@ class Header extends Component {
   }
 
   render() {
+    var postModalInstance = (
+      <div>
+        <NewPostModal
+        thread="true"
+        buttonText = "+ Thread"
+        headText="New Thread"
+        titleHintText="Thread tite here..."
+        titleLabelText="Thread title *"
+        chosenBoardName={this.props.boardName}
+        chosenBoardAbbr={this.props.boardAbbr}
+        />
+      </div>
+    )
+
     return (
       <header>
         <div className="appHeader">
@@ -35,7 +49,7 @@ class Header extends Component {
               <Banner />
             </div>
             <div className="item" id="newPostBtnLarge">
-              <NewThreadModal chosenBoard={this.props.name}/>
+              {postModalInstance}
             </div>
           </div>
           <div>
@@ -46,7 +60,7 @@ class Header extends Component {
               <HomeButton />
             </div>
             <div className="item" id="newPostBtnSmall">
-              <NewThreadModal chosenBoard={this.props.name}/>
+              {postModalInstance}
             </div>
           </div>
         </div>
