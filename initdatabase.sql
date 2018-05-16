@@ -70,9 +70,21 @@ CREATE OR REPLACE FUNCTION update_thread_data() RETURNS TRIGGER AS $body$
     END;
 $body$ LANGUAGE plpgsql;
 
+CREATE FUNCTION delete_thread_posts() RETURNS TRIGGER AS $_$
+BEGIN
+    DELETE FROM posts 
+    WHERE (posts.id = OLD.firstPost OR posts.firstPostID = OLD.firstPost);
+    RETURN OLD;
+END $_$ LANGUAGE 'plpgsql';
+
 CREATE TRIGGER update_reply_count  
 BEFORE INSERT ON posts  
 FOR EACH ROW EXECUTE PROCEDURE update_thread_data();
+
+CREATE TRIGGER on_delete_threads 
+BEFORE DELETE ON threads 
+FOR EACH ROW 
+EXECUTE PROCEDURE delete_thread_posts();
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO testuser;
 

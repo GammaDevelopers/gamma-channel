@@ -81,6 +81,17 @@ const Model = function (){
     .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
+  this.searchThreads = function(board, searchString){
+    var endPoint = `${URL}/api/search/${board}/${searchString}`;
+    return fetch(endPoint)
+      .then(processResponse =>{
+          return processResponse.json()})
+      .then((json) => {
+          return json;
+    })
+    .catch(handleError => console.log('There was an error: ' + handleError))
+  }
+
   this.getThreads = function (board){
     var endPoint = `${URL}/api/threads/${board}`;
     return fetch(endPoint)

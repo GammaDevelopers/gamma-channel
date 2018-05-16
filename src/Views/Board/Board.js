@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Board.css';
 import BoardHeader from '../../components/Headers/BoardHeader';
 import BoardPost from '../../components/Post/BoardPost';
+import SearchBar from '../../SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 
@@ -17,6 +18,36 @@ class Board extends Component {
 
   loadThreads() {
     modelInstance.getThreads(this.props.boardName).then(res => {
+      Promise.all(res.map((thread) =>{
+          return modelInstance.getPost(thread.firstPost).then( (post) => {
+            post.replyCount = thread.replyCount;
+            return post;
+          });
+        }))
+        .then(firstPosts => {
+          this.setState({
+            replyCount: res.replyCount,
+            status: 'LOADED',
+            threads: res,
+            firstPosts,
+          });
+        });
+
+      }).catch(() => {
+      this.setState({
+        status: 'ERROR',
+        threads: [],
+        firstPosts: []
+      })
+    });
+  }
+
+  onSearchChange(input) {
+    if(input === ""){
+      this.loadThreads();
+      return;
+    }
+    modelInstance.searchThreads(this.props.boardName, input).then(res => {
       Promise.all(res.map((thread) =>{
           return modelInstance.getPost(thread.firstPost).then( (post) => {
             post.replyCount = thread.replyCount;
@@ -84,6 +115,7 @@ class Board extends Component {
     return (
       <div>
         <BoardHeader title={`/${this.props.boardAbbr}/ - ${this.props.boardName}`}/>
+        <SearchBar callback={this.onSearchChange.bind(this)} />
         <div id="threadContainer" className="container">
           {threadList}
         </div>

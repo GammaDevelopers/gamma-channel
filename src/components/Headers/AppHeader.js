@@ -14,8 +14,8 @@ class AppHeader extends Component {
   render() {
     return (
       <div>
-      <HeaderLinks/>
         <header className="appHeader">
+          <HeaderLinks/>
           <img src={logo} className="appLogo" alt="logo" />
           <div className="container" id="appContainer">
             <div className="appTitle item">

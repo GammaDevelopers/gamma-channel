@@ -263,7 +263,7 @@ func threads(w http.ResponseWriter, r *http.Request) {
 	}
 
 	defer rows.Close()
-	var threads []Thread
+	threads := make([]Thread, 0)
 	for rows.Next() {
 		var thread Thread
 		err := rows.Scan(&thread.FirstPost, &thread.Board, &thread.Replycount, &thread.Created, &thread.Updated)
@@ -365,6 +365,45 @@ func replies(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(replies)
 }
 
+func search(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	boardName := vars["board"]
+	searchTerm := vars["query"]
+
+	db := getDB()
+	defer db.Close()
+	rows, err := db.Query(`SELECT firstPost, board, replycount, threads.created, updated 
+			FROM posts INNER JOIN threads
+			ON posts.id = threads.firstPost
+			WHERE board=$1
+			AND (title ~* $2 OR content ~* $2)
+			ORDER BY threads.updated DESC;
+ 			`, boardName, searchTerm)
+	if err != nil {
+		log.Println(err)
+	}
+	defer rows.Close()
+	threads := make([]Thread, 0)
+	for rows.Next() {
+		var thread Thread
+		err := rows.Scan(&thread.FirstPost, &thread.Board, &thread.Replycount, &thread.Created, &thread.Updated)
+		if err != nil {
+			log.Println(err)
+		} else {
+			threads = append(threads, thread)
+		}
+	}
+	err = rows.Err()
+	if err != nil {
+		log.Println(err)
+		errorResponse(w)
+		return
+	}
+	okHeader(w)
+
+	json.NewEncoder(w).Encode(threads)
+}
+
 func getHeader(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
 	defer db.Close()
@@ -418,6 +457,7 @@ func main() {
 	router.HandleFunc("/api", handler)
 	router.HandleFunc("/api/boards", boards)
 	router.HandleFunc("/api/boards/{abrev}", getBoard)
+	router.HandleFunc("/api/search/{board}/{query}", search)
 	router.HandleFunc("/api/threads/{board}", threads)
 	router.HandleFunc("/api/threads/{board}/new", createThread)
 	router.HandleFunc("/api/thread/{id}", getThread)

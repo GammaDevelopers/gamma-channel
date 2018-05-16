@@ -17,8 +17,8 @@ class BoardHeader extends Component {
   render() {
     return (
       <header>
-        <HeaderLinks/>
         <div className="appHeader">
+          <HeaderLinks/>
           <div id="headerContainer" className="container">
             <div className="item" id="homeButtonLarge">
               <HomeButton />
