@@ -18,8 +18,11 @@ class BoardHeader extends Component {
     var postModalInstance = (
       <div>
         <NewPostModal
+        thread="true"
         buttonText = "+ Thread"
         headText="New Thread"
+        titleHintText="Thread tite here..."
+        titleLabelText="Thread title *"
         chosenBoardName={this.props.boardName}
         chosenBoardAbbr={this.props.boardAbbr}
         />

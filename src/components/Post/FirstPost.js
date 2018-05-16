@@ -128,8 +128,10 @@ export default class FirstPost extends React.Component {
             buttonText="Reply"
             headText="New Reply"
             thread="false"
-            chosenBoard={this.props.name}
+            titleHintText="Reply tite here..."
+            titleLabelText="Reply title"
             threadNumber={this.props.postNumber}
+            postNumber={this.props.postNumber}
             callBackFunc={this.loadReplies}/>
           </div>
         </div>

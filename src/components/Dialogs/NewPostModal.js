@@ -53,10 +53,15 @@ export default class DialogExampleModal extends React.Component {
   componentDidMount = () => {
     this.setState({board:this.props.chosenBoardName});
     this.loadBoards();
+
   }
 
   handleOpen = () => {
     this.setState({open: true});
+    if(this.props.postNumber != undefined){
+      this.setState({text:'#'+this.props.postNumber+" "});
+      console.log(this.props.postNumber);
+    }
   };
 
   handleClose = () => {
@@ -79,7 +84,7 @@ export default class DialogExampleModal extends React.Component {
     this.setState({text: event.target.value})
   };
 
-  createThread = (postData) => {
+  createThreadOuter = (postData) => {
     modelInstance.createThread(this.state.board,postData,this.state.captchaResponse)
     .then( (threadID) => {
       console.log("Created thread with id: " + threadID)
@@ -96,15 +101,32 @@ export default class DialogExampleModal extends React.Component {
       captchaResponse: response})
   };
 
+  createPostReply = (postData) => {
+    return (modelInstance.postReply(this.props.threadNumber,postData, this.state.captchaResponse)
+    .then( (postID) => {
+      return(postID)
+    }).catch( (err) => {
+      //Todo: Handle post error
+      alert("Failed to create post" + err)
+    }))
+  }
+
   handleSubmit = () => {
-    var titleSucc = false, textSucc = false;
+    var titleSucc = false, textSucc = false, validPost = false;
     if(this.state.title !== "") {
       titleSucc = true;
     }
     if(this.state.text !== "") {
       textSucc = true;
     }
-    if(textSucc && titleSucc && this.state.captcha){
+
+    if(this.props.thread == "false" && textSucc){
+      validPost = true;
+    }else if(titleSucc && textSucc){
+      validPost = true;
+    }
+
+    if(validPost && this.state.captcha){
       if(this.state.image !== "") {
         this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
@@ -116,45 +138,57 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          this.createThread(postData)
+          if(this.props.thread == "false"){
+            this.createPostReply(postData);
+            this.handleClose();
+
+          }else{
+            this.createThreadOuter(postData);
+          }
         })
 
       } else {
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        this.createThread(postData)
+        if(this.props.thread == "false"){
+          this.createPostReply(postData);
+          this.handleClose();
+
+        }else{
+          this.createThreadOuter(postData);
+
+        }
       }
     }
   }
 
   render() {
     let boardList = null;
-    let submitBool = true;
+    let disabledBool = true;
 
-    console.log(this.state);
+    if(this.props.thread == "false"){
+      if(this.state.text.length !== 0
+        && this.state.captcha === true
+      ) {
+          disabledBool = false;
+          console.log("okay post");
 
-    if(this.state.text.length !== 0
-      && this.state.title.length !== 0
-      && this.state.captcha === true
-    ) {
-        submitBool = false;
-    } else {
-      submitBool = true;
-    }
-
-    if(this.props.thread === "false"){
-      var dropDownMenu = (
-        <div>
-        </div>
-      )
+      } else {
+        disabledBool = true;
+      }
     }else{
-      var dropDownMenu = (
-        <div>
-          <DropDownMenu value={this.state.board} onChange={this.handleBoardChange}>
-            {boardList}
-          </DropDownMenu><br />
-        </div>
-      )
+      if(this.state.text.length !== 0
+        && this.state.title.length !== 0
+        && this.state.captcha === true
+      ) {
+          disabledBool = false;
+          console.log("okay thread");
+
+      } else {
+        disabledBool = true;
+
+      }
     }
+
 
     switch(this.state.status){
       case 'LOADED':
@@ -174,10 +208,25 @@ export default class DialogExampleModal extends React.Component {
       <FlatButton
         label="Submit"
         primary={true}
-        disabled={submitBool}
+        disabled={disabledBool}
         onClick={this.handleSubmit}
       />,
     ];
+
+    if(this.props.thread === "false"){
+      var dropDownMenu = (
+        <div>
+        </div>
+      )
+    }else{
+      var dropDownMenu = (
+        <div>
+          <DropDownMenu value={this.state.board} onChange={this.handleBoardChange}>
+            {boardList}
+          </DropDownMenu><br />
+        </div>
+      )
+    }
 
     return (
       <div>
@@ -197,8 +246,8 @@ export default class DialogExampleModal extends React.Component {
                 maxLength="25"
               />
               <TextField onChange={this.handleTitleChange}
-                hintText="Thread title here..."
-                floatingLabelText="Thread title *"
+                hintText={this.props.titleHintText}
+                floatingLabelText={this.props.titleLabelText}
                 maxLength="50"
               />
               <Recaptcha
@@ -215,6 +264,7 @@ export default class DialogExampleModal extends React.Component {
           <div id="textBox">
             <TextField onChange={this.handleTextChange}
               hintText="Thread starter here..."
+              defaultValue={this.state.text}
               floatingLabelText="Your post *"
               multiLine={true}
               fullWidth={true}
