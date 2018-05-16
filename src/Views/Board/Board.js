@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Board.css';
 import BoardHeader from '../../components/Headers/BoardHeader';
 import BoardPost from '../../components/Post/BoardPost';
-import SearchBar from '../../SearchBar/SearchBar';
+import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 
