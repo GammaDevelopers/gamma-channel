@@ -18,8 +18,8 @@ export default class SearchBar extends React.Component {
             <SearchBarUi
             ref={input => this.search = input}
             onChange={(value) => this.onSearchChange(value)}
+            onRequestSearch={() => this.pass}
             hintText = "Seach thread contents..."
-            style={{margin: '5 auto'}}
             />
           </div>
     );
