@@ -4,6 +4,7 @@ import Header from '../../components/Headers/Header'
 import FirstPost from '../../components/Post/FirstPost';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
+import readableTime from "readable-timestamp"
 import './Thread.css';
 
 
@@ -83,7 +84,6 @@ onSearchChange(input) {
 }
 
 addPostCallback(postID){
-  // this.state.replies.push(modelInstance.getPost(postID));
   modelInstance.getPost(postID).then( (post) => this.setState({
     replies: this.state.posts.push(post)
   }))
@@ -110,7 +110,7 @@ render() {
       postTitle={this.state.firstPost.title}
       postNumber={this.state.firstPost.id}
       userName={this.state.firstPost.name}
-      timeStamp={this.state.firstPost.created}
+      timeStamp={readableTime(this.state.firstPost.created)}
       mediaURL={this.state.firstPost.mediaURL}
       text={this.state.firstPost.content}
       replies={this.state.posts}

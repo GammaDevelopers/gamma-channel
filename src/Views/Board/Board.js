@@ -5,6 +5,7 @@ import FirstPost from '../../components/Post/FirstPost';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
+import readableTime from "readable-timestamp"
 
 class Board extends Component {
   constructor(props) {
@@ -100,7 +101,7 @@ class Board extends Component {
            key={post.id}
            userName={post.name}
            postNumber={post.id}
-           timeStamp={post.created}
+           timeStamp={readableTime(post.created)}
            postTitle={post.title}
            text={post.content}
            mediaURL={post.mediaURL}

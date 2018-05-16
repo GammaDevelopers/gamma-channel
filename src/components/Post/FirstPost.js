@@ -6,8 +6,8 @@ import {modelInstance} from '../../data/Model';
 import NewPostModal from '../Dialogs/NewPostModal';
 import OpenThreadBtn from '../Buttons/OpenThreadBtn'
 import { Link } from 'react-router-dom';
+import readableTime from "readable-timestamp"
 
-var readableTime = require('readable-timestamp');
 
 export default class FirstPost extends React.Component {
 
@@ -64,7 +64,7 @@ export default class FirstPost extends React.Component {
     postTitle={reply.title}
     boardAbbr={reply.abbreviation}
     userName={reply.name}
-    timeStamp={reply.created}
+    timeStamp={readableTime(reply.created)}
     text={reply.content}
     mediaURL={reply.mediaURL}
     callBackFunc={this.loadReplies}
@@ -76,7 +76,7 @@ export default class FirstPost extends React.Component {
       <CardHeader className="item"
       style={{top:-10,left:-5}}
         title={this.props.postTitle}
-        subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
+        subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
       />
       <div className="item" id="replyBtn">
         <NewPostModal
@@ -102,7 +102,7 @@ export default class FirstPost extends React.Component {
         <div id="headField" className="item">
           <CardHeader
             title={this.props.postTitle}
-            subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${readableTime(this.props.timeStamp)} -  Replies: ${this.props.replyCount}`}
+            subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp} -  Replies: ${this.props.replyCount}`}
           />
         </div>
 

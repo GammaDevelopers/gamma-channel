@@ -3,8 +3,6 @@ import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import './Post.css';
 import NewPostModal from '../Dialogs/NewPostModal';
 
-var readableTime = require('readable-timestamp');
-
 export default class Post extends React.Component {
 
   constructor(props) {
@@ -63,7 +61,7 @@ export default class Post extends React.Component {
             <CardHeader
             style={{top:-10,left:-5}}
               title={this.props.postTitle}
-              subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
+              subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${this.props.timeStamp}`}
             />
             <div className="item" id="replyBtn">
               <NewPostModal
