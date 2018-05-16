@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import BoardHeader from '../Headers/BoardHeader'
+import Header from '../Headers/Header'
 import FirstPost from '../Post/FirstPost';
 import {modelInstance} from '../../data/Model';
 
@@ -60,7 +60,7 @@ render() {
   }
   return (
     <div>
-      <BoardHeader title={this.state.firstPost.title}/>
+      <Header title={this.state.firstPost.title} type="thread"/>
         <div id="thread" className="">
           {theFirstPost}
         </div>

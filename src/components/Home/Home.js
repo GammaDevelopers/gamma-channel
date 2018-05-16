@@ -3,7 +3,7 @@ import '../../index.css';
 import './Home.css';
 import HomeCard from '../HomeCard/HomeCard.js';
 import HomeAppBar from '../HomeAppBar/HomeAppBar.js';
-import AppHeader from '../Headers/AppHeader';
+import Header from '../Headers/Header'
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 
@@ -15,8 +15,6 @@ class Home extends Component {
     boards: []
     }
   }
-
-
 
   loadBoards() {
     modelInstance.getAllBoards().then(res => {
@@ -70,7 +68,7 @@ class Home extends Component {
     }
     return (
       <div>
-      <AppHeader/>
+      <Header title="Welcome to Gamma Channel!" type="home"/>
       <div id="rootDiv">
         <div id="homeContainer" className="container">
           <div id="boardContainer" className="container">

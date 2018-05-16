@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
 import '../../index.css';
-import './BoardHeader.css';
+import './Header.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../Buttons/HomeButton';
 import NewThreadModal from './../Dialogs/NewThreadModal'
 import Banner from '../Banners/Banner.js'
+import BadgeNotification from '../Badge/BadgeNotification';
 
+class Header extends Component {
 
-class BoardHeader extends Component {
-
-
+  /* Types are: home, board and thread
+  */
   constructor(props) {
     super(props);
-    this.state = { }
+    this.state = {}
   }
+
+  getHomeButton = () => {
+    if (this.props.type !== 'home') {
+      return <div className="item" id="homeButtonLarge"><HomeButton /></div>;
+    } else {
+      return <div />
+    }
+  }
+
   render() {
     return (
       <header>
         <div className="appHeader">
           <HeaderLinks/>
           <div id="headerContainer" className="container">
-            <div className="item" id="homeButtonLarge">
-              <HomeButton />
-            </div>
+            {this.getHomeButton()}
             <div className="item" id="bannerDiv">
               <Banner />
             </div>
@@ -47,4 +55,4 @@ class BoardHeader extends Component {
   }
 }
 
-export default BoardHeader;
+export default Header;

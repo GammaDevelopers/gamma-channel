@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../index.css';
 import './Board.css';
-import BoardHeader from '../Headers/BoardHeader';
+import Header from '../Headers/Header';
 import BoardPost from '../Post/BoardPost';
 import SearchBar from '../SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
@@ -115,7 +115,7 @@ class Board extends Component {
     }
     return (
       <div>
-        <BoardHeader title={`/${this.props.boardAbbr}/ - ${this.props.boardName}`}/>
+        <Header title={`/${this.props.boardAbbr}/ - ${this.props.boardName}`} type="board"/>
         <SearchBar callback={this.onSearchChange.bind(this)} />
         <div id="threadContainer" className="container">
           {threadList}
