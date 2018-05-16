@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, DefaultRoute} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import Home from './Views/Home/Home';
 import Thread from './Views/Thread/Thread';
@@ -53,11 +53,12 @@ class App extends Component {
 
     return (
       <div className="app">
-        <Route exact path='/' component={Home}/>
-        <Route path='/:board/:threadID' component={Thread}/>
-        <Route path='/board' component={Board}/>
-        <Route path='*' component={NotFound} />
-        {routeList}
+        <Switch>
+          <Route exact path='/' component={Home}/>
+          <Route path='/:board/:threadID' component={Thread}/>
+          <Route path='/board' component={Board}/>
+          <Route path='*' component={NotFound} />
+        </Switch>
       </div>
     );
   }
