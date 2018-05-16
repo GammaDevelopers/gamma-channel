@@ -84,9 +84,9 @@ onSearchChange(input) {
 
 addPostCallback(postID){
   // this.state.replies.push(modelInstance.getPost(postID));
-  this.setState({
-    replies: this.state.posts.push(modelInstance.getPost(postID))
-  });
+  modelInstance.getPost(postID).then( (post) => this.setState({
+    replies: this.state.posts.push(post)
+  }))
 }
 
 componentDidMount() {
