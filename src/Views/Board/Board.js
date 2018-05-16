@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import './Board.css';
 import Header from '../Headers/Header';
 import BoardPost from '../Post/BoardPost';

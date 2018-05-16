@@ -3,7 +3,6 @@ import '../../index.css';
 import Header from '../Headers/Header'
 import FirstPost from '../Post/FirstPost';
 import {modelInstance} from '../../data/Model';
-
 import './Thread.css';
 
 
