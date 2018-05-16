@@ -29,7 +29,7 @@ class Header extends Component {
       <div>
         <NewPostModal
         thread="true"
-        buttonText = "+ Thread"
+        buttonText = "+Thread"
         headText="New Thread"
         titleHintText="Thread tite here..."
         titleLabelText="Thread title *"
