@@ -3,7 +3,7 @@ import '../../index.css';
 import './BoardHeader.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../Buttons/HomeButton';
-import NewThreadModal from './../Dialogs/NewThreadModal'
+import NewPostModal from './../Dialogs/NewPostModal'
 import Banner from '../Banners/Banner.js'
 
 
@@ -15,6 +15,17 @@ class BoardHeader extends Component {
     this.state = { }
   }
   render() {
+    var postModalInstance = (
+      <div>
+        <NewPostModal
+        buttonText = "+ Thread"
+        headText="New Thread"
+        chosenBoardName={this.props.boardName}
+        chosenBoardAbbr={this.props.boardAbbr}
+        />
+      </div>
+    )
+
     return (
       <header>
         <div className="appHeader">
@@ -27,7 +38,7 @@ class BoardHeader extends Component {
               <Banner />
             </div>
             <div className="item" id="newPostBtnLarge">
-              <NewThreadModal chosenBoard={this.props.name}/>
+              {postModalInstance}
             </div>
           </div>
           <div>
@@ -38,7 +49,7 @@ class BoardHeader extends Component {
               <HomeButton />
             </div>
             <div className="item" id="newPostBtnSmall">
-              <NewThreadModal chosenBoard={this.props.name}/>
+              {postModalInstance}
             </div>
           </div>
         </div>

@@ -5,9 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import { Link } from 'react-router-dom';
 import {modelInstance} from '../../data/Model';
 import {mediaInstance} from '../../data/MediaUpload'
 import Dropzone from '../Buttons/dropzone'
@@ -30,9 +27,11 @@ export default class DialogExampleModal extends React.Component {
       board: props.chosenBoard,
       boards: [],
       image: "",
+      postID: 0,
       threadID: 0,
       progress: -2,
-      status: 'INITIAL'
+      status: 'INITIAL',
+      postSucc: false
     }
   }
 
@@ -50,9 +49,15 @@ export default class DialogExampleModal extends React.Component {
     });
   }
 
+  myCallback(){
+    this.props.callBackFunc()
+  }
+
   componentDidMount = () => {
-    this.setState({board:this.props.chosenBoardName});
     this.loadBoards();
+    if(this.props.postNumber != null){
+      this.setState({text:'#'+this.props.postNumber+" "});
+    }
   }
 
   handleOpen = () => {
@@ -79,33 +84,24 @@ export default class DialogExampleModal extends React.Component {
     this.setState({text: event.target.value})
   };
 
-  createThread = (postData) => {
-    modelInstance.createThread(this.state.board,postData,this.state.captchaResponse)
-    .then( (threadID) => {
-      console.log("Created thread with id: " + threadID)
-      this.setState({threadID: threadID})
+  createPostReply = (postData) => {
+    return (modelInstance.postReply(this.props.threadNumber,postData, this.state.captchaResponse)
+    .then( (postID) => {
+      return(postID)
     }).catch( (err) => {
       //Todo: Handle post error
-      alert("Failed to create thread" + err)
-    })
+      alert("Failed to create post" + err)
+    }))
   }
 
-  // specifying captcha verify callback function
-  verifyCallback = (response) => {
-    this.setState({captcha: true,
-      captchaResponse: response})
-  };
-
-  handleSubmit = () => {
-    var titleSucc = false, textSucc = false;
-    if(this.state.title !== "") {
-      titleSucc = true;
-    }
-    if(this.state.text !== "") {
+  handleSubmit = () =>{
+    var textSucc = false;
+    var titleSucc = true;
+    if(this.state.text !== ""){
       textSucc = true;
     }
-    if(textSucc && titleSucc && this.state.captcha){
-      if(this.state.image !== "") {
+    if(textSucc && titleSucc){
+      if(this.state.image !== ""){
         this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
           this.setState({progress: 100*frac})
@@ -116,55 +112,47 @@ export default class DialogExampleModal extends React.Component {
         }, (mediaURL) => {
           console.log(mediaURL)
           var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-          this.createThread(postData)
-        })
+          this.createPostReply(postData, this.state.captchaResponse).then((postID) => {
+            this.setState({
+              postSucc: true
+            })
+            this.props.callBackFunc(postID)
+            this.handleClose()
+          }
+        )
 
-      } else {
+
+        })
+      }else{
         var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text,"");
-        this.createThread(postData)
+        this.createPostReply(postData, this.state.captchaResponse).then((res) => {
+        this.setState({
+          postSucc: true
+        })
+        this.props.callBackFunc(res)
+        this.handleClose()
+
+        })
       }
     }
   }
 
+  // specifying captcha verify callback function
+  verifyCallback = (response) => {
+    this.setState({captcha: true,
+        captchaResponse: response})
+  };
+
   render() {
-    let boardList = null;
     let submitBool = true;
 
-    console.log(this.state);
-
     if(this.state.text.length !== 0
-      && this.state.title.length !== 0
-      && this.state.captcha === true
-    ) {
-        submitBool = false;
-    } else {
+    && this.state.captcha === true ){
+      submitBool = false;
+    }else{
       submitBool = true;
     }
 
-    if(this.props.thread === "false"){
-      var dropDownMenu = (
-        <div>
-        </div>
-      )
-    }else{
-      var dropDownMenu = (
-        <div>
-          <DropDownMenu value={this.state.board} onChange={this.handleBoardChange}>
-            {boardList}
-          </DropDownMenu><br />
-        </div>
-      )
-    }
-
-    switch(this.state.status){
-      case 'LOADED':
-        boardList = this.state.boards.map((board) =>
-          <MenuItem key={board.name} value={board.name} primaryText={board.name}/>
-        )
-        break;
-      default:
-        break;
-    }
     const actions = [
       <FlatButton
         label="Cancel"
@@ -179,11 +167,12 @@ export default class DialogExampleModal extends React.Component {
       />,
     ];
 
+
     return (
       <div>
-        <RaisedButton label={this.props.buttonText} onClick={this.handleOpen} />
+        <RaisedButton label="Reply" onClick={this.handleOpen} />
         <Dialog
-          title={this.props.headText}
+          title="Reply to post"
           actions={actions}
           modal={true}
           open={this.state.open}
@@ -197,8 +186,8 @@ export default class DialogExampleModal extends React.Component {
                 maxLength="25"
               />
               <TextField onChange={this.handleTitleChange}
-                hintText="Thread title here..."
-                floatingLabelText="Thread title *"
+                hintText="Post title here..."
+                floatingLabelText="Post title"
                 maxLength="50"
               />
               <Recaptcha
@@ -209,12 +198,12 @@ export default class DialogExampleModal extends React.Component {
                 />
             </div>
             <div>
-              {dropDownMenu}
             </div>
           </div>
           <div id="textBox">
             <TextField onChange={this.handleTextChange}
-              hintText="Thread starter here..."
+              hintText="Reply text here..."
+              defaultValue={this.state.text}
               floatingLabelText="Your post *"
               multiLine={true}
               fullWidth={true}
@@ -227,15 +216,7 @@ export default class DialogExampleModal extends React.Component {
             <LinearProgress mode={this.state.progress <= 0 ? "indeterminate" : "determinate" }
             value={this.state.progress} />
           }
-          {this.state.threadID !== 0 &&
-            <div>
-              <span> Thread Created sucessfully </span>
-              {/*Todo: fix for other boards to */}
-              <Link to={`/${this.props.chosenBoardAbbr}/${this.state.threadID}`}>
-                <RaisedButton label="Go to thread" primary={true} />
-              </Link>
-            </div>
-          }
+
         </Dialog>
       </div>
     );

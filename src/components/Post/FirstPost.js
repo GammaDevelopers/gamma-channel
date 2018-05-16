@@ -124,7 +124,13 @@ export default class FirstPost extends React.Component {
             subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
           />
           <div className="item" id="replyBtn">
-            <NewPostModal chosenBoard={this.props.name} threadNumber={this.props.postNumber} callBackFunc={this.loadReplies}/>
+            <NewPostModal
+            buttonText="Reply"
+            headText="New Reply"
+            thread="false"
+            chosenBoard={this.props.name}
+            threadNumber={this.props.postNumber}
+            callBackFunc={this.loadReplies}/>
           </div>
         </div>
         <CardMedia>
