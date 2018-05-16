@@ -12,44 +12,8 @@ export default class FirstPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: 'INITIAL',
-      replyIDs: [],
-      replies: [],
       expanded: false
     };
-    this.addPostCallback = this.addPostCallback.bind(this);
-    this.loadReplies = this.loadReplies.bind(this);
-  }
-
-  addPostCallback(postID){
-    // this.state.replies.push(modelInstance.getPost(postID));
-    this.setState({
-      replies: this.state.replies.push(modelInstance.getPost(postID))
-    });
-  }
-
-  //TODO load thread first post and replies
-  loadReplies(){
-    console.log("CALLED " );
-    modelInstance.getReplyIds(this.props.postNumber).then(res => {
-      Promise.all(res.map((postID) => modelInstance.getPost(postID)))
-        .then(replies =>{
-          this.setState({
-            status: 'LOADED',
-            replyIDs: res,
-            replies,
-        })
-        return replies;
-
-      });
-        return res;
-    }).catch(() => {
-    this.setState({
-      status: 'ERROR',
-      replyIDs: [],
-      replies: []
-    })
-    });
   }
 
   handleToggle = () => {
@@ -70,9 +34,7 @@ export default class FirstPost extends React.Component {
   };
 
   componentDidMount() {
-    this.loadReplies();
   }
-
 
   render() {
     let postImage = null;
@@ -91,28 +53,21 @@ export default class FirstPost extends React.Component {
           </div>
         break;
     }
-    console.log(postImage);
 
-    switch(this.state.status){
-      case "LOADED":
-        replyPosts = this.state.replies.map((reply) =>
-          <Post
-          key={reply.id}
-          postID = {reply.id}
-          threadID = {this.props.postNumber}
-          postTitle={reply.title}
-          boardAbbr={reply.abbreviation}
-          userName={reply.name}
-          timeStamp={reply.created}
-          text={reply.content}
-          mediaURL={reply.mediaURL}
-          callBackFunc={this.loadReplies}
-          />
-        )
-        break;
-      default:
-        break;
-    }
+  replyPosts = this.props.replies.map((reply) =>
+    <Post
+    key={reply.id}
+    postID = {reply.id}
+    threadID = {this.props.postNumber}
+    postTitle={reply.title}
+    boardAbbr={reply.abbreviation}
+    userName={reply.name}
+    timeStamp={reply.created}
+    text={reply.content}
+    mediaURL={reply.mediaURL}
+    callBackFunc={this.loadReplies}
+    />
+  )
 
   return (
     <div id="post">
@@ -128,11 +83,11 @@ export default class FirstPost extends React.Component {
             buttonText="Reply"
             headText="New Reply"
             thread="false"
-            titleHintText="Reply tite here..."
+            titleHintText="Reply title here..."
             titleLabelText="Reply title"
             threadNumber={this.props.postNumber}
             postNumber={this.props.postNumber}
-            callBackFunc={this.loadReplies}/>
+            callBackFunc={this.props.addPostCallback}/>
           </div>
         </div>
         <CardMedia>
