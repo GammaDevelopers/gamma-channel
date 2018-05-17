@@ -4,52 +4,18 @@ import Post from './Post'
 import './FirstPost.css';
 import {modelInstance} from '../../data/Model';
 import NewPostModal from '../Dialogs/NewPostModal';
+import OpenThreadBtn from '../Buttons/OpenThreadBtn'
+import { Link } from 'react-router-dom';
+import readableTime from "readable-timestamp"
 
-var readableTime = require('readable-timestamp');
 
 export default class FirstPost extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      status: 'INITIAL',
-      replyIDs: [],
-      replies: [],
       expanded: false
     };
-    this.addPostCallback = this.addPostCallback.bind(this);
-    this.loadReplies = this.loadReplies.bind(this);
-  }
-
-  addPostCallback(postID){
-    // this.state.replies.push(modelInstance.getPost(postID));
-    this.setState({
-      replies: this.state.replies.push(modelInstance.getPost(postID))
-    });
-  }
-
-  //TODO load thread first post and replies
-  loadReplies(){
-    console.log("CALLED " );
-    modelInstance.getReplyIds(this.props.postNumber).then(res => {
-      Promise.all(res.map((postID) => modelInstance.getPost(postID)))
-        .then(replies =>{
-          this.setState({
-            status: 'LOADED',
-            replyIDs: res,
-            replies,
-        })
-        return replies;
-
-      });
-        return res;
-    }).catch(() => {
-    this.setState({
-      status: 'ERROR',
-      replyIDs: [],
-      replies: []
-    })
-    });
   }
 
   handleToggle = () => {
@@ -70,9 +36,7 @@ export default class FirstPost extends React.Component {
   };
 
   componentDidMount() {
-    this.loadReplies();
   }
-
 
   render() {
     let postImage = null;
@@ -91,50 +55,65 @@ export default class FirstPost extends React.Component {
           </div>
         break;
     }
-    console.log(postImage);
 
-    switch(this.state.status){
-      case "LOADED":
-        replyPosts = this.state.replies.map((reply) =>
-          <Post
-          key={reply.id}
-          postID = {reply.id}
-          threadID = {this.props.postNumber}
-          postTitle={reply.title}
-          boardAbbr={reply.abbreviation}
-          userName={reply.name}
-          timeStamp={reply.created}
-          text={reply.content}
-          mediaURL={reply.mediaURL}
-          callBackFunc={this.loadReplies}
+  replyPosts = this.props.replies.map((reply) =>
+    <Post
+    key={reply.id}
+    postID = {reply.id}
+    threadID = {this.props.postNumber}
+    postTitle={reply.title}
+    boardAbbr={reply.abbreviation}
+    userName={reply.name}
+    timeStamp={readableTime(reply.created)}
+    text={reply.content}
+    mediaURL={reply.mediaURL}
+    callBackFunc={this.loadReplies}
+    />
+  )
+
+  let header = (
+    <div id="firstPostHead" className="container">
+      <CardHeader className="item"
+      style={{top:-10,left:-5}}
+        title={this.props.postTitle}
+        subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
+      />
+      <div className="item" id="replyBtn">
+        <NewPostModal
+        buttonText="Reply"
+        headText="New Reply"
+        thread="false"
+        titleHintText="Reply title here..."
+        titleLabelText="Reply title"
+        threadNumber={this.props.postNumber}
+        //postNumber={this.props.postNumber}
+        callBackFunc={this.props.addPostCallback}/>
+      </div>
+    </div>
+    )
+  if(this.props.view === "board"){
+    header = (
+      <div id="postHead" className="container">
+        <div id="openButton" className="item">
+          <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
+            <OpenThreadBtn/>
+          </Link>
+        </div>
+        <div id="headField" className="item">
+          <CardHeader
+            title={this.props.postTitle}
+            subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp} -  Replies: ${this.props.replyCount}`}
           />
-        )
-        break;
-      default:
-        break;
-    }
+        </div>
+
+      </div>
+    )
+  }
 
   return (
     <div id="post">
         <Card id="firstPostCard" align="left" style={{paddingBottom:10}}>
-        <div id="firstPostHead" className="container">
-          <CardHeader className="item"
-          style={{top:-10,left:-5}}
-            title={this.props.postTitle}
-            subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${readableTime(this.props.timeStamp)}`}
-          />
-          <div className="item" id="replyBtn">
-            <NewPostModal
-            buttonText="Reply"
-            headText="New Reply"
-            thread="false"
-            titleHintText="Reply tite here..."
-            titleLabelText="Reply title"
-            threadNumber={this.props.postNumber}
-            postNumber={this.props.postNumber}
-            callBackFunc={this.loadReplies}/>
-          </div>
-        </div>
+        {header}
         <CardMedia>
           <div className="container">
             {postImage}

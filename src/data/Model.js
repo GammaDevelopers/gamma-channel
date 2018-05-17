@@ -1,7 +1,7 @@
 
 const Model = function (){
-  /* 
-    Fetch data from gamma-channel api 
+  /*
+    Fetch data from gamma-channel api
     Each method atempts to convert result data to json
   */
 
@@ -105,6 +105,17 @@ const Model = function (){
 
   this.getThreadInfo = function (threadID){
     var endPoint = `${URL}/api/thread/${threadID}`;
+    return fetch(endPoint)
+      .then(processResponse =>{
+          return processResponse.json()})
+      .then((json) => {
+          return json;
+    })
+    .catch(handleError => console.log('There was an error: ' + handleError))
+  }
+
+  this.searchPosts = function(thread, searchString){
+    var endPoint = `${URL}/api/searchPost/${thread}/${searchString}`;
     return fetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
