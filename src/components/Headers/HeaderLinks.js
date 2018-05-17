@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
+
 class HeaderLinks extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +56,7 @@ class HeaderLinks extends Component {
 
     return (
     <div id="links">
-      <span> Boards: </span>
+      <span id="linksSpan"> Boards: </span>
       {boardLinkList}
     </div>)
   }

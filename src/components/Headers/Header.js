@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import './Header.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../Buttons/HomeButton';
@@ -57,7 +56,7 @@ class Header extends Component {
           </div>
           <div id="smallDiv" className="container">
             <div className="item" id="homeButtonSmall">
-              <HomeButton />
+              {this.getHomeButton()}
             </div>
             <div className="item" id="newPostBtnSmall">
               {postModalInstance}
