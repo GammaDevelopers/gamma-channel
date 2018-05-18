@@ -4,3 +4,8 @@ body {
   font-family: sans-serif;
   background: gray;
 }
+
+.quote{
+  display: block;
+  color:  #00FF00;
+}
