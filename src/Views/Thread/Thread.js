@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../../components/Headers/Header'
-import FirstPost from '../../components/Post/FirstPost';
+import ThreadComponent from '../../components/Post/ThreadComponent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import readableTime from "readable-timestamp"
@@ -13,7 +13,7 @@ class Thread extends Component {
   this.state = {
     shadow: 1,
     status: 'INITIAL',
-    firstPost: [],
+    threadComponent: [],
     posts: []
   }
 }
@@ -22,12 +22,12 @@ loadThreadPosts() {
   modelInstance.getPost(this.props.match.params.threadID).then(res => {
     this.setState({
       status: 'LOADED',
-      firstPost: res
+      threadComponent: res
     })
     }).catch(() => {
     this.setState({
       status: 'ERROR',
-      firstPost: []
+      threadComponent: []
     })
   });
 }
@@ -98,18 +98,18 @@ onMouseOver = () => this.setState({ shadow: 4 });
 onMouseOut = () => this.setState({ shadow: 1 });
 
 render() {
-  let theFirstPost = null;
+  let theThreadComponent = null;
   switch(this.state.status){
     case 'LOADED':
-      theFirstPost =
-      <FirstPost 
+      theThreadComponent =
+      <ThreadComponent
       addPostCallback={this.addPostCallback.bind(this)}
-      postTitle={this.state.firstPost.title}
-      postNumber={this.state.firstPost.id}
-      userName={this.state.firstPost.name}
-      timeStamp={readableTime(this.state.firstPost.created)}
-      mediaURL={this.state.firstPost.mediaURL}
-      text={this.state.firstPost.content}
+      postTitle={this.state.threadComponent.title}
+      postNumber={this.state.threadComponent.id}
+      userName={this.state.threadComponent.name}
+      timeStamp={readableTime(this.state.threadComponent.created)}
+      mediaURL={this.state.threadComponent.mediaURL}
+      text={this.state.threadComponent.content}
       replies={this.state.posts}
       />
       break;
@@ -118,10 +118,10 @@ render() {
   }
   return (
     <div>
-      <Header title={this.state.firstPost.title} type="thread"/>
+      <Header title={this.state.threadComponent.title} type="thread"/>
       <SearchBar callback={this.onSearchChange.bind(this)} type="board"/>
         <div id="thread" className="">
-          {theFirstPost}
+          {theThreadComponent}
         </div>
       </div>
     );

@@ -12,11 +12,11 @@
   margin-left: 20px;
 }
 
-#firstPostHead > CardHeader{
+#ThreadComponentHead > CardHeader{
   margin-top: -10px;
 }
 
-#firstPostHead{
+#ThreadComponentHead{
   justify-content: space-between;
   flex: 1;
 }
