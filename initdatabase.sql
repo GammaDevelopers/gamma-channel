@@ -46,13 +46,6 @@ CREATE TABLE banners (
     submitter varchar(25)
 );
 
-CREATE TABLE news (
-    created   timestamp PRIMARY KEY DEFAULT current_timestamp,
-    title     varchar(50),
-    image     varchar(128),
-    content   varchar(10000),
-);
-
 
 grant all privileges on gamma to testuser;
 alter table threads add foreign key (firstPost) REFERENCES posts(id);
