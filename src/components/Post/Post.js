@@ -51,18 +51,18 @@ export default class Post extends React.Component {
       case true:
         postImage =
           <div id="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" class="postImgExpanded" src={this.props.mediaURL}  alt="" />
+            <img align="left" className="postImgExpanded" src={this.props.mediaURL}  alt="" />
           </div>
           break;
       default:
         postImage =
           <div id="imgDiv" onClick={() => this.handleToggle()}>
-            <img align="left" class="postImg" src={this.props.mediaURL} alt="" />
+            <img align="left" className="postImg" src={this.props.mediaURL} alt="" />
           </div>
         break;
     }
     return (
-      <div id={this.props.postID} class="post">
+      <div id={this.props.postID} className="post">
         <Card align="left" expanded={this.state.expanded} onExpandChange={this.handleExpandChange} style={{
       backgroundColor: '#404040'}}>
           <div id="replyPostHead" className="container">
