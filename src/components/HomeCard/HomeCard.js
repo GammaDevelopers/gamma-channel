@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Card, CardTitle} from 'material-ui/Card';
+import {Card, CardHeader} from 'material-ui/Card';
 import './HomeCard.css';
 import { Link } from 'react-router-dom';
 import theImage from '../../images/logo.png';
@@ -25,14 +25,14 @@ class HomeCard extends Component {
     return (
       <Link to={this.state.boardRoute}>
         <div id="board" className="item">
-          <Card onMouseOver={this.onMouseOver}
-           onMouseOut={this.onMouseOut}
-           zDepth={this.state.shadow}>
-            <CardTitle align="left"
+          <Card
+            onMouseOver={this.onMouseOver}
+            onMouseOut={this.onMouseOut}
+            zDepth={this.state.shadow}>
+            <CardHeader align="left" className="postHead"
               title={this.props.title}
               subtitle={this.props.subtitle}
-              style={{top:-10}}
-             />
+            />
             <div className="container">
               <img align="left" id="boardImg" src={theImage} alt="" />
             </div>

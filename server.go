@@ -67,7 +67,7 @@ func formatGreenText(input []byte) []byte {
 }
 
 func formatSpoiler(input []byte) []byte {
-	r := regexp.MustCompile(`(?i)^\[spoiler\]\((.*?)\)$`)
+	r := regexp.MustCompile(`(?i)\[spoiler\]\((.*?)\)`)
 	return r.ReplaceAll(input, []byte(`<blockquote class="spoiler">$1</blockquote>`))
 }
 
@@ -76,18 +76,12 @@ func formatReply(input []byte) []byte {
 	return r.ReplaceAll(input, []byte(`<a class="postRef" href="$1">$1</a>`))
 }
 
-func prettifyCode(input []byte) []byte {
-	r := regexp.MustCompile(`(?i)<code class="(.*?)"`)
-	return r.ReplaceAll(input, []byte(`<code class="prettyprint $1"`))
-}
-
 func markDown(input string) string {
 	byteArr := []byte(input)
 	byteArr = formatGreenText(byteArr)
 	byteArr = formatSpoiler(byteArr)
 	byteArr = formatReply(byteArr)
 	unsafe := blackfriday.Run(byteArr)
-	unsafe = prettifyCode(unsafe)
 	p := bluemonday.UGCPolicy()
 	p.AllowAttrs("class").Matching(regexp.MustCompile("^(prettyprint)? language-[a-zA-Z0-9]+$")).OnElements("code")
 	p.AllowAttrs("class").Matching(regexp.MustCompile("^postRef$")).OnElements("a")

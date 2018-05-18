@@ -3,6 +3,7 @@ import ThreadComponent from '../../components/Post/ThreadComponent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import readableTime from "readable-timestamp"
+import {Redirect} from 'react-router-dom';
 import './Thread.css';
 
 
@@ -23,7 +24,7 @@ loadThreadPosts() {
       status: 'LOADED',
       threadComponent: res
     })
-    }).catch(() => {
+    }).catch((error) => {
     this.setState({
       status: 'ERROR',
       threadComponent: []
@@ -41,7 +42,6 @@ loadReplies(){
           posts: replies,
       })
       return replies;
-
     });
       return res;
   }).catch(() => {
@@ -111,6 +111,8 @@ render() {
       replies={this.state.posts}
       />
       break;
+    case 'ERROR':
+      return(<Redirect from='*' to='/404' />)
     default:
       break;
   }

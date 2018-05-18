@@ -5,6 +5,10 @@ body {
   background: gray;
 }
 
+a{
+  text-decoration: none;
+}
+
 .quote{
   display: block;
   color:  #00FF00;
@@ -21,7 +25,7 @@ body {
 {
   opacity: 0
 }
-blockquote, blockquote > *:not(a) {
+.spoiler, .spoiler > *:not(a) {
   color: black;
   background-color: black;
 }
@@ -40,6 +44,22 @@ blockquote, blockquote > *:not(a) {
 
 .appTitle {
   font-size: 1.5em;
+}
+
+a, a:hover, a:focus {
+  text-decoration: none;
+}
+
+
+a:link {
+  color: inherit;
+}
+a:visited {
+  color: inherit;
+}
+
+a.postRef {
+  color: cadetblue;
 }
 
 
