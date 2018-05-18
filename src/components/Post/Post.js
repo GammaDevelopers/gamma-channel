@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import './Post.css';
 import NewPostModal from '../Dialogs/NewPostModal';
@@ -14,6 +15,15 @@ export default class Post extends React.Component {
 
   loadReplies(){
     console.log("CALLED " );
+  }
+
+  componentDidMount = () => {
+    //Highlight code 
+    var current = ReactDOM.findDOMNode(this);
+    let query = current.querySelectorAll('pre code');
+    for (let code of query) {
+      window.hljs.highlightBlock(code);
+    }
   }
 
   handleExpandChange = (expanded) => {
@@ -79,7 +89,7 @@ export default class Post extends React.Component {
           <CardMedia>
             <div className="container">
               {postImage}
-              <CardText style={{paddingTop:0}} dangerouslySetInnerHTML={this.props.text}></CardText>
+              <CardText  style={{paddingTop:0}} dangerouslySetInnerHTML={this.props.text}></CardText>
             </div>
           </CardMedia>
         </Card>

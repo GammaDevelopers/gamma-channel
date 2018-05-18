@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import Post from './Post'
 import './ThreadComponent.css';
@@ -35,7 +36,13 @@ export default class ThreadComponent extends React.Component {
     this.setState({expanded: false});
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
+    //Highlight code 
+    var current = ReactDOM.findDOMNode(this);
+    let query = current.querySelectorAll('pre code');
+    for (let code of query) {
+      window.hljs.highlightBlock(code);
+    }
   }
 
   render() {
