@@ -134,7 +134,7 @@ func errorResponseMessage(w http.ResponseWriter, message string) {
 func boards(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
 	defer db.Close()
-	rows, err := db.Query(`SELECT name, abbreviation, description FROM BOARDS`)
+	rows, err := db.Query(`SELECT name, abbreviation, description WHERE name <> 'News' FROM BOARDS`)
 	if err != nil {
 		errorResponse(w)
 		return
