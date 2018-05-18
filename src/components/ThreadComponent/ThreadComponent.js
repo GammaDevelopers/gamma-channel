@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
-import Post from '../Post/Post';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
+import Post from '../Post/Post'
 import './ThreadComponent.css';
 import NewPostModal from '../Dialogs/NewPostModal';
 import readableTime from "readable-timestamp"
@@ -11,6 +13,7 @@ export default class ThreadComponent extends React.Component {
 
   constructor(props) {
     super(props);
+    this.modal = React.createRef();
     this.state = {
       expanded: false
     };
@@ -32,7 +35,13 @@ export default class ThreadComponent extends React.Component {
     this.setState({expanded: false});
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
+    //Highlight code 
+    var current = ReactDOM.findDOMNode(this);
+    let query = current.querySelectorAll('pre code');
+    for (let code of query) {
+      window.hljs.highlightBlock(code);
+    }
   }
 
   render() {
@@ -64,7 +73,7 @@ export default class ThreadComponent extends React.Component {
     timeStamp={readableTime(reply.created)}
     text={reply.content}
     mediaURL={reply.mediaURL}
-    callBackFunc={this.props.addPostCallback}
+    replyCallback={(postID)=>{this.modal.current.handleOpen(postID)}}
     />
   )
 
@@ -76,14 +85,14 @@ export default class ThreadComponent extends React.Component {
         subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
       />
       <div className="item" id="replyBtn">
+        <RaisedButton label="Reply" onClick={()=>{this.modal.current.handleOpen(this.props.postNumber)}}/>
         <NewPostModal
-        buttonText="Reply"
-        headText="New Reply"
-        thread="false"
-        titleHintText="Reply title here..."
+        ref = {this.modal}
+        titleHintText="Reply tite here..."
         titleLabelText="Reply title"
+        headText="Reply"
+        thread="false"
         threadNumber={this.props.postNumber}
-        //postNumber={this.props.postNumber}
         callBackFunc={this.props.addPostCallback}/>
       </div>
     </div>
@@ -113,7 +122,7 @@ export default class ThreadComponent extends React.Component {
         <CardMedia>
           <div className="container">
             {postImage}
-            <CardText style={{paddingTop:0}} dangerouslySetInnerHTML={this.props.text}></CardText>
+            <CardText style={{maxWidth:"90%",paddingTop:0}} dangerouslySetInnerHTML={this.props.text}></CardText>
           </div>
         </CardMedia>
         <div id="replies">

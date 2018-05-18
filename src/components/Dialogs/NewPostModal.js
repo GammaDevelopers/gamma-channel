@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -27,7 +28,7 @@ export default class DialogExampleModal extends React.Component {
       text: '',
       captcha: false,
       captchaResponse: '',
-      board: props.chosenBoard,
+      board: props.chosenBoardName,
       boards: [],
       image: "",
       threadID: 0,
@@ -51,14 +52,25 @@ export default class DialogExampleModal extends React.Component {
   }
 
   componentDidMount = () => {
-    this.setState({board:this.props.chosenBoardName});
     this.loadBoards();
+    this.setState({board:this.props.chosenBoardName});
   }
 
-  handleOpen = () => {
-    this.setState({open: true});
-    if(this.props.postNumber !== undefined){
-      this.setState({text:'#'+this.props.postNumber+" "});
+  handleOpen = (postID) => {
+    //reset state
+    this.setState({
+      open: true,
+      title: '',
+      userName: '',
+      text: '',
+      captcha: false,
+      captchaResponse: '',
+      image: "",
+      threadID: 0,
+      progress: -2,
+    });
+    if(postID !== undefined){
+      this.setState({text:'#'+postID+" "});
     }
   };
 
@@ -130,33 +142,19 @@ export default class DialogExampleModal extends React.Component {
   }
 
   handleSubmit = () => {
-    var titleSucc = false, textSucc = false, validPost = false;
-    if(this.state.title !== "") {
-      titleSucc = true;
-    }
-    if(this.state.text !== "") {
-      textSucc = true;
-    }
-
-    if(this.props.thread === "false" && textSucc){
-      validPost = true;
-    }else if(titleSucc && textSucc){
-      validPost = true;
-    }
-
-    if(validPost && this.state.captcha){
-      this.upploadImage().then( (mediaURL) => {
-        var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
-        if(this.props.thread === "false"){
-          return this.createPostReply(postData).then((postID) => {
-            this.props.callBackFunc(postID)
-            this.handleClose();
-          });
-        }else{
-          return this.createThreadOuter(postData);
-        }
-      }).catch((err) => alert(`Failed to create post: ${err}`))
-    }
+    //Reset captch val on subbmit
+    this.setState({"captcha":false}) 
+    this.upploadImage().then( (mediaURL) => {
+      var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
+      if(this.props.thread === "false"){
+        return this.createPostReply(postData).then((postID) => {
+          this.props.callBackFunc(postID)
+          this.handleClose();
+        });
+      }else{
+        return this.createThreadOuter(postData);
+      }
+    }).catch((err) => alert(`Failed to create post: ${err}`))
   }
 
   render() {
@@ -197,6 +195,7 @@ export default class DialogExampleModal extends React.Component {
       default:
         break;
     }
+    console.log(this.state.status)
     const actions = [
       <FlatButton
         label="Cancel"
@@ -232,8 +231,6 @@ export default class DialogExampleModal extends React.Component {
     }
 
     return (
-      <div>
-        <RaisedButton label={this.props.buttonText} onClick={this.handleOpen} />
         <Dialog
           autoScrollBodyContent={true}
           title={this.props.headText}
@@ -287,13 +284,10 @@ export default class DialogExampleModal extends React.Component {
             <div>
               <span> Thread Created sucessfully </span>
               {/*Todo: fix for other boards to */}
-              <Link to={`/${this.props.chosenBoardAbbr}/${this.state.threadID}`}>
-                <RaisedButton label="Go to thread" primary={true} />
-              </Link>
+              <Redirect to={`/${this.props.chosenBoardAbbr}/${this.state.threadID}`}/>
             </div>
           }
         </Dialog>
-      </div>
     );
   }
 }
