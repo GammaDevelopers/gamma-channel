@@ -33,7 +33,6 @@ loadThreadPosts() {
 }
 
 loadReplies(){
-  console.log("CALLED " );
   modelInstance.getReplyIds(this.props.threadID).then(res => {
     Promise.all(res.map((postID) => modelInstance.getPost(postID)))
       .then(replies =>{
@@ -58,7 +57,6 @@ onSearchChange(input) {
     this.loadReplies();
     return;
   }
-  console.log("CALLED " );
   modelInstance.searchPosts(this.props.threadID, input).then(res => {
     Promise.all(res.map((postID) => modelInstance.getPost(postID)))
       .then(replies =>{
@@ -88,8 +86,6 @@ addPostCallback(postID){
 componentDidMount() {
   this.loadThreadPosts();
   this.loadReplies();
-  console.log("Component mounts here");
-  console.log(this.state);
 }
 
 onMouseOver = () => this.setState({ shadow: 4 });
