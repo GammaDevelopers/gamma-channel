@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import image from '../../images/404.png';
+import './NotFound.css';
 
 class Home extends Component {
   render() {
-    const style = {
-      maxHeight: "500px"
-    };
-
     return (
-      <div>
-        <img style={style}alt="Page not found" src={image} />
+      <div id="notFoundDiv" className="container">
+        <img id="notFoundImg" className="item" alt="Page not found" src={image} />
       </div>
     );
   }

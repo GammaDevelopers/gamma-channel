@@ -102,7 +102,6 @@ export default class ThreadComponent extends React.Component {
             <CardHeader
               title={this.props.postTitle}
               subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp} -  Replies: ${this.props.replyCount}`}
-              titleStyle={'padding-right=0px'}
             />
           </div>
           <p className="item" id="openThread">
