@@ -54,7 +54,7 @@ export default class Post extends React.Component {
         break;
     }
     return (
-      <div id="post">
+      <div id={this.props.postID} class="post">
         <Card align="left" expanded={this.state.expanded} onExpandChange={this.handleExpandChange} style={{
       backgroundColor: '#404040'}}>
           <div id="replyPostHead" className="container">

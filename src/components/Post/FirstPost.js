@@ -111,7 +111,7 @@ export default class FirstPost extends React.Component {
   }
 
   return (
-    <div id="post">
+    <div id={this.props.postNumber} class="post">
         <Card id="firstPostCard" align="left" style={{paddingBottom:10}}>
         {header}
         <CardMedia>
