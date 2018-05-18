@@ -75,4 +75,15 @@ div {
   #homeContainer{
     flex-direction: column;
   }
+
+  #boardContainer{
+    width: 100%;
+    margin-right: 5px;
+  }
+
+  #newsContainer{
+    margin-right: 5px;
+    width: 100%;
+    margin-left: 5px;
+  }
 }
