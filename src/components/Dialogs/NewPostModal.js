@@ -53,7 +53,6 @@ export default class DialogExampleModal extends React.Component {
   componentDidMount = () => {
     this.setState({board:this.props.chosenBoardName});
     this.loadBoards();
-
   }
 
   handleOpen = () => {
