@@ -1,9 +1,9 @@
 import React from 'react';
-import './SearchBar.css';
 import {default as SearchBarUi} from 'material-ui-search-bar';
+import './SearchBar.css';
+
 
 export default class SearchBar extends React.Component {
-
   onSearchChange = (value) => {
     this.props.callback(value);
   }

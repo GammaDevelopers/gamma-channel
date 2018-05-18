@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardText} from 'material-ui/Card';
 import './Instructions.css';
-import HomeCard from '../../components/HomeCard/HomeCard.js';
 import HomeAppBar from '../../components/HomeAppBar/HomeAppBar.js';
-import Header from '../Header/Header'
-import {modelInstance} from '../../data/Model';
-import ContentLoader from "react-content-loader";
 
 
 class Instructions extends Component {

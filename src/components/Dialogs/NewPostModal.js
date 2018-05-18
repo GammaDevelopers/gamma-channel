@@ -1,17 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
-import './Modals.css'
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import {Redirect} from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import './NewPostModal.css'
+import Dropzone from '../Dropzone/Dropzone'
 import {modelInstance} from '../../data/Model';
 import {mediaInstance} from '../../data/MediaUpload'
-import Dropzone from '../Buttons/dropzone'
 var Recaptcha = require('react-recaptcha');
 
 
@@ -53,7 +53,6 @@ export default class DialogExampleModal extends React.Component {
 
   componentDidMount = () => {
     this.loadBoards();
-    console.log(this.props.chosenBoardName)
     this.setState({board:this.props.chosenBoardName});
   }
 
@@ -184,7 +183,6 @@ export default class DialogExampleModal extends React.Component {
       }
     }
 
-
     switch(this.state.status){
       case 'LOADED':
         boardList = this.state.boards.map((board) =>
@@ -219,9 +217,8 @@ export default class DialogExampleModal extends React.Component {
     if(this.props.thread === "true"){
       dropDownMenu = (
         <div>
-          <div>
-            <p> Select board </p>
-
+          <div id="selectBoardText">
+            <p> Select board *</p>
           </div>
           <DropDownMenu
           value={this.state.board}

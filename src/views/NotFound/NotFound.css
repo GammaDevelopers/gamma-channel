@@ -1,6 +1,7 @@
 #notFoundImg{
-  max-width:800px;
-  width: 100%;
+  display: block;
+  max-height: 800px;
+  width: auto;
 }
 
 #notFoundDiv{

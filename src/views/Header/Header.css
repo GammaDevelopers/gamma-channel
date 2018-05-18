@@ -3,6 +3,12 @@
   font-size: 50px;
 }
 
+.appHeader{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
 #headerContainer{
   /*
   display: flex;
@@ -20,7 +26,7 @@
   display: flex;
 }
 
-#newPostBtnLarge{
+#buttonsLarge{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -49,8 +55,12 @@
   text-align: center;
 }
 
-#newPostBtnSmall{
+#buttonsSmall{
   text-align: center;
+}
+
+#linksAppBar{
+  display: none;
 }
 
 @media screen and (max-width: 500px) {
@@ -58,6 +68,16 @@
     grid-template-columns: 1fr;
     overflow: hidden;
   }
+
+  #linksAppBar{
+    display: flex;
+  }
+
+  #linksAppBar > div > h1{
+    margin-right: auto;
+    padding-left: 30px;
+  }
+
   #smallDiv{
     align-self: center;
     text-align: center;
@@ -68,17 +88,25 @@
     display: flex;
   }
 
-
   #bannerDiv{
     display: flex;
     align-self: center;
+  }
+
+  #linksList{
+    display: none;
   }
 
   #homeButtonLarge{
     display: none;
   }
 
-  #newPostBtnLarge{
+  #buttonsSmall{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #buttonsLarge{
     display: none;
   }
 }

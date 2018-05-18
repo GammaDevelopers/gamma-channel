@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import Post from './Post'
+import { Link } from 'react-router-dom';
+import Post from '../Post/Post'
 import './ThreadComponent.css';
 import NewPostModal from '../Dialogs/NewPostModal';
-import { Link } from 'react-router-dom';
 import readableTime from "readable-timestamp"
 
 
@@ -50,14 +50,14 @@ export default class ThreadComponent extends React.Component {
     switch(this.state.expanded){
       case true:
         postImage =
-          <div class="imgDivExpanded" onClick={() => this.handleToggle()}>
-            <img align="left" class="postImgExpanded" src={this.props.mediaURL} alt="" />
+          <div className="imgDivExpanded" onClick={() => this.handleToggle()}>
+            <img align="left" className="postImgExpanded" src={this.props.mediaURL} alt="" />
           </div>
       break;
       default:
         postImage =
           <div id="imgDiv" onClick={() => this.handleToggle()}>
-            <img align="left" class="postImg" src={this.props.mediaURL} alt="" />
+            <img align="left" className="postImg" src={this.props.mediaURL} alt="" />
           </div>
         break;
     }
@@ -116,7 +116,7 @@ export default class ThreadComponent extends React.Component {
   }
 
   return (
-    <div id={this.props.postNumber} class="post">
+    <div id={this.props.postNumber} className="post">
         <Card id="ThreadComponentCard" align="left" style={{paddingBottom:10}}>
         {header}
         <CardMedia>

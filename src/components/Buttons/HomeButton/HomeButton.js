@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import IconButton from 'material-ui/IconButton';
 import { Link } from 'react-router-dom';
+import IconButton from 'material-ui/IconButton';
 import HomeIcon from 'material-ui/svg-icons/action/home';
 import './HomeButton.css';
+
 
 class HomeButton extends Component {
   constructor(props) {
     super(props);
     this.state = { }
   }
-
-
 
   render() {
     return (

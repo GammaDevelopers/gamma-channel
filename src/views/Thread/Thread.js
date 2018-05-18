@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import ThreadComponent from '../../components/Post/ThreadComponent';
+import {Redirect} from 'react-router-dom';
+import readableTime from "readable-timestamp"
+import './Thread.css';
+import ThreadComponent from '../../components/ThreadComponent/ThreadComponent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
-import readableTime from "readable-timestamp"
-import {Redirect} from 'react-router-dom';
-import './Thread.css';
 
 
 class Thread extends Component {
@@ -114,7 +114,7 @@ render() {
   }
   return (
     <div>
-      <SearchBar callback={this.onSearchChange.bind(this)} type="board"/>
+      <SearchBar callback={this.onSearchChange.bind(this)} type="thread"/>
         <div id="thread" className="">
           {theThreadComponent}
         </div>

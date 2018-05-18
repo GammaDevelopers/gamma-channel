@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import Tooltip from '@material-ui/core/Tooltip';
 import './Banner.css';
 import {modelInstance} from '../../data/Model';
-import Tooltip from '@material-ui/core/Tooltip';
+
 
 class Banner extends Component {
   constructor(props) {
@@ -15,8 +16,8 @@ class Banner extends Component {
   componentDidMount(){
     modelInstance.getHeaderImage().then((banner) => {
       this.setState({'image':banner.image,
-      'description': `Banner Creator: ${banner.submitter}
-      id: ${banner.id} tickets: ${banner.weight}`})
+      'description': `Banner Creator: ${banner.submitter},
+      id: ${banner.id}, tickets: ${banner.weight}`})
   })
   }
 

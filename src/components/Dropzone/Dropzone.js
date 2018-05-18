@@ -1,6 +1,5 @@
-
 import React from 'react';
-import './dropzone.css';
+import './Dropzone.css';
 import UploadImage from '../../images/uploadImage.png'
 
 
@@ -48,7 +47,6 @@ export default class Dropzone extends React.Component {
     e.stopPropagation();
     e.preventDefault();
   }
-
 
   drop(e) {
     e.stopPropagation();

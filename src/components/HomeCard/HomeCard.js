@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {Card, CardHeader} from 'material-ui/Card';
 import './HomeCard.css';
-import { Link } from 'react-router-dom';
 import theImage from '../../images/logo.png';
+
 
 class HomeCard extends Component {
   constructor(props) {
