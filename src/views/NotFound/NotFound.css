@@ -1,0 +1,10 @@
+#notFoundImg{
+  max-width:800px;
+  width: 100%;
+}
+
+#notFoundDiv{
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
