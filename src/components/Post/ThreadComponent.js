@@ -121,7 +121,7 @@ export default class ThreadComponent extends React.Component {
         <CardMedia>
           <div className="container">
             {postImage}
-            <CardText style={{paddingTop:0}} dangerouslySetInnerHTML={this.props.text}></CardText>
+            <CardText style={{maxWidth:"90%",paddingTop:0}} dangerouslySetInnerHTML={this.props.text}></CardText>
           </div>
         </CardMedia>
         <div id="replies">
