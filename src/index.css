@@ -5,6 +5,10 @@ body {
   background: gray;
 }
 
+a{
+  text-decoration: none;
+}
+
 .quote{
   display: block;
   color:  #00FF00;

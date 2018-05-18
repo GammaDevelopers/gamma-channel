@@ -74,7 +74,7 @@ export default class ThreadComponent extends React.Component {
   let header = (
     <div id="ThreadComponentHead" className="container">
       <CardHeader className="item"
-      style={{top:-10,left:-5}}
+        style={{top:-10,left:-5}}
         title={this.props.postTitle}
         subtitle={`No.${this.props.postNumber}, ${this.props.userName}, ${this.props.timeStamp}`}
       />
@@ -95,9 +95,6 @@ export default class ThreadComponent extends React.Component {
     header = (
       <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
         <div className="container postHead">
-          {/*<div id="openButton" className="item">
-            <OpenThreadBtn/>
-          </div>*/}
           <div id="headField" className="item">
             <CardHeader
               title={this.props.postTitle}
