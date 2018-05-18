@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Board.css';
-import Header from '../../components/Headers/Header';
 import ThreadComponent from '../../components/Post/ThreadComponent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';

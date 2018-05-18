@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Home.css';
 import HomeCard from '../../components/HomeCard/HomeCard.js';
 import HomeAppBar from '../../components/HomeAppBar/HomeAppBar.js';
-import Header from '../../components/Headers/Header'
 import Board from '../Board/Board'
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './Header.css';
 import HeaderLinks from './HeaderLinks';
-import HomeButton from '../Buttons/HomeButton';
-import NewPostModal from './../Dialogs/NewPostModal'
-import Banner from '../Banners/Banner.js'
-import BadgeNotification from '../Badge/BadgeNotification';
+import HomeButton from '../../components/Buttons/HomeButton';
+import NewPostModal from '../../components/Dialogs/NewPostModal'
+import Banner from '../../components/Banners/Banner.js'
+import BadgeNotification from '../../components/Badge/BadgeNotification';
 
 class Header extends Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
-import Header from './components/Headers/Header';
+import Header from './views/Header/Header';
 import Home from './views/Home/Home';
 import Thread from './views/Thread/Thread';
 import Board from './views/Board/Board';
@@ -45,7 +45,7 @@ class App extends Component {
             key={boards.abbreviation}
             render={()=> 
             <div className="mainWrapper">
-              <Header title={boards.name} type="home"/>
+              <Header title={boards.name} type="board"/>
               <Board boardName={boards.name} boardAbbr={boards.abbreviation}/>
             </div>
             }
