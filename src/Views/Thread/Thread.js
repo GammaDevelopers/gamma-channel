@@ -39,7 +39,6 @@ loadReplies(){
     Promise.all(res.map((postID) => modelInstance.getPost(postID)))
       .then(replies =>{
         this.setState({
-          status: 'LOADED',
           replyIDs: res,
           posts: replies,
       })
