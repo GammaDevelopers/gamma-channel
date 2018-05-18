@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
-import Post from './Post'
+import Post from '../Post/Post';
 import './ThreadComponent.css';
 import NewPostModal from '../Dialogs/NewPostModal';
-import { Link } from 'react-router-dom';
 import readableTime from "readable-timestamp"
 
 

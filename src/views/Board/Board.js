@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import './Board.css';
-import ThreadComponent from '../../components/Post/ThreadComponent';
-import SearchBar from '../../components/SearchBar/SearchBar';
-import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 import readableTime from "readable-timestamp"
+import './Board.css';
+import ThreadComponent from '../../components/ThreadComponent/ThreadComponent';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import {modelInstance} from '../../data/Model';
+
 
 class Board extends Component {
   constructor(props) {
