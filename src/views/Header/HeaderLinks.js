@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import {modelInstance} from '../../data/Model';
 import { Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import AppBar from 'material-ui/AppBar';
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import HomeButton from '../../components/Buttons/HomeButton/HomeButton'
 import ActionHelp from 'material-ui/svg-icons/action/help';
+import NewPostModal from '../../components/Dialogs/NewPostModal'
 
 
 class HeaderLinks extends Component {
   constructor(props) {
     super(props);
+    this.modal = React.createRef();
     this.state = {
 
     status: 'INITIAL',
@@ -85,19 +85,17 @@ class HeaderLinks extends Component {
           </div>}
         iconElementRight={
           <div className="container">
-            <div className="item">
+            <div className="item HeaderButtons">
               <IconMenu
                 iconButtonElement={
-                  <RaisedButton label="+THREAD">
-                  </RaisedButton>
+                  <RaisedButton label="+Thread" onClick={()=>{this.modal.current.handleOpen()}}/>
                 }
                 targetOrigin={{horizontal: 'right', vertical: 'top'}}
                 anchorOrigin={{horizontal: 'right', vertical: 'top'}}
               >
-                {boardMenuList}
               </IconMenu>
             </div>
-            <div className="item">
+            <div className="item HeaderButtons">
               <IconMenu
                 iconButtonElement={
                   <RaisedButton label="Boards">
@@ -119,12 +117,15 @@ class HeaderLinks extends Component {
       <div id="linksAppBar">
         {appBar}
       </div>
-      <div id="linksList">
-        <div id="homeButtonLarge homeButtonSmall">
-          {this.getHomeButton()}
-        </div>
-        <span id="linksSpan"> Boards: </span>
-      </div>
+      <NewPostModal
+      ref={this.modal}
+      thread="true"
+      headText="New Thread"
+      titleHintText="Thread tite here..."
+      titleLabelText="Thread title *"
+      chosenBoardName={this.props.boardName}
+      chosenBoardAbbr={this.props.boardAbbr}
+      />
     </div>
   )
   }

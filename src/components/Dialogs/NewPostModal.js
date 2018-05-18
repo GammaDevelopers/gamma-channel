@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -143,7 +141,7 @@ export default class DialogExampleModal extends React.Component {
 
   handleSubmit = () => {
     //Reset captch val on subbmit
-    this.setState({"captcha":false}) 
+    this.setState({"captcha":false})
     this.upploadImage().then( (mediaURL) => {
       var postData = modelInstance.generatePostData(this.state.title,this.state.userName,this.state.text, "", mediaURL);
       if(this.props.thread === "false"){

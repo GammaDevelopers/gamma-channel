@@ -1,39 +1,13 @@
-#homeIcon{
-  margin-right: 24;
-  font-size: 50px;
-}
-
 .appHeader{
   padding-left: 0;
   padding-right: 0;
 }
 
-
 #headerContainer{
-  /*
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  */
   display: grid;
   grid-template-columns: 100px 1fr 100px;
   padding-top: 20px;
   justify-items: center;
-}
-
-#homeButtonLarge{
-  text-align: center;
-  display: flex;
-}
-
-#buttonsLarge{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-#headerLogo{
-  align-self: center;
 }
 
 #bannerDiv{
@@ -41,30 +15,9 @@
   align-self: center;
 }
 
-#smallDiv{
-  align-self: center;
-  text-align: center;
-  margin: auto;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  display: none;
-}
-
-#homeButtonSmall{
-  text-align: center;
-}
-
-#buttonsSmall{
-  text-align: center;
-}
-
 #linksAppBar{
   display: none;
 }
-
-
-
 
 #headerContainer {
   grid-template-columns: 1fr;
@@ -77,17 +30,7 @@
 
 #linksAppBar > div > h1{
   margin-right: auto;
-  padding-left: 30px;
-}
-
-#smallDiv{
-  align-self: center;
-  text-align: center;
-  margin: auto;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
+  padding-left: 100px;
 }
 
 #bannerDiv{
@@ -95,19 +38,6 @@
   align-self: center;
 }
 
-#linksList{
-  display: none;
-}
-
-#homeButtonLarge{
-  display: none;
-}
-
-#buttonsSmall{
-  display: flex;
-  justify-content: space-around;
-}
-
-#buttonsLarge{
-  display: none;
+.HeaderButtons {
+  margin: 5px;
 }
