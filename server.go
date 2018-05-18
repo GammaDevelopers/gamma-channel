@@ -525,6 +525,7 @@ func main() {
 	router.HandleFunc("/api/search/{board}/{query}", searchThread)
 	router.HandleFunc("/api/searchPost/{threadID}/{query}", searchReply)
 	router.HandleFunc("/api/threads/{board}", threads)
+	router.HandleFunc("/api/threads/{board}/new", createThread)
 	router.HandleFunc("/api/thread/{id}", getThread)
 	router.HandleFunc("/api/thread/{id}/replies", replies)
 	router.HandleFunc("/api/post/{id}", getPost)
