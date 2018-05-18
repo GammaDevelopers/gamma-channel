@@ -2,7 +2,6 @@ import React from 'react';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import Post from './Post'
 import './FirstPost.css';
-import {modelInstance} from '../../data/Model';
 import NewPostModal from '../Dialogs/NewPostModal';
 import OpenThreadBtn from '../Buttons/OpenThreadBtn'
 import { Link } from 'react-router-dom';

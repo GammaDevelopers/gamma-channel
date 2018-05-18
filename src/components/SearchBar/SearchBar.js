@@ -3,9 +3,6 @@ import './SearchBar.css';
 import {default as SearchBarUi} from 'material-ui-search-bar';
 
 export default class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   onSearchChange = (value) => {
     this.props.callback(value);
