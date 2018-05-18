@@ -60,7 +60,6 @@ export default class DialogExampleModal extends React.Component {
     this.setState({open: true});
     if(this.props.postNumber !== undefined){
       this.setState({text:'#'+this.props.postNumber+" "});
-      console.log(this.props.postNumber);
     }
   };
 
@@ -87,7 +86,6 @@ export default class DialogExampleModal extends React.Component {
   createThreadOuter = (postData) => {
     modelInstance.createThread(this.state.board,postData,this.state.captchaResponse)
     .then( (threadID) => {
-      console.log("Created thread with id: " + threadID)
       this.setState({threadID: threadID})
     }).catch( (err) => {
       //Todo: Handle post error
@@ -111,7 +109,7 @@ export default class DialogExampleModal extends React.Component {
     }))
   }
   /* Returns a promise with properties:
-  *  Resolves to emtpy string if no image specified 
+  *  Resolves to emtpy string if no image specified
   *  Resolves to url if image upploaded sucessfully
   *  Rjected if image uppload failed
   */
@@ -121,7 +119,6 @@ export default class DialogExampleModal extends React.Component {
         this.setState({progress: 0})
         mediaInstance.imgurUpload(this.state.image, (frac) => {
           this.setState({progress: 100*frac})
-          console.log(this.state.progress)
         }, (response) => {
           reject(response)
         }, (mediaURL) => {
@@ -172,7 +169,6 @@ export default class DialogExampleModal extends React.Component {
         && this.state.captcha === true
       ) {
           disabledBool = false;
-          console.log("okay post");
 
       } else {
         disabledBool = true;
@@ -183,7 +179,6 @@ export default class DialogExampleModal extends React.Component {
         && this.state.captcha === true
       ) {
           disabledBool = false;
-          console.log("okay thread");
 
       } else {
         disabledBool = true;
