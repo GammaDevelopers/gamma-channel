@@ -42,6 +42,22 @@ body {
   font-size: 1.5em;
 }
 
+a, a:hover, a:focus {
+  text-decoration: none;
+}
+
+
+a:link {
+  color: inherit;
+}
+a:visited {
+  color: inherit;
+}
+
+a.postRef {
+  color: cadetblue;
+}
+
 
 @media screen and (max-width: 500px) {
 
