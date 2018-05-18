@@ -19,9 +19,9 @@ Project Root/
 ├── server.go (Backend server)
 └── src
     ├── components (react components)
+    ├── views  
     ├── data (models)
     ├── images 
-    ├── App.css 
     ├── App.js (React entrypoint)
     ├── App.test.js
     ├── index.css
@@ -41,11 +41,16 @@ Project Root/
 * Creating threads
 * Post replies
 * Upload images
+* Captcha support
+* Citing posts
+* Thread and post search
+* Markdown support for posts
+* News 
+* Instructions
+* Code Highlighting, Spoilers, Quotes(greentext)
 
 ## Planned features
 
-* Captcha support
-* Citing posts
 * Webm media upload
 * Drawing canvas
 * more
