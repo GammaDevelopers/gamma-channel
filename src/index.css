@@ -25,3 +25,34 @@ blockquote, blockquote > *:not(a) {
   color: black;
   background-color: black;
 }
+
+.app {
+  text-align: center;
+}
+
+
+.appHeader {
+  background-color: #222;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  color: white;
+}
+
+.appTitle {
+  font-size: 1.5em;
+}
+
+
+@media screen and (max-width: 500px) {
+
+  #smallDiv{
+    align-self: center;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    visibility: visible;
+  }
+}
