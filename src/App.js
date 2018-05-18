@@ -54,7 +54,7 @@ class App extends Component {
         )
         routeList.push(<Route path='*' render={ () =>
           <div className="mainWrapper">
-            <Header title="404 Page not found" type="home"/>
+            <Header title="404 Page not found" type="404"/>
             <NotFound/>
           </div>
         }/>)

@@ -219,9 +219,8 @@ export default class DialogExampleModal extends React.Component {
     if(this.props.thread === "true"){
       dropDownMenu = (
         <div>
-          <div>
+          <div id="selectBoardText">
             <p> Select board </p>
-
           </div>
           <DropDownMenu
           value={this.state.board}

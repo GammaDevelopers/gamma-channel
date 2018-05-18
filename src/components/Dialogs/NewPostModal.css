@@ -5,6 +5,11 @@
   width: 20%;
 }
 
+#selectBoardText{
+  margin-left: 25px;
+  margin-bottom: -30px;
+}
+
 #imageDropZone{
   width: 30%;
 }

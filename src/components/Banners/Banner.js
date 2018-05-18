@@ -16,8 +16,8 @@ class Banner extends Component {
   componentDidMount(){
     modelInstance.getHeaderImage().then((banner) => {
       this.setState({'image':banner.image,
-      'description': `Banner Creator: ${banner.submitter}
-      id: ${banner.id} tickets: ${banner.weight}`})
+      'description': `Banner Creator: ${banner.submitter},
+      id: ${banner.id}, tickets: ${banner.weight}`})
   })
   }
 
