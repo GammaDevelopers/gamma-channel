@@ -4,7 +4,7 @@ import Home from './views/Home/Home';
 import Thread from './views/Thread/Thread';
 import Board from './views/Board/Board';
 import {modelInstance} from './data/Model';
-import NotFound from './Views/NotFound/NotFound';
+import NotFound from './views/NotFound/NotFound';
 
 
 class App extends Component {
