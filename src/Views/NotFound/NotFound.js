@@ -4,10 +4,15 @@ import image from '../../images/404.png';
 
 class Home extends Component {
   render() {
+    const style = {
+      maxHeight: "500px"
+    };
+
     return (
       <div>
         <BoardHeader/>
-        <img alt="Page not found" src={image} />
+        <h1>404 Not found</h1>
+        <img style={style}alt="Page not found" src={image} />
       </div>
     );
   }
