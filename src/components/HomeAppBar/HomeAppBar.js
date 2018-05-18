@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import AppBar from 'material-ui/AppBar';
 import './HomeAppBar.css';
 

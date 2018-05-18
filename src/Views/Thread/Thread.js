@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import Header from '../../components/Headers/Header'
 import FirstPost from '../../components/Post/FirstPost';
 import SearchBar from '../../components/SearchBar/SearchBar';

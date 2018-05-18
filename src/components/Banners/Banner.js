@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import './Banner.css';
 import {modelInstance} from '../../data/Model';
 import Tooltip from '@material-ui/core/Tooltip';

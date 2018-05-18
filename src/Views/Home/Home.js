@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import './Home.css';
 import HomeCard from '../../components/HomeCard/HomeCard.js';
 import HomeAppBar from '../../components/HomeAppBar/HomeAppBar.js';
