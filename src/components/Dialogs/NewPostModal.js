@@ -219,7 +219,7 @@ export default class DialogExampleModal extends React.Component {
       dropDownMenu = (
         <div>
           <div id="selectBoardText">
-            <p> Select board </p>
+            <p> Select board *</p>
           </div>
           <DropDownMenu
           value={this.state.board}

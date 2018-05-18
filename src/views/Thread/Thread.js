@@ -114,7 +114,7 @@ render() {
   }
   return (
     <div>
-      <SearchBar callback={this.onSearchChange.bind(this)} type="board"/>
+      <SearchBar callback={this.onSearchChange.bind(this)} type="thread"/>
         <div id="thread" className="">
           {theThreadComponent}
         </div>
