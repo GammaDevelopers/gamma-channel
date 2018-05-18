@@ -42,7 +42,6 @@ loadReplies(){
           posts: replies,
       })
       return replies;
-
     });
       return res;
   }).catch(() => {
