@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../../components/Buttons/HomeButton';
 import NewPostModal from '../../components/Dialogs/NewPostModal'
 import Banner from '../../components/Banners/Banner.js'
 import BadgeNotification from '../../components/Badge/BadgeNotification';
+import RaisedButton from 'material-ui/RaisedButton';
+import InfoButton from 'material-ui/svg-icons/action/info';
+
 
 class Header extends Component {
 
@@ -51,6 +55,13 @@ class Header extends Component {
             </div>
             <div className="item" id="newPostBtnLarge">
               {postModalInstance}
+              <Link to={'/Instructions'}>
+                <RaisedButton
+                  overlayStyle={{color: 'white'}}
+                  label='HELP'
+                  style={{width: '100px'}}>
+                </ RaisedButton>
+              </Link>
             </div>
           </div>
           <div>
