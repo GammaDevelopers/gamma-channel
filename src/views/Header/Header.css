@@ -63,50 +63,51 @@
   display: none;
 }
 
-@media screen and (max-width: 500px) {
-  #headerContainer {
-    grid-template-columns: 1fr;
-    overflow: hidden;
-  }
 
-  #linksAppBar{
-    display: flex;
-  }
 
-  #linksAppBar > div > h1{
-    margin-right: auto;
-    padding-left: 30px;
-  }
 
-  #smallDiv{
-    align-self: center;
-    text-align: center;
-    margin: auto;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-  }
+#headerContainer {
+  grid-template-columns: 1fr;
+  overflow: hidden;
+}
 
-  #bannerDiv{
-    display: flex;
-    align-self: center;
-  }
+#linksAppBar{
+  display: flex;
+}
 
-  #linksList{
-    display: none;
-  }
+#linksAppBar > div > h1{
+  margin-right: auto;
+  padding-left: 30px;
+}
 
-  #homeButtonLarge{
-    display: none;
-  }
+#smallDiv{
+  align-self: center;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
 
-  #buttonsSmall{
-    display: flex;
-    justify-content: space-around;
-  }
+#bannerDiv{
+  display: flex;
+  align-self: center;
+}
 
-  #buttonsLarge{
-    display: none;
-  }
+#linksList{
+  display: none;
+}
+
+#homeButtonLarge{
+  display: none;
+}
+
+#buttonsSmall{
+  display: flex;
+  justify-content: space-around;
+}
+
+#buttonsLarge{
+  display: none;
 }

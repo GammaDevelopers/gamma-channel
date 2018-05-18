@@ -8,6 +8,9 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import IconButton from 'material-ui/IconButton';
 import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
+import ActionHome from 'material-ui/svg-icons/action/home';
+import HomeButton from '../../components/Buttons/HomeButton/HomeButton'
+import ActionHelp from 'material-ui/svg-icons/action/help';
 
 
 class HeaderLinks extends Component {
@@ -34,29 +37,20 @@ class HeaderLinks extends Component {
     });
   }
 
+  getHomeButton = () => {
+    return <div className="item" id="homeButtonDiv"><HomeButton /></div>;
+  }
+
   componentDidMount = () => {
     this.loadBoardLinks();
   }
 
 
   render() {
-    let boardLinkList = null;
     let boardMenuList = null;
-
-
 
     switch(this.state.status){
       case 'LOADED':
-        boardLinkList = this.state.boards.map((board) =>
-          <Tooltip key={board.abbreviation} variant='fab' color='primary' title={board.name}>
-            <Link to={'/'+board.abbreviation}
-            style={{ textDecoration: 'none'}}>
-              <RaisedButton overlayStyle={{color: 'white'}} title={board.name}>
-                {board.abbreviation}
-              </RaisedButton>
-            </Link>
-          </Tooltip>
-        )
         boardMenuList = this.state.boards.map((board) =>
         <Link key ={board.abbreviation} to={'/'+board.abbreviation}>
           <MenuItem primaryText={board.name}/>
@@ -64,7 +58,6 @@ class HeaderLinks extends Component {
         )
         break;
       default:
-        boardLinkList = []
         break;
     }
 
@@ -72,18 +65,52 @@ class HeaderLinks extends Component {
       <AppBar
         style={{backgroundColor:"#484848"}}
         titleStyle={{color:"fullWhite"}}
-        title="Boards"
-        iconElementLeft={(<div />)}
+        title={this.props.title}
+        iconElementLeft={
+          <div className="container">
+            <div className="item">
+              <Link to="/">
+                <IconButton iconStyle={{fill:"#FFFFFF",float:"right"}}>
+                  <ActionHome/>
+                </IconButton>
+              </Link>
+            </div>
+            <div className="item">
+              <Link to={'/Instructions'}>
+                <IconButton iconStyle={{fill:"#FFFFFF",float:"right"}}>
+                  <ActionHelp/>
+                </IconButton>
+              </Link>
+            </div>
+          </div>}
         iconElementRight={
-          <IconMenu
-            iconButtonElement={
-              <IconButton iconStyle={{fill:"#FFFFFF",float:"right"}} ><MenuIcon/></IconButton>
-            }
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-            anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-          >
-            {boardMenuList}
-          </IconMenu>}
+          <div className="container">
+            <div className="item">
+              <IconMenu
+                iconButtonElement={
+                  <RaisedButton label="+THREAD">
+                  </RaisedButton>
+                }
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+                {boardMenuList}
+              </IconMenu>
+            </div>
+            <div className="item">
+              <IconMenu
+                iconButtonElement={
+                  <RaisedButton label="Boards">
+                  </RaisedButton>
+                }
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+                {boardMenuList}
+              </IconMenu>
+            </div>
+          </div>
+          }
       />
     )
 
@@ -93,8 +120,10 @@ class HeaderLinks extends Component {
         {appBar}
       </div>
       <div id="linksList">
+        <div id="homeButtonLarge homeButtonSmall">
+          {this.getHomeButton()}
+        </div>
         <span id="linksSpan"> Boards: </span>
-        {boardLinkList}
       </div>
     </div>
   )
