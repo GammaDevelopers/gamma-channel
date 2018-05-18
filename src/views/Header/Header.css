@@ -3,6 +3,12 @@
   font-size: 50px;
 }
 
+.appHeader{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
 #headerContainer{
   /*
   display: flex;
@@ -51,11 +57,24 @@
   text-align: center;
 }
 
+#linksAppBar{
+  display: none;
+}
+
 @media screen and (max-width: 500px) {
   #headerContainer {
     grid-template-columns: 1fr;
     overflow: hidden;
   }
+
+  #linksAppBar{
+    display: flex;
+  }
+
+  #linksAppBar > div > h1{
+    padding-left: 40px;
+  }
+
   #smallDiv{
     align-self: center;
     text-align: center;
@@ -66,10 +85,13 @@
     display: flex;
   }
 
-
   #bannerDiv{
     display: flex;
     align-self: center;
+  }
+
+  #linksList{
+    display: none;
   }
 
   #homeButtonLarge{
