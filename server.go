@@ -63,11 +63,11 @@ func getDB() *sql.DB {
 
 func formatGreenText(input []byte) []byte {
 	r := regexp.MustCompile(`(?m)^>(.*)$`)
-	return r.ReplaceAll(input, []byte(`<span class="quote">$1</span>`))
+	return r.ReplaceAll(input, []byte(`<span class="quote">>$1</span>`))
 }
 
 func formatSpoiler(input []byte) []byte {
-	r := regexp.MustCompile(`(?i)^[spoiler]\((.*?)\)$`)
+	r := regexp.MustCompile(`(?i)^\[spoiler\]\((.*?)\)$`)
 	return r.ReplaceAll(input, []byte(`<blockquote class="spoiler">$1</blockquote>`))
 }
 
@@ -77,8 +77,8 @@ func formatReply(input []byte) []byte {
 }
 
 func prettifyCode(input []byte) []byte {
-	r := regexp.MustCompile(`(?i)<code class="(.*?)" `)
-	return r.ReplaceAll(input, []byte(`<code class="prettyprint (.*?)`))
+	r := regexp.MustCompile(`(?i)<code class="(.*?)"`)
+	return r.ReplaceAll(input, []byte(`<code class="prettyprint $1"`))
 }
 
 func markDown(input string) string {
@@ -89,10 +89,10 @@ func markDown(input string) string {
 	unsafe := blackfriday.Run(byteArr)
 	unsafe = prettifyCode(unsafe)
 	p := bluemonday.UGCPolicy()
-	p.AllowAttrs("class").Matching(regexp.MustCompile("^(language-[a-zA-Z0-9]+)|prettyprint$")).OnElements("code")
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^(prettyprint)? language-[a-zA-Z0-9]+$")).OnElements("code")
 	p.AllowAttrs("class").Matching(regexp.MustCompile("^postRef$")).OnElements("a")
 	p.AllowAttrs("class").Matching(regexp.MustCompile("^quote$")).OnElements("span")
-	p.AllowAttrs("class").Matching(regexp.MustCompile("^spoiler$")).OnElements("blockqoute")
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^spoiler$")).OnElements("blockquote")
 	html := p.SanitizeBytes(unsafe)
 	return string(html)
 }
