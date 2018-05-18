@@ -12,14 +12,16 @@
   margin-left: 20px;
 }
 
-#ThreadComponentHead > CardHeader{
+#headField > div{
   margin-top: -10px;
 }
 
 #ThreadComponentHead{
   justify-content: space-between;
+  float: left;
   flex: 1;
 }
+
 #replyBtn{
   float: right;
   display: block;

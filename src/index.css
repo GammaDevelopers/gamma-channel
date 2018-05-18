@@ -10,16 +10,16 @@ body {
   color:  #00FF00;
 }
 
-.spoiler, .spoiler > * { 
-  transition: color 0.5s, opacity 0.5s 
+.spoiler, .spoiler > * {
+  transition: color 0.5s, opacity 0.5s
 }
-.spoiler:hover { 
+.spoiler:hover {
   color: inherit;
   background-color: inherit;
 }
-.spoiler:hover > * 
-{ 
-  opacity: 0 
+.spoiler:hover > *
+{
+  opacity: 0
 }
 blockquote, blockquote > *:not(a) {
   color: black;
@@ -29,7 +29,6 @@ blockquote, blockquote > *:not(a) {
 .app {
   text-align: center;
 }
-
 
 .appHeader {
   background-color: #222;

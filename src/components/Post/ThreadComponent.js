@@ -92,7 +92,7 @@ export default class ThreadComponent extends React.Component {
     )
   if(this.props.view === "board"){
     header = (
-      <div id="postHead" className="container">
+      <div id="ThreadComponentHead" className="container">
         <div id="openButton" className="item">
           <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
             <OpenThreadBtn/>

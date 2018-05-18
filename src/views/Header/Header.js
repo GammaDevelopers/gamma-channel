@@ -17,7 +17,7 @@ class Header extends Component {
 
   getHomeButton = () => {
     if (this.props.type !== 'home') {
-      return <div className="item" id="homeButtonLarge"><HomeButton /></div>;
+      return <div className="item" id="homeButtonDiv"><HomeButton /></div>;
     } else {
       return <div />
     }
@@ -43,7 +43,9 @@ class Header extends Component {
         <div className="appHeader">
           <HeaderLinks/>
           <div id="headerContainer" className="container">
-            {this.getHomeButton()}
+            <div id="homeButtonLarge">
+              {this.getHomeButton()}
+            </div>
             <div className="item" id="bannerDiv">
               <Banner />
             </div>

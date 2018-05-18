@@ -3,7 +3,6 @@
   font-size: 50px;
 }
 
-
 #headerContainer{
   /*
   display: flex;
@@ -53,6 +52,10 @@
 }
 
 @media screen and (max-width: 500px) {
+  #headerContainer {
+    grid-template-columns: 1fr;
+    overflow: hidden;
+  }
   #smallDiv{
     align-self: center;
     text-align: center;
@@ -63,12 +66,11 @@
     display: flex;
   }
 
+
   #bannerDiv{
     display: flex;
     align-self: center;
-    width: 100%;
   }
-
 
   #homeButtonLarge{
     display: none;
