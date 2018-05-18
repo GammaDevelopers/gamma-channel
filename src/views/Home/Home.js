@@ -75,7 +75,7 @@ class Home extends Component {
           </div>
           <div id="newsContainer" className="container">
             <HomeAppBar title="News"/>
-            <Board boardName="News" boardAbbr="b"/>
+            <Board boardName="News" noSearch={true} boardAbbr="b"/>
           </div>
         </div>
       </div>

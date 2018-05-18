@@ -7,6 +7,23 @@ const Model = function (){
 
   const URL = ""
 
+  /* 
+    Fetch and check response code
+  */
+  function myFetch(url, options) {
+    if (options == null) options = {}
+    if (options.credentials == null) options.credentials = 'same-origin'
+    return fetch(url, options).then(function(response) {
+      if (response.status >= 200 && response.status < 300) {
+        return Promise.resolve(response)
+      } else {
+        var error = new Error(response.statusText || response.status)
+        error.response = response
+        return Promise.reject(error)
+      }
+    })
+  }
+
   /*
     postData Format:
     {
@@ -27,7 +44,7 @@ const Model = function (){
 
   this.postReply = function(threadID, postData, captchaResponse){
     var endPoint = `${URL}/api/post/${threadID}/reply`;
-    return fetch(endPoint, {
+    return myFetch(endPoint, {
       body: JSON.stringify(postData),
       headers: {
         'content-type': 'application/json',
@@ -44,7 +61,7 @@ const Model = function (){
 
   this.createThread = function(board, postData, captchaResponse){
     var endPoint = `${URL}/api/threads/${board}/new`;
-    return fetch(endPoint, {
+    return myFetch(endPoint, {
       body: JSON.stringify(postData),
       headers: {
         'content-type': 'application/json',
@@ -61,84 +78,77 @@ const Model = function (){
 
   this.getAllBoards = function (){
     var endPoint = `${URL}/api/boards`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.getBoard = function (board){
     var endPoint = `${URL}/api/boards/${board}`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.searchThreads = function(board, searchString){
     var endPoint = `${URL}/api/search/${board}/${searchString}`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.getThreads = function (board){
     var endPoint = `${URL}/api/threads/${board}`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.getThreadInfo = function (threadID){
     var endPoint = `${URL}/api/thread/${threadID}`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.searchPosts = function(thread, searchString){
     var endPoint = `${URL}/api/searchPost/${thread}/${searchString}`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.getReplyIds = function (threadID){
     var endPoint = `${URL}/api/thread/${threadID}/replies`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.getPost = function (postID){
     var endPoint = `${URL}/api/post/${postID}`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
@@ -146,18 +156,16 @@ const Model = function (){
           json.content = {'__html':json.content}
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   }
 
   this.getHeaderImage = function(){
     var endPoint = `${URL}/api/header/random_image`;
-    return fetch(endPoint)
+    return myFetch(endPoint)
       .then(processResponse =>{
           return processResponse.json()})
       .then((json) => {
           return json;
     })
-    .catch(handleError => console.log('There was an error: ' + handleError))
   };
 
 }

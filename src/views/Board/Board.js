@@ -116,7 +116,7 @@ class Board extends Component {
     }
     return (
       <div>
-        <SearchBar callback={this.onSearchChange.bind(this)} />
+        {typeof this.props.noSearch === 'undefined' && <SearchBar callback={this.onSearchChange.bind(this)} />}
         <div id="threadContainer" className="container">
           {threadList}
         </div>
