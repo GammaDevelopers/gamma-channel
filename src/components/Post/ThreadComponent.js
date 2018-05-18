@@ -3,10 +3,8 @@ import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import Post from './Post'
 import './ThreadComponent.css';
 import NewPostModal from '../Dialogs/NewPostModal';
-import OpenThreadBtn from '../Buttons/OpenThreadBtn'
 import { Link } from 'react-router-dom';
 import readableTime from "readable-timestamp"
-import Tooltip from '@material-ui/core/Tooltip';
 
 
 export default class ThreadComponent extends React.Component {

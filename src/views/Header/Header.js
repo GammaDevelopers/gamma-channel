@@ -4,7 +4,7 @@ import HeaderLinks from './HeaderLinks';
 import HomeButton from '../../components/Buttons/HomeButton';
 import NewPostModal from '../../components/Dialogs/NewPostModal'
 import Banner from '../../components/Banners/Banner.js'
-import BadgeNotification from '../../components/Badge/BadgeNotification';
+
 
 class Header extends Component {
 
