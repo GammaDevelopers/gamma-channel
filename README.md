@@ -48,6 +48,7 @@ Project Root/
 * News 
 * Instructions
 * Code Highlighting, Spoilers, Quotes(greentext)
+* Random header image
 
 ## Planned features
 
