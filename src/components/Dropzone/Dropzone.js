@@ -15,7 +15,7 @@ export default class Dropzone extends React.Component {
   handleFiles (files) {
     for (var i = 0; i < files.length; i++) {
       var file = files[i];
-      if (!file.type.startsWith('image/')){ continue }
+      if (!file.type.startsWith('image/')){ window.alert("You can only upload images"); continue; }
 
       var reader = new FileReader();
       reader.onload = (function(parent, file) { return function(e) {
