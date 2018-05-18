@@ -195,7 +195,6 @@ export default class DialogExampleModal extends React.Component {
       default:
         break;
     }
-    console.log(this.state.status)
     const actions = [
       <FlatButton
         label="Cancel"

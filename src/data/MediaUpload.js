@@ -19,7 +19,6 @@ const mediaUpploadModel = function (){
         xhr.addEventListener("load", (e) => {
             if(xhr.status === 200){
                 if(xhr.response.success){
-                    console.log(xhr.response)
                     complete(xhr.response.data.link)
                 }else{
                     fail(xhr.response)
