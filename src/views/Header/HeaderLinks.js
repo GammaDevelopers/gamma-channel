@@ -10,6 +10,7 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import HomeButton from '../../components/Buttons/HomeButton/HomeButton'
 import ActionHelp from 'material-ui/svg-icons/action/help';
 import NewPostModal from '../../components/Dialogs/NewPostModal'
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 
 class HeaderLinks extends Component {
@@ -62,7 +63,7 @@ class HeaderLinks extends Component {
     }
 
     var appBar =  (
-      <AppBar
+      <AppBar id="HeaderAppBar"
         style={{backgroundColor:"#484848"}}
         titleStyle={{color:"fullWhite"}}
         title={this.props.title}
@@ -107,6 +108,39 @@ class HeaderLinks extends Component {
                 {boardMenuList}
               </IconMenu>
             </div>
+            <div className="item HeaderFloaters">
+              <IconMenu
+                iconButtonElement={
+                  <FloatingActionButton
+                    onClick={()=>{this.modal.current.handleOpen()}}
+                    backgroundColor="rgb(48, 48, 48)"
+                    mini="true"
+                    iconStyle={{color:"rgb(256, 256, 256)"}}
+                    >+T
+                  </FloatingActionButton>
+                }
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+
+              </IconMenu>
+            </div>
+            <div className="item HeaderFloaters">
+              <IconMenu
+                iconButtonElement={
+                  <FloatingActionButton
+                    backgroundColor="rgb(48, 48, 48)"
+                    mini="true"
+                    iconStyle={{color:"rgb(256, 256, 256)"}}
+                    >B
+                  </FloatingActionButton>
+                }
+                targetOrigin={{horizontal: 'right', vertical: 'top'}}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
+                {boardMenuList}
+              </IconMenu>
+            </div>
           </div>
           }
       />
@@ -117,6 +151,7 @@ class HeaderLinks extends Component {
       <div id="linksAppBar">
         {appBar}
       </div>
+      <h2>{this.props.title}</h2>
       <NewPostModal
       ref={this.modal}
       thread="true"

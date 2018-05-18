@@ -3,6 +3,10 @@
   padding-right: 0;
 }
 
+h2 {
+  display: none;
+}
+
 #headerContainer{
   display: grid;
   grid-template-columns: 100px 1fr 100px;
@@ -40,4 +44,29 @@
 
 .HeaderButtons {
   margin: 5px;
+}
+
+.HeaderFloaters {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .appHeader h2 {
+    display: block;
+  }
+
+  #HeaderAppBar h1 {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .HeaderButtons {
+    display: none;
+  }
+
+  .HeaderFloaters {
+    display: block;
+    margin: 5px;
+  }
 }
