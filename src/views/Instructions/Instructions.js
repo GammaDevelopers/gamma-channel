@@ -22,11 +22,12 @@ class Instructions extends Component {
           <CardText style={{textAlign:"left"}}>
             <strong>Header</strong><br/>
             Gamma Channel features a header on the top of the page at all times.
-            This header includes a list of links to all of the boards that are
-            available for fast navigation. The header also has a home button
-            that redirects the user to the home screen, a banner image that is
-            chosen at random (hover for information about creator and rarity!)
-            and a button for starting new threads.
+            On the left side this header has a home button that redirects the
+            user to the home screen and a help button which navigates to this
+            page. On the right side the header has a button for starting new
+            threads and a button which links to all the board that are available
+            as a dropdown. Beneath the header is a banner image that is chosen
+            random (hover for information about creator and rarity!).
             <br/><br/>
 
             <strong>Home</strong><br/>
@@ -43,7 +44,8 @@ class Instructions extends Component {
             On the board screen users can view all the threads in the
             selected board and click on the header to open the thread. The top
             of the board page features a search bar that can filter threads
-            by their content.
+            by their content. There is a search bar at the top of the boards
+            which lets the user search all threads and their posts.
             <br/><br/>
 
             <strong>Threads</strong><br/>
@@ -51,7 +53,9 @@ class Instructions extends Component {
             first post in the thread and information about the replies in
             the thread. Each post has a reply button on the right side which
             will open a screen for writing a reply. Replies to specific posts
-            will link back to the created post, so the users can easily navigate.
+            will link back to the created post, so the users easily can navigate
+            the threads. There is also a search bar at the top of the threads
+            which lets the user search all posts and their contents.
 
           </CardText>
         </Card>
@@ -59,11 +63,11 @@ class Instructions extends Component {
         <HomeAppBar title="How to post new threads and replies" />
         <Card className="item InstructionCard" >
           <CardText style={{textAlign:"left"}}>
-            New threads can be created by pressing the "+THREAD" button on the
-            top of the page, inside the header. This button will open a new page
-            where information about the thread can be added. Replies can be
-            created by pressing the "Reply" button on any post, which will open a
-            similar new page with information about the post.
+            New threads can be created by pressing the "+THREAD" button in the
+            header. This button will open a new page where information about
+            the thread can be added. Replies can be created by pressing the
+            "Reply" button on any post, which will open a similar new page with
+            information about the post.
             <br/><br/>
 
             <strong>Attributes</strong><br/>
@@ -78,8 +82,8 @@ class Instructions extends Component {
 
             <strong>How to tweak posts!</strong><br/>
             There are several commands which can be used to tweak text in thread
-            posts! <i>Markdown</i> is also supported. Here is a list of the most
-            popular commands: <br/><br/>
+            posts! Many <i>markdown</i> features are also supported. Here is a
+            list of the most popular commands: <br/><br/>
 
             <i>Spoilers</i>: spoilers can be added by writing
             [spoiler][spoiler text].<br/><br/>
