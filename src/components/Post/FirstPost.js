@@ -67,7 +67,7 @@ export default class FirstPost extends React.Component {
     timeStamp={readableTime(reply.created)}
     text={reply.content}
     mediaURL={reply.mediaURL}
-    callBackFunc={this.loadReplies}
+    callBackFunc={this.props.addPostCallback}
     />
   )
 
