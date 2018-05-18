@@ -89,7 +89,10 @@ func markDown(input string) string {
 	unsafe := blackfriday.Run(byteArr)
 	unsafe = prettifyCode(unsafe)
 	p := bluemonday.UGCPolicy()
-	p.AllowAttrs("class").Matching(regexp.MustCompile("^(language-[a-zA-Z0-9]+)|quote|spoiler|postRef|prettyprint$")).OnElements("code")
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^(language-[a-zA-Z0-9]+)|prettyprint$")).OnElements("code")
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^postRef$")).OnElements("a")
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^quote$")).OnElements("span")
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^spoiler$")).OnElements("blockqoute")
 	html := p.SanitizeBytes(unsafe)
 	return string(html)
 }
