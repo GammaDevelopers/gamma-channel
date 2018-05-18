@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
-import Home from './Views/Home/Home';
-import Thread from './Views/Thread/Thread';
-import Board from './Views/Board/Board';
+import Home from './views/Home/Home';
+import Thread from './views/Thread/Thread';
+import Board from './views/Board/Board';
 import {modelInstance} from './data/Model';
 import NotFound from './Views/NotFound/NotFound';
 
