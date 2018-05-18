@@ -80,7 +80,7 @@ class App extends Component {
           )}/>
           <Route path='/instructions' render={(props) => (
             <div className="mainWrapper">
-              <Header title={"Gamma Channel Instructions For Degenerates"} type="thread"/>
+              <Header title={"Gamma Channel Instructions for Degenerates"} type="thread"/>
               <Instructions/>
             </div>
           )}/>

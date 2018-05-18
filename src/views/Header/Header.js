@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import RaisedButton from 'material-ui/RaisedButton';
 import './Header.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../../components/Buttons/HomeButton/HomeButton';
 import NewPostModal from '../../components/Dialogs/NewPostModal'
 import Banner from '../../components/Banners/Banner.js'
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Header extends Component {
 
