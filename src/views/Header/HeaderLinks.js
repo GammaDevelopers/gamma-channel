@@ -77,7 +77,7 @@ class HeaderLinks extends Component {
         iconElementRight={
           <IconMenu
             iconButtonElement={
-              <IconButton iconStyle={{fill:"#FFFFFF"}} ><MenuIcon/></IconButton>
+              <IconButton iconStyle={{fill:"#FFFFFF",float:"right"}} ><MenuIcon/></IconButton>
             }
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}

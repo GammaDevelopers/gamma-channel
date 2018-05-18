@@ -40,6 +40,16 @@ class Header extends Component {
       </div>
     )
 
+    var helpButton = (
+      <Link to={'/Instructions'}>
+        <RaisedButton
+          overlayStyle={{color: 'white'}}
+          label='HELP'
+          style={{width: '94px', marginLeft:"5px",marginRight:"5px"}}>
+        </ RaisedButton>
+      </Link>
+    )
+
     return (
       <header>
         <div className="appHeader">
@@ -51,15 +61,9 @@ class Header extends Component {
             <div className="item" id="bannerDiv">
               <Banner />
             </div>
-            <div className="item" id="newPostBtnLarge">
+            <div className="item" id="buttonsLarge">
               {postModalInstance}
-              <Link to={'/Instructions'}>
-                <RaisedButton
-                  overlayStyle={{color: 'white'}}
-                  label='HELP'
-                  style={{width: '100px'}}>
-                </ RaisedButton>
-              </Link>
+              {helpButton}
             </div>
           </div>
           <div>
@@ -69,8 +73,9 @@ class Header extends Component {
             <div className="item" id="homeButtonSmall">
               {this.getHomeButton()}
             </div>
-            <div className="item" id="newPostBtnSmall">
+            <div className="item" id="buttonsSmall">
               {postModalInstance}
+              {helpButton}
             </div>
           </div>
         </div>

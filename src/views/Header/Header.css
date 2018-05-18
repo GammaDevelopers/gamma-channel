@@ -26,7 +26,7 @@
   display: flex;
 }
 
-#newPostBtnLarge{
+#buttonsLarge{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -55,7 +55,7 @@
   text-align: center;
 }
 
-#newPostBtnSmall{
+#buttonsSmall{
   text-align: center;
 }
 
@@ -74,7 +74,8 @@
   }
 
   #linksAppBar > div > h1{
-    padding-left: 40px;
+    margin-right: auto;
+    padding-left: 30px;
   }
 
   #smallDiv{
@@ -100,7 +101,12 @@
     display: none;
   }
 
-  #newPostBtnLarge{
+  #buttonsSmall{
+    display: flex;
+    justify-content: space-around;
+  }
+
+  #buttonsLarge{
     display: none;
   }
 }
