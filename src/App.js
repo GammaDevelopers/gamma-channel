@@ -46,7 +46,7 @@ class App extends Component {
             key={boards.abbreviation}
             render={()=>
             <div className="mainWrapper">
-              <Header title={boards.name} type="board"/>
+              <Header boardName={boards.name} boardAbbr={boards.abbreviation} title={boards.name} type="board"/>
               <Board boardName={boards.name} boardAbbr={boards.abbreviation}/>
             </div>
             }

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
 import './Post.css';
 import NewPostModal from '../Dialogs/NewPostModal';
 
@@ -72,15 +73,7 @@ export default class Post extends React.Component {
               subtitle={`No. ${this.props.postID}, ${this.props.userName}, ${this.props.timeStamp}`}
             />
             <div className="item" id="replyBtn">
-              <NewPostModal
-              titleHintText="Reply tite here..."
-              titleLabelText="Reply title"
-              buttonText="Reply"
-              headText="Reply"
-              thread="false"
-              postNumber={this.props.postID}
-              threadNumber={this.props.threadID}
-              callBackFunc={this.props.callBackFunc}/>
+              <RaisedButton label="Reply" onClick={()=>{this.props.replyCallback(this.props.postID)}}/>
             </div>
           </div>
 

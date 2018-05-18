@@ -13,6 +13,7 @@ class Header extends Component {
   */
   constructor(props) {
     super(props);
+    this.modal = React.createRef();
     this.state = {}
   }
 
@@ -26,17 +27,7 @@ class Header extends Component {
 
   render() {
     var postModalInstance = (
-      <div>
-        <NewPostModal
-        thread="true"
-        buttonText = "+Thread"
-        headText="New Thread"
-        titleHintText="Thread tite here..."
-        titleLabelText="Thread title *"
-        chosenBoardName={this.props.boardName}
-        chosenBoardAbbr={this.props.boardAbbr}
-        />
-      </div>
+        <RaisedButton label="+Thread" onClick={()=>{this.modal.current.handleOpen()}}/>
     )
 
     return (
@@ -73,6 +64,15 @@ class Header extends Component {
             </div>
           </div>
         </div>
+        <NewPostModal
+        ref={this.modal}
+        thread="true"
+        headText="New Thread"
+        titleHintText="Thread tite here..."
+        titleLabelText="Thread title *"
+        chosenBoardName={this.props.boardName}
+        chosenBoardAbbr={this.props.boardAbbr}
+        />
       </header>
     );
   }
