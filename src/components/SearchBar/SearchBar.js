@@ -1,5 +1,5 @@
 import React from 'react';
-import {default as SearchBarUi} from 'material-ui-search-bar';
+import {default as SearchBarUi } from 'material-ui-search-bar';
 import './SearchBar.css';
 
 
@@ -26,6 +26,12 @@ export default class SearchBar extends React.Component {
         onChange={(value) => this.onSearchChange(value)}
         onRequestSearch={() => this.pass}
         hintText = {this.getHintText()}
+        hintStyle = {{color:"rgba(255, 255, 255, 0.54)"}}
+        style={{
+          borderRadius:"8px",
+          color:"white",
+          backgroundColor: "#222244",
+        }}
         />
       </div>
     );
