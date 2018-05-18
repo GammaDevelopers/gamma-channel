@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {Redirect} from 'react-router-dom';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import LinearProgress from 'material-ui/LinearProgress';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import './Post.css';
-import NewPostModal from '../Dialogs/NewPostModal';
 
 
 export default class Post extends React.Component {
