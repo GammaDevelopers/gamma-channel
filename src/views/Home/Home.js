@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import ContentLoader from "react-content-loader"
 import './Home.css';
 import HomeCard from '../../components/HomeCard/HomeCard.js';
 import HomeAppBar from '../../components/HomeAppBar/HomeAppBar.js';
 import Board from '../Board/Board'
 import {modelInstance} from '../../data/Model';
-import ContentLoader from "react-content-loader"
+
 
 class Home extends Component {
   constructor(props) {

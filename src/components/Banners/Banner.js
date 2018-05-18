@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import Tooltip from '@material-ui/core/Tooltip';
 import './Banner.css';
 import {modelInstance} from '../../data/Model';
-import Tooltip from '@material-ui/core/Tooltip';
+
 
 class Banner extends Component {
   constructor(props) {

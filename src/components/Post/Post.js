@@ -3,8 +3,8 @@ import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import './Post.css';
 import NewPostModal from '../Dialogs/NewPostModal';
 
-export default class Post extends React.Component {
 
+export default class Post extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

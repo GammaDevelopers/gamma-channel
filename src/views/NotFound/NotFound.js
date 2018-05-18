@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import image from '../../images/404.png';
 import './NotFound.css';
 
+
 class Home extends Component {
   render() {
     return (
