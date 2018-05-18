@@ -134,7 +134,7 @@ func errorResponseMessage(w http.ResponseWriter, message string) {
 func boards(w http.ResponseWriter, r *http.Request) {
 	db := getDB()
 	defer db.Close()
-	rows, err := db.Query(`SELECT name, abbreviation, description WHERE name <> 'News' FROM BOARDS`)
+	rows, err := db.Query(`SELECT name, abbreviation, description FROM BOARDS WHERE name <> 'News' `)
 	if err != nil {
 		errorResponse(w)
 		return
@@ -525,6 +525,7 @@ func main() {
 	router.HandleFunc("/api/search/{board}/{query}", searchThread)
 	router.HandleFunc("/api/searchPost/{threadID}/{query}", searchReply)
 	router.HandleFunc("/api/threads/{board}", threads)
+	router.HandleFunc("/api/threads/{board}/new", createThread)
 	router.HandleFunc("/api/thread/{id}", getThread)
 	router.HandleFunc("/api/thread/{id}/replies", replies)
 	router.HandleFunc("/api/post/{id}", getPost)
