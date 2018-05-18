@@ -58,7 +58,7 @@ class HeaderLinks extends Component {
           </Tooltip>
         )
         boardMenuList = this.state.boards.map((board) =>
-        <Link to={'/'+board.abbreviation}>
+        <Link key ={board.abbreviation} to={'/'+board.abbreviation}>
           <MenuItem primaryText={board.name}/>
         </Link>
         )
