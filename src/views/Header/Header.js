@@ -5,6 +5,7 @@ import HeaderLinks from './HeaderLinks';
 import HomeButton from '../../components/Buttons/HomeButton';
 import NewPostModal from '../../components/Dialogs/NewPostModal'
 import Banner from '../../components/Banners/Banner.js'
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Header extends Component {
 

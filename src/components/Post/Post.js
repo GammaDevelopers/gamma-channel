@@ -14,7 +14,6 @@ export default class Post extends React.Component {
   }
 
   loadReplies(){
-    console.log("CALLED " );
   }
 
   componentDidMount = () => {
@@ -31,7 +30,6 @@ export default class Post extends React.Component {
   };
 
   handleToggle = () => {
-    console.log(this.state.expanded);
     if(this.state.expanded === false){
       this.handleExpand();
     }else{

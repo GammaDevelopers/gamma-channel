@@ -14,10 +14,8 @@ export default class Dropzone extends React.Component {
   };
 
   handleFiles (files) {
-    console.log(files)
     for (var i = 0; i < files.length; i++) {
       var file = files[i];
-        console.log(file.type)
       if (!file.type.startsWith('image/')){ continue }
 
       var reader = new FileReader();
