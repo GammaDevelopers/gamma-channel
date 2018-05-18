@@ -16,6 +16,10 @@
   margin-top: -10px;
 }
 
+#headField > div > div{
+  padding-right: 0px !important;
+}
+
 #ThreadComponentHead{
   justify-content: space-between;
   float: left;

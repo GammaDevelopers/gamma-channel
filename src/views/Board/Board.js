@@ -49,7 +49,7 @@ class Board extends Component {
     }
     modelInstance.searchThreads(this.props.boardName, input).then(res => {
       Promise.all(res.map((thread) =>{
-          return modelInstance.getPost(thread.threadComponent).then( (post) => {
+          return modelInstance.getPost(thread.firstPost).then( (post) => {
             post.replyCount = thread.replyCount;
             return post;
           });
