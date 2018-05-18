@@ -24,12 +24,10 @@ class Banner extends Component {
   render() {
     if (this.state.image !== null ) {
       return (
-        <div>
           <Tooltip variant='fab' color='primary' title={this.state.description}>
           <img className="banner" src={this.state.image}
                               alt={this.state.description} />
           </Tooltip>
-        </div>
       );
     }else{
       return (<div></div>)
