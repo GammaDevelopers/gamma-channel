@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Board.css';
 import Header from '../../components/Headers/Header';
-import FirstPost from '../../components/Post/FirstPost';
+import ThreadComponent from '../../components/Post/ThreadComponent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
@@ -13,7 +13,7 @@ class Board extends Component {
     this.state = {
       status: 'INITIAL',
       threads: [],
-      firstPosts: []
+      threadComponents: []
     }
   }
 
@@ -25,12 +25,12 @@ class Board extends Component {
             return post;
           });
         }))
-        .then(firstPosts => {
+        .then(threadComponents => {
           this.setState({
             replyCount: res.replyCount,
             status: 'LOADED',
             threads: res,
-            firstPosts,
+            threadComponents,
           });
         });
 
@@ -38,7 +38,7 @@ class Board extends Component {
       this.setState({
         status: 'ERROR',
         threads: [],
-        firstPosts: []
+        threadComponents: []
       })
     });
   }
@@ -50,17 +50,17 @@ class Board extends Component {
     }
     modelInstance.searchThreads(this.props.boardName, input).then(res => {
       Promise.all(res.map((thread) =>{
-          return modelInstance.getPost(thread.firstPost).then( (post) => {
+          return modelInstance.getPost(thread.threadComponent).then( (post) => {
             post.replyCount = thread.replyCount;
             return post;
           });
         }))
-        .then(firstPosts => {
+        .then(threadComponents => {
           this.setState({
             replyCount: res.replyCount,
             status: 'LOADED',
             threads: res,
-            firstPosts,
+            threadComponents,
           });
         });
 
@@ -68,7 +68,7 @@ class Board extends Component {
       this.setState({
         status: 'ERROR',
         threads: [],
-        firstPosts: []
+        threadComponents: []
       })
     });
   }
@@ -94,8 +94,8 @@ class Board extends Component {
 
     switch(this.state.status){
       case 'LOADED':
-        threadList = this.state.firstPosts.map((post) =>
-          <FirstPost
+        threadList = this.state.threadComponents.map((post) =>
+          <ThreadComponent
            view="board"
            replies={[]}
            key={post.id}

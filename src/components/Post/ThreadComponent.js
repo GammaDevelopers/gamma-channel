@@ -1,14 +1,14 @@
 import React from 'react';
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import Post from './Post'
-import './FirstPost.css';
+import './ThreadComponent.css';
 import NewPostModal from '../Dialogs/NewPostModal';
 import OpenThreadBtn from '../Buttons/OpenThreadBtn'
 import { Link } from 'react-router-dom';
 import readableTime from "readable-timestamp"
 
 
-export default class FirstPost extends React.Component {
+export default class ThreadComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -71,7 +71,7 @@ export default class FirstPost extends React.Component {
   )
 
   let header = (
-    <div id="firstPostHead" className="container">
+    <div id="ThreadComponentHead" className="container">
       <CardHeader className="item"
       style={{top:-10,left:-5}}
         title={this.props.postTitle}
@@ -111,7 +111,7 @@ export default class FirstPost extends React.Component {
 
   return (
     <div id={this.props.postNumber} class="post">
-        <Card id="firstPostCard" align="left" style={{paddingBottom:10}}>
+        <Card id="ThreadComponentCard" align="left" style={{paddingBottom:10}}>
         {header}
         <CardMedia>
           <div className="container">
