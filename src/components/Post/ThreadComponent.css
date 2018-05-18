@@ -12,14 +12,30 @@
   margin-left: 20px;
 }
 
-#ThreadComponentHead > CardHeader{
+#headField > div{
   margin-top: -10px;
 }
 
 #ThreadComponentHead{
   justify-content: space-between;
+  float: left;
   flex: 1;
 }
+
+.postHead{
+  transition: 0.5ms;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.postHead:hover{
+  background-color: #444444;
+}
+
+.postHead:hover > #openThread{
+  color: white
+}
+
 #replyBtn{
   float: right;
   display: block;
@@ -37,4 +53,12 @@
   height: auto;
   margin-left: 10px;
   margin-bottom: 10px;
+}
+
+#openThread{
+  text-align: right;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.54);
+  padding-right: 20px;
+  padding-top: 8px;
 }
