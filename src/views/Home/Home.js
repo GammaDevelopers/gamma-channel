@@ -72,11 +72,11 @@ class Home extends Component {
       <div>
       <div id="rootDiv">
         <div id="homeContainer" className="container">
-          <div id="boardContainer" className="container">
+          <div id="boardContainer" className="container item">
             <HomeAppBar title="Boards"/>
             {boardList}
           </div>
-          <div id="newsContainer" className="container">
+          <div id="newsContainer" className="container item">
             <HomeAppBar title="News"/>
             <Board boardName="News" noSearch={true} boardAbbr="b"/>
           </div>
