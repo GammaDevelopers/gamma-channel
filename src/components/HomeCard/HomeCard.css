@@ -5,3 +5,7 @@
   padding-bottom: 15px;
   padding-top: 10px;
 }
+
+.postHead > div{
+  padding-right: 0px !important;
+}
