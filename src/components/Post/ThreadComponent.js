@@ -6,6 +6,7 @@ import NewPostModal from '../Dialogs/NewPostModal';
 import OpenThreadBtn from '../Buttons/OpenThreadBtn'
 import { Link } from 'react-router-dom';
 import readableTime from "readable-timestamp"
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 export default class ThreadComponent extends React.Component {
@@ -92,20 +93,23 @@ export default class ThreadComponent extends React.Component {
     )
   if(this.props.view === "board"){
     header = (
-      <div id="ThreadComponentHead" className="container">
-        <div id="openButton" className="item">
-          <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
+      <Link to={`/${this.props.boardAbbr}/${this.props.postNumber}`}>
+        <div className="container postHead">
+          {/*<div id="openButton" className="item">
             <OpenThreadBtn/>
-          </Link>
+          </div>*/}
+          <div id="headField" className="item">
+            <CardHeader
+              title={this.props.postTitle}
+              subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp} -  Replies: ${this.props.replyCount}`}
+              titleStyle={'padding-right=0px'}
+            />
+          </div>
+          <p className="item" id="openThread">
+            Open Thread
+          </p>
         </div>
-        <div id="headField" className="item">
-          <CardHeader
-            title={this.props.postTitle}
-            subtitle={`No. ${this.props.postNumber}, ${this.props.userName} - Time: ${this.props.timeStamp} -  Replies: ${this.props.replyCount}`}
-          />
-        </div>
-
-      </div>
+      </Link>
     )
   }
 
