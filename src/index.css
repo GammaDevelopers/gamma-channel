@@ -21,7 +21,7 @@ body {
 {
   opacity: 0
 }
-blockquote, blockquote > *:not(a) {
+.spoiler, .spoiler > *:not(a) {
   color: black;
   background-color: black;
 }
