@@ -61,8 +61,15 @@ func getDB() *sql.DB {
 
 }
 
+func formatGreenText(input []byte) []byte {
+	r := regexp.MustCompile(`(?m)^>(.*)$`)
+	return r.ReplaceAll(input, []byte(`<span class="quote">$1</span>`))
+}
+
 func markDown(input string) string {
-	unsafe := blackfriday.Run([]byte(input))
+	byteArr := []byte(input)
+	byteArr = formatGreenText(byteArr)
+	unsafe := blackfriday.Run(byteArr)
 	p := bluemonday.UGCPolicy()
 	p.AllowAttrs("class").Matching(regexp.MustCompile("^language-[a-zA-Z0-9]+$")).OnElements("code")
 	html := p.SanitizeBytes(unsafe)
@@ -497,11 +504,11 @@ func main() {
 	router.HandleFunc("/api/search/{board}/{query}", searchThread)
 	router.HandleFunc("/api/searchPost/{threadID}/{query}", searchReply)
 	router.HandleFunc("/api/threads/{board}", threads)
-	router.HandleFunc("/api/threads/{board}/new", createThread)
 	router.HandleFunc("/api/thread/{id}", getThread)
 	router.HandleFunc("/api/thread/{id}/replies", replies)
 	router.HandleFunc("/api/post/{id}", getPost)
 	router.HandleFunc("/api/post/{id}/reply", newReply)
 	router.HandleFunc("/api/header/random_image", getHeader)
 	log.Fatal(http.ListenAndServe(":8080", router))
+
 }
