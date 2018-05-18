@@ -61,6 +61,8 @@ class Home extends Component {
           />
         )
         break;
+      case 'ERROR':
+        boardList = (<div className="alert alert-error"> Failed to load threads </div>)
       default:
         boardList = [MyLoader(1),MyLoader(2),MyLoader(3),MyLoader(4)]
         break;

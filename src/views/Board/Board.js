@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Board.css';
+import {Card } from 'material-ui/Card';
 import ThreadComponent from '../../components/Post/ThreadComponent';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import {modelInstance} from '../../data/Model';
@@ -93,6 +94,7 @@ class Board extends Component {
 
     switch(this.state.status){
       case 'LOADED':
+        if( this.state.threadComponents.length > 0){
         threadList = this.state.threadComponents.map((post) =>
           <ThreadComponent
            view="board"
@@ -108,7 +110,12 @@ class Board extends Component {
            boardAbbr={this.props.boardAbbr}
            boardName={this.props.boardName}
           />
-        )
+        )}else {
+          threadList = (<div className="alert alert-info"> Nothing to see here </div>)
+        }
+        break;
+      case 'Error':
+        threadList = (<div className="alert alert-error"> Failed to load threads </div>)
         break;
       default:
       threadList = [MyLoader(1),MyLoader(2),MyLoader(3),MyLoader(4)]
