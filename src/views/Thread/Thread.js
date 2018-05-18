@@ -19,7 +19,7 @@ class Thread extends Component {
 }
 
 loadThreadPosts() {
-  modelInstance.getPost(this.props.match.params.threadID).then(res => {
+  modelInstance.getPost(this.props.threadID).then(res => {
     this.setState({
       status: 'LOADED',
       threadComponent: res
@@ -34,7 +34,7 @@ loadThreadPosts() {
 
 loadReplies(){
   console.log("CALLED " );
-  modelInstance.getReplyIds(this.props.match.params.threadID).then(res => {
+  modelInstance.getReplyIds(this.props.threadID).then(res => {
     Promise.all(res.map((postID) => modelInstance.getPost(postID)))
       .then(replies =>{
         this.setState({
@@ -60,7 +60,7 @@ onSearchChange(input) {
     return;
   }
   console.log("CALLED " );
-  modelInstance.searchPosts(this.props.match.params.threadID, input).then(res => {
+  modelInstance.searchPosts(this.props.threadID, input).then(res => {
     Promise.all(res.map((postID) => modelInstance.getPost(postID)))
       .then(replies =>{
         this.setState({
@@ -90,7 +90,6 @@ componentDidMount() {
   this.loadThreadPosts();
   this.loadReplies();
   console.log("Component mounts here");
-  console.log(this.props.match.params);
   console.log(this.state);
 }
 
@@ -118,7 +117,6 @@ render() {
   }
   return (
     <div>
-      <Header title={this.state.threadComponent.title} type="thread"/>
       <SearchBar callback={this.onSearchChange.bind(this)} type="board"/>
         <div id="thread" className="">
           {theThreadComponent}

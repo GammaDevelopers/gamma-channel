@@ -117,10 +117,6 @@ class Board extends Component {
     }
     return (
       <div>
-        <Header
-        boardAbbr={this.props.boardAbbr}
-        boardName = {this.props.boardName}
-        title={`/${this.props.boardAbbr}/ - ${this.props.boardName}`} type="board"/>
         <SearchBar callback={this.onSearchChange.bind(this)} />
         <div id="threadContainer" className="container">
           {threadList}

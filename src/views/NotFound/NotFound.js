@@ -10,8 +10,6 @@ class Home extends Component {
 
     return (
       <div>
-        <BoardHeader/>
-        <h1>404 Not found</h1>
         <img style={style}alt="Page not found" src={image} />
       </div>
     );

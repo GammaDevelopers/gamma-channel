@@ -3,6 +3,7 @@ import './Home.css';
 import HomeCard from '../../components/HomeCard/HomeCard.js';
 import HomeAppBar from '../../components/HomeAppBar/HomeAppBar.js';
 import Header from '../../components/Headers/Header'
+import Board from '../Board/Board'
 import {modelInstance} from '../../data/Model';
 import ContentLoader from "react-content-loader"
 
@@ -67,7 +68,6 @@ class Home extends Component {
     }
     return (
       <div>
-      <Header title="Welcome to Gamma Channel!" type="home"/>
       <div id="rootDiv">
         <div id="homeContainer" className="container">
           <div id="boardContainer" className="container">
@@ -76,8 +76,7 @@ class Home extends Component {
           </div>
           <div id="newsContainer" className="container">
             <HomeAppBar title="News"/>
-           <HomeCard title="Gamma chan is now under development!"
-           subtitle="Gamma developers are working hard" cardText="Help me out fam"/>
+            <Board boardName="News" boardAbbr="b"/>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Route, Switch} from 'react-router-dom';
+import Header from './components/Headers/Header';
 import Home from './views/Home/Home';
 import Thread from './views/Thread/Thread';
 import Board from './views/Board/Board';
@@ -42,10 +43,20 @@ class App extends Component {
           <Route
             exact path={`/${boards.abbreviation}`}
             key={boards.abbreviation}
-            render={()=> <Board boardName={boards.name} boardAbbr={boards.abbreviation}/>}
+            render={()=> 
+            <div className="mainWrapper">
+              <Header title={boards.name} type="home"/>
+              <Board boardName={boards.name} boardAbbr={boards.abbreviation}/>
+            </div>
+            }
           />
         )
-        routeList.push(<Route path='*' component={NotFound} />)
+        routeList.push(<Route path='*' render={ () => 
+          <div className="mainWrapper">
+            <Header title="404 Page not found" type="home"/>
+            <NotFound/>
+          </div>
+        }/>)
         break;
       default:
         break;
@@ -54,9 +65,18 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
-          <Route exact path='/' component={Home}/>
-          <Route path='/:board/:threadID' component={Thread}/>
-          <Route path='/board' component={Board}/>
+          <Route exact path='/'>
+            <div className="mainWrapper">
+              <Header title="Welcome to Gamma Channel" type="home"/>
+              <Home/>
+            </div>
+          </Route>
+          <Route path='/:board/:threadID' render={(props) => (
+            <div className="mainWrapper">
+              <Header title={`Thread ${props.match.params.threadID}`} type="thread"/>
+              <Thread threadID={props.match.params.threadID}/>
+            </div>
+          )}/>
           {routeList}
         </Switch>
       </div>
