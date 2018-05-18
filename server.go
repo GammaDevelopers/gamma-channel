@@ -71,13 +71,19 @@ func formatSpoiler(input []byte) []byte {
 	return r.ReplaceAll(input, []byte(`<blockquote class="spoiler">$1</blockquote>`))
 }
 
+func formatReply(input []byte) []byte {
+	r := regexp.MustCompile(`((#[0-9])+`)
+	return r.ReplaceAll(input, []byte(`<a class="postRef" href="$1">$1</a>`))
+}
+
 func markDown(input string) string {
 	byteArr := []byte(input)
 	byteArr = formatGreenText(byteArr)
 	byteArr = formatSpoiler(byteArr)
+	byteArr = formatReply(byteArr)
 	unsafe := blackfriday.Run(byteArr)
 	p := bluemonday.UGCPolicy()
-	p.AllowAttrs("class").Matching(regexp.MustCompile("^(language-[a-zA-Z0-9]+)|(quote|spoiler)$")).OnElements("code")
+	p.AllowAttrs("class").Matching(regexp.MustCompile("^(language-[a-zA-Z0-9]+)|(quote|spoiler|postRef)$")).OnElements("code")
 	html := p.SanitizeBytes(unsafe)
 	return string(html)
 }
