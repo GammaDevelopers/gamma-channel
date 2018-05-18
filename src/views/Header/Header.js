@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './Header.css';
 import HeaderLinks from './HeaderLinks';
 import HomeButton from '../../components/Buttons/HomeButton';
@@ -50,6 +51,13 @@ class Header extends Component {
             </div>
             <div className="item" id="newPostBtnLarge">
               {postModalInstance}
+              <Link to={'/Instructions'}>
+                <RaisedButton
+                  overlayStyle={{color: 'white'}}
+                  label='HELP'
+                  style={{width: '100px'}}>
+                </ RaisedButton>
+              </Link>
             </div>
           </div>
           <div>

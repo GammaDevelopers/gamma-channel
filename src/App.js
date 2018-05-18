@@ -4,8 +4,9 @@ import Header from './views/Header/Header';
 import Home from './views/Home/Home';
 import Thread from './views/Thread/Thread';
 import Board from './views/Board/Board';
-import {modelInstance} from './data/Model';
+import Instructions from './views/Instructions/Instructions';
 import NotFound from './views/NotFound/NotFound';
+import {modelInstance} from './data/Model';
 
 
 class App extends Component {
@@ -43,7 +44,7 @@ class App extends Component {
           <Route
             exact path={`/${boards.abbreviation}`}
             key={boards.abbreviation}
-            render={()=> 
+            render={()=>
             <div className="mainWrapper">
               <Header title={boards.name} type="board"/>
               <Board boardName={boards.name} boardAbbr={boards.abbreviation}/>
@@ -51,7 +52,7 @@ class App extends Component {
             }
           />
         )
-        routeList.push(<Route path='*' render={ () => 
+        routeList.push(<Route path='*' render={ () =>
           <div className="mainWrapper">
             <Header title="404 Page not found" type="home"/>
             <NotFound/>
@@ -75,6 +76,12 @@ class App extends Component {
             <div className="mainWrapper">
               <Header title={`Thread ${props.match.params.threadID}`} type="thread"/>
               <Thread threadID={props.match.params.threadID}/>
+            </div>
+          )}/>
+          <Route path='/instructions' render={(props) => (
+            <div className="mainWrapper">
+              <Header title={"Gamma Channel Instructions For Degenerates"} type="thread"/>
+              <Instructions/>
             </div>
           )}/>
           {routeList}

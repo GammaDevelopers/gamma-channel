@@ -1,0 +1,26 @@
+#instructionContainer {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.InstructionCard {
+  margin-bottom: 20px;
+}
+
+.InstructionCard strong {
+  color: #8c5ce4;
+}
+
+.InstructionCard i {
+  color: #FCE95F;
+}
+
+#instructionContainer title {
+  color: #8c5ce4;
+}
+
+#instructionContainer subtitle {
+  color: #FCE95F;
+}
