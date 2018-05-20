@@ -82,7 +82,7 @@ class Instructions extends Component {
             popular commands: <br/><br/>
 
             <i>Spoilers</i>: spoilers can be added by writing
-            [spoiler][spoiler text].<br/><br/>
+            [spoiler](spoiler text).<br/><br/>
 
             <i>Green text</i>: green text can be added by writing >text to turn
             green.<br/><br/>
