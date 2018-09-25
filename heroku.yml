@@ -6,4 +6,4 @@ build:
     - js
 
 run:
-  web: server 
+  web: gamma-channel 
