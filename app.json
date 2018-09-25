@@ -1,0 +1,12 @@
+{
+  "name": "Gamma Chan",
+  "description": "Gamma Channel Static content & API",
+  "keywords": [
+      "messageboard",
+      "forum",
+      "api",
+      "react"
+  ],
+  "website": "http://gammachan.heroku.com",
+  "repository": "http://github.com/GammaDevelopers/gamma-channel"
+}

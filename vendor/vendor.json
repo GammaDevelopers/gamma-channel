@@ -1,0 +1,73 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "uzRSsopMuhU83NWbcrWtoAljXf0=",
+			"path": "github.com/dpapathanasiou/go-recaptcha",
+			"revision": "0e9736be20f9b0ca229b8f5eaf8305858a160994",
+			"revisionTime": "2018-03-30T23:13:21Z"
+		},
+		{
+			"checksumSHA1": "YuYKzn2jczaM6DQcFDmukvAHUX4=",
+			"path": "github.com/gorilla/mux",
+			"revision": "94231ffd98496cbcb1c15b7bf2a9edfd5f852cd4",
+			"revisionTime": "2018-04-03T18:23:30Z"
+		},
+		{
+			"checksumSHA1": "xvqMCXXlR74in/1c09UadpfXz9Y=",
+			"path": "github.com/lib/pq",
+			"revision": "4ded0e9383f75c197b3a2aaa6d590ac52df6fd79",
+			"revisionTime": "2018-08-23T06:29:44Z"
+		},
+		{
+			"checksumSHA1": "AU3fA8Sm33Vj9PBoRPSeYfxLRuE=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "4ded0e9383f75c197b3a2aaa6d590ac52df6fd79",
+			"revisionTime": "2018-08-23T06:29:44Z"
+		},
+		{
+			"checksumSHA1": "cJhCjmO3Xz0DRGe7a/6m7iUELbs=",
+			"path": "github.com/microcosm-cc/bluemonday",
+			"revision": "82c7118e8ccf7403d4860175d97bb635e8e28239",
+			"revisionTime": "2018-08-19T07:54:06Z"
+		},
+		{
+			"checksumSHA1": "HkNUuhYSk5C2fTMa536jBiORq44=",
+			"path": "github.com/shurcooL/sanitized_anchor_name",
+			"revision": "86672fcb3f950f35f2e675df2240550f2a50762f",
+			"revisionTime": "2017-09-05T02:47:45Z"
+		},
+		{
+			"checksumSHA1": "O4GftwQF+DBNbFbzQz5sCrm1+2A=",
+			"path": "golang.org/x/net/html",
+			"revision": "f04abc6bdfa7a0171a8a0c9fd2ada9391044d056",
+			"revisionTime": "2018-09-23T14:45:57Z"
+		},
+		{
+			"checksumSHA1": "xwhqe/igHQrY3IhqDwzo6j7qpm8=",
+			"path": "golang.org/x/net/html/atom",
+			"revision": "f04abc6bdfa7a0171a8a0c9fd2ada9391044d056",
+			"revisionTime": "2018-09-23T14:45:57Z"
+		},
+		{
+			"checksumSHA1": "tI/ToPDECF8HQlpJP/omBQF0igw=",
+			"path": "gopkg.in/russross/blackfriday.v2",
+			"revision": "d3b5b032dc8e8927d31a5071b56e14c89f045135",
+			"revisionTime": "2018-09-20T17:16:15Z"
+		},
+		{
+			"path": "vendor",
+			"revision": ""
+		},
+		{
+			"path": "vendor/vendor",
+			"revision": ""
+		},
+		{
+			"path": "vendor/vendor.json",
+			"revision": ""
+		}
+	],
+	"rootPath": "github.com/heroku/go-getting-started"
+}
