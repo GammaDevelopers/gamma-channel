@@ -506,7 +506,6 @@ func main() {
 	recaptcha.Init(os.Getenv("recaptcha-apikey"))
 
     port := os.Getenv("PORT")
-
 	router := mux.NewRouter()
     var fileHandler = http.FileServer(http.Dir("./build"));
 	router.HandleFunc("/api", handler)
