@@ -9,8 +9,6 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"os"
-	"path/filepath"
 	"regexp"
 	"strconv"
 
@@ -50,8 +48,7 @@ type Post struct {
 
 func getDB() *sql.DB {
 
-	connStr := "user=testuser password=qwerty dbname=gamma sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
+	db, err := sql.Open("postgres",  os.Getenv("DATABASE_URL"))
 	if err != nil {
 		log.Println(err)
 		return nil
@@ -502,17 +499,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome to gamma API")
 }
 
+
 func main() {
 
-	if len(os.Args) != 2 {
-		fmt.Printf("usage: %s <reCaptcha private key>\n", filepath.Base(os.Args[0]))
-		os.Exit(1)
-	} else {
-		recaptcha.Init(os.Args[1])
-	}
+    log.Println("Starting recaptcha")
+	recaptcha.Init(os.Getenv("recaptcha-apikey"))
+
+    port := os.Getenv("PORT")
 
 	router := mux.NewRouter()
-	router.HandleFunc("/", handler)
+    var fileHandler = http.FileServer(http.Dir("./build"));
 	router.HandleFunc("/api", handler)
 	router.HandleFunc("/api/boards", boards)
 	router.HandleFunc("/api/boards/{abrev}", getBoard)
@@ -525,6 +521,9 @@ func main() {
 	router.HandleFunc("/api/post/{id}", getPost)
 	router.HandleFunc("/api/post/{id}/reply", newReply)
 	router.HandleFunc("/api/header/random_image", getHeader)
-	log.Fatal(http.ListenAndServe(":8080", router))
+    router.PathPrefix("/").Handler(fileHandler)
+    router.NotFoundHandler = http.RedirectHandler("/404", 307)
+    log.Println("Listening on port: "+port)
+	log.Fatal(http.ListenAndServe(":"+port, router))
 
 }
