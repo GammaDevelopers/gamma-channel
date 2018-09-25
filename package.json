@@ -2,7 +2,6 @@
   "name": "gamma-channel",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://m.bladh.nu:8080",
   "dependencies": {
     "@material-ui/core": "^1.0.0-rc.1",
     "material-ui": "^0.20.0",

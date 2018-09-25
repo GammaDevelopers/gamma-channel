@@ -508,7 +508,7 @@ func main() {
 
     port := os.Getenv("PORT")
 	router := mux.NewRouter()
-    var fileHandler = http.FileServer(http.Dir("./build"));
+    var fileHandler = http.FileServer(http.Dir("./public"));
 	router.HandleFunc("/api", handler)
 	router.HandleFunc("/api/boards", boards)
 	router.HandleFunc("/api/boards/{abrev}", getBoard)
