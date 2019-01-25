@@ -28,7 +28,7 @@ export default class SearchBar extends React.Component {
         hintText = {this.getHintText()}
         hintStyle = {{color:"rgba(255, 255, 255, 0.54)"}}
         style={{
-          borderRadius:"8px",
+          borderRadius:"2px",
           color:"white",
           backgroundColor: "#222244",
         }}

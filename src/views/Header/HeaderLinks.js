@@ -48,7 +48,7 @@ class HeaderLinks extends Component {
     switch(this.state.status){
       case 'LOADED':
         boardLinkList = this.state.boards.map((board) =>
-          <Tooltip key={board.abbreviation} variant='fab' color='primary' title={board.name}>
+          <Tooltip key={board.abbreviation} variant='fab' color='primary' title={board.name} >
             <Link to={'/'+board.abbreviation}
             style={{ textDecoration: 'none'}}>
               <RaisedButton overlayStyle={{color: 'white'}} title={board.name}>
@@ -93,8 +93,8 @@ class HeaderLinks extends Component {
         {appBar}
       </div>
       <div id="linksList">
-        <span id="linksSpan"> Boards: </span>
-        {boardLinkList}
+{        <span id="linksSpan"> </span>
+}        {boardLinkList}
       </div>
     </div>
   )
