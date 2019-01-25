@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^1.0.0-rc.1",
-    "material-ui": "^0.20.0",
-    "material-ui-search-bar": "^0.4.1",
-    "react": "^16.3.2",
-    "react-content-loader": "^3.1.1",
-    "react-dom": "^16.3.2",
-    "react-recaptcha": "^2.3.8",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.4",
+    "@material-ui/core": "^1.5.1",
+    "material-ui": "^0.20.2",
+    "material-ui-search-bar": "^0.4.2",
+    "react": "^16.7.0",
+    "react-content-loader": "^3.4.2",
+    "react-dom": "^16.7.0",
+    "react-recaptcha": "^2.3.10",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.3",
     "readable-timestamp": "^0.2.0"
   },
   "scripts": {
@@ -21,5 +21,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      "> 1%"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version"
+    ]
   }
 }
