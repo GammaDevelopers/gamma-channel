@@ -49,7 +49,7 @@ type Post struct {
 
 func getDB() *sql.DB {
 
-	db, err := sql.Open("postgres",  os.Getenv("DATABASE_URL"))
+	db, err := sql.Open("postgres",  os.Getenv("DATABASE_STR"))
 	if err != nil {
 		log.Println(err)
 		return nil
@@ -504,9 +504,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 
     log.Println("Starting recaptcha")
-	recaptcha.Init(os.Getenv("recaptcha-apikey"))
+	recaptcha.Init(os.Getenv("RECAPTCHA-APIKEY"))
 
-    port := os.Getenv("PORT")
+    port := "8080"
 	router := mux.NewRouter()
     var fileHandler = http.FileServer(http.Dir("./build"));
 	router.HandleFunc("/api", handler)

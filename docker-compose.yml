@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  frontend:
+    build: .
+    restart: unless-stopped
+    environment:
+      - VIRTUAL_HOST=m.bladh.nu
+    ports:
+      - "80:80"
+    links:
+      - api
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_STR: "host=db dbname=gamma port=5432
+      sslmode=disable user=testuser password=qwerty"
+      RECAPTCH-APIKEY: ""
+    extra_hosts:
+      - "db:192.168.0.22"
