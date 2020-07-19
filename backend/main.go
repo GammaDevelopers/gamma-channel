@@ -235,24 +235,28 @@ func newReply(w http.ResponseWriter, r *http.Request) {
     println(vars["id"])
 	threadID, err := strconv.Atoi(vars["id"])
 	if err != nil {
+        println("Failed to parse threadid")
 		errorResponse(w)
 		return
 	}
 
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 10485))
 	if err != nil {
+        println("Failed to read body")
 		errorResponse(w)
 		return
 	}
 	if err := r.Body.Close(); err != nil {
+        println("Failed to close body")
 		errorResponse(w)
 		return
 	}
 	var post Post
 	if err := json.Unmarshal(body, &post); err != nil {
 		if err := json.NewEncoder(w).Encode(err); err != nil {
-			print("Reading data")
+			print("Eror unmarshaling data2")
 		}
+	    print("Eror unmarshaling data")
 		errorResponse(w)
 	} else {
 		db := getDB()
@@ -264,6 +268,7 @@ func newReply(w http.ResponseWriter, r *http.Request) {
                               `, post.Title, post.Name, post.Options,
 			post.MediaURL, post.Content, threadID).Scan(&postid)
 		if err != nil {
+			log.Println("Error querying db")
 			log.Println(err)
 			errorResponse(w)
 		} else {
