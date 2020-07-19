@@ -232,7 +232,12 @@ func newReply(w http.ResponseWriter, r *http.Request) {
 	}
 
 	vars := mux.Vars(r)
+    println(vars["id"])
 	threadID, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		errorResponse(w)
+		return
+	}
 
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 10485))
 	if err != nil {
@@ -500,6 +505,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome to gamma API")
 }
 
+func loggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        // Do stuff here
+        log.Println(r.RequestURI)
+        // Call the next handler, which can be another middleware in the chain, or the final handler.
+        next.ServeHTTP(w, r)
+    })
+}
 
 func main() {
 
@@ -509,6 +522,7 @@ func main() {
     port := "8080"
 	router := mux.NewRouter()
     var fileHandler = http.FileServer(http.Dir("./build"));
+    router.Use(loggingMiddleware)
 	router.HandleFunc("/api", handler)
 	router.HandleFunc("/api/boards", boards)
 	router.HandleFunc("/api/boards/{abrev}", getBoard)
