@@ -12,7 +12,7 @@
     "react-recaptcha": "^2.3.10",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^5.0.1",
     "readable-timestamp": "^0.2.0"
   },
   "scripts": {
